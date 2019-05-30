@@ -5,11 +5,11 @@ Version: 0.1.0
 Author: Sean Davis, Benjamin Haibe-Kains, Levi Waldron
 Maintainer: Levi Waldron <lwaldron.research@gmail.com>
 Description: The goal of this workshop is to introduce Bioconductor 
-packages for finding, accessing, and using large-scale public data 
-resources including the Gene Expression Omnibus GEO, Sequence Read 
-Archive SRA, the Genomic Data Commons GDC, and Bioconductor-hosted 
-curated data resources for metagenomics, pharmacogenomics PharmacoDB, 
-and The Cancer Genome Atlas.
+    packages for finding, accessing, and using large-scale public data 
+    resources including the Gene Expression Omnibus GEO, Sequence Read 
+    Archive SRA, the Genomic Data Commons GDC, and Bioconductor-hosted 
+    curated data resources for metagenomics, pharmacogenomics PharmacoDB, 
+    and The Cancer Genome Atlas.
 License: Creative Commons 4.0
 Encoding: UTF-8
 LazyData: true
