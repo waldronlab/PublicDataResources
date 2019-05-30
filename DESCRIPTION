@@ -32,7 +32,7 @@ Imports:
     HMP16SData,
     caTools,
     piano,
-    isa,
+    isa2,
     VennDiagram,
     downloader,
 	gdata,
