@@ -21,6 +21,7 @@ Suggests:
     pkgdown,
     rmarkdown
 Imports:
+    BiocStyle,
     igraph,
     ggplot2,
     MultiAssayExperiment,

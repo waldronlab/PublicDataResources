@@ -97,17 +97,13 @@ Before proceeding, ensure that the following packages are installed.
 
 ```{r eval=FALSE}
 required_pkgs = c(
-  "TCGAbiolinks", 
   "GEOquery", 
   "GenomicDataCommons",
-  "limma",
   "curatedTCGAData",
   "recount",
   "curatedMetagenomicData",
   "phyloseq",
   "HMP16SData",
-  "AnnotationDbi",
-  "hgu133a.db",
   "PharmacoGx")
 BiocManager::install(required_pkgs)
 ```
