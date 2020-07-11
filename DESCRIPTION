@@ -21,16 +21,16 @@ Suggests:
     pkgdown,
     rmarkdown
 Imports:
+    igraph,
+    ggplot2,
+    MultiAssayExperiment,
     TCGAbiolinks, 
     GEOquery, 
     GenomicDataCommons,
-    limma,
     curatedTCGAData,
     recount,
     curatedMetagenomicData,
     phyloseq,
     HMP16SData,
-    AnnotationDbi,
-    hgu133a.db,
     PharmacoGx
 DockerImage: waldronlab/publicdataresources:latest
