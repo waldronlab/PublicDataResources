@@ -32,5 +32,6 @@ Imports:
     HMP16SData,
     AnnotationDbi,
     hgu133a.db,
+    halpo/purrrogress,
     PharmacoGx
 DockerImage: waldronlab/publicdataresources:latest
