@@ -18,6 +18,7 @@ VignetteBuilder:
     rmarkdown
 Suggests: 
     knitr,
+    pkgdown,
     rmarkdown
 Imports:
     TCGAbiolinks, 
@@ -38,3 +39,4 @@ Imports:
 	AnnotationDbi,
 	hgu133a.db,
     PharmacoGx
+DockerImage: waldronlab/PublicDataResources:latest
