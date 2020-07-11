@@ -24,7 +24,6 @@ Imports:
     igraph,
     ggplot2,
     MultiAssayExperiment,
-    TCGAbiolinks, 
     GEOquery, 
     GenomicDataCommons,
     curatedTCGAData,

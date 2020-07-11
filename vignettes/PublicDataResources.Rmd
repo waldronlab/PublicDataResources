@@ -106,14 +106,8 @@ required_pkgs = c(
   "curatedMetagenomicData",
   "phyloseq",
   "HMP16SData",
-  "caTools",
-  "piano",
-  "isa",
-  "VennDiagram",
-  "downloader",
-	"gdata",
-	"AnnotationDbi",
-	"hgu133a.db",
+  "AnnotationDbi",
+  "hgu133a.db",
   "PharmacoGx")
 BiocManager::install(required_pkgs)
 ```
@@ -790,7 +784,7 @@ from adrenocortical carcinoma (ACC). For additional information and options, see
 the TCGAbiolinks vignettes[^13].
 
 Load packages:
-```{r, cache=FALSE, echo=FALSE, results='hide'}
+```{r, cache=FALSE, echo=FALSE, results='hide', eval=FALSE}
 suppressPackageStartupMessages({
   library(TCGAbiolinks)
   library(SummarizedExperiment)
@@ -798,7 +792,7 @@ suppressPackageStartupMessages({
 ```
 
 Search for matching data:
-```{r, message=FALSE, results="hide"}
+```{r, message=FALSE, results="hide", eval=FALSE}
 library(TCGAbiolinks)
 library(SummarizedExperiment)
 query <- GDCquery(project = "TCGA-ACC",
@@ -811,7 +805,7 @@ query <- GDCquery(project = "TCGA-ACC",
 ```
 
 Download data and convert it to `RangedSummarizedExperiment`:
-```{r, message=FALSE, results="hide"}
+```{r, message=FALSE, results="hide", eval=FALSE}
 gdcdir <- file.path("Waldron_PublicData", "GDCdata")
 GDCdownload(query, method = "api", files.per.chunk = 10,
             directory = gdcdir)
