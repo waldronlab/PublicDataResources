@@ -1,3 +1,5 @@
+![.github/workflows/basic_checks.yaml](https://github.com/waldronlab/PublicDataResources/workflows/.github/workflows/basic_checks.yaml/badge.svg)
+
 # Public data resources and Bioconductor
 
 ## Instructor names and contact information
