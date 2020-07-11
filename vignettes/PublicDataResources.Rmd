@@ -1027,8 +1027,9 @@ We have made the PharmacoSet objects of the curated datasets available for downl
 To get a list of all the available `PharmacoSets` in PharmacoGx, we can use the availablePSets` function, which returns a table providing key information for each dataset.
 
 ```{r availablePSets, message=FALSE}
-availablePSets(saveDir=file.path(".", "Waldron_PublicData"))
+(psets <- availablePSets())
 ```
+
 There are currently 11 datasets available in PharmacoGx, including 8 sensitivity datasets and 3 perturbation datasets (see below).
 
 
@@ -1039,7 +1040,6 @@ Drug sensitivity datasets refer to pharmacogenomic data where cancer cells are m
 [Schematic view of the drug sensitivity datasets.](`r system.file(package='PublicDataResources', 'vignettes', 'Drug_sensitivity.png')`)
 
 ```{r availableSensitivityPSets, message=FALSE}
-psets <- availablePSets(saveDir=file.path(".", "Waldron_PublicData"))
 psets[psets[ , "Dataset.Type"] == "sensitivity", ]
 ```
 Notably, the Genomics of Drug Sensitivity in Cancer [GDSC](https://www.cancerrxgene.org/) and the Cancer Cell Line Encyclopedia [CCLE](https://portals.broadinstitute.org/ccle) are large drug sensitivity datasets published in seminal studies in Nature, [Garnett et al., https://www.nature.com/articles/nature11005, Nature (2012)](https://www.nature.com/articles/nature11005) and [Barretina et al., The Cancer Cell Line Encyclopedia enables predictive modelling of anticancer drug sensitivity, Nature (2012)](https://www.nature.com/articles/nature11003), respectively.
@@ -1052,7 +1052,6 @@ Drug perturbation datasets refer to pharmacogenomic data where gene expression p
 [Schematic view of drug perturbation datasets](`r system.file(package='PublicDataResources', 'vignettes', 'Drug_perturbation.png')`)
 
 ```{r availablePerturbationPSets, message=FALSE}
-psets <- availablePSets(saveDir=file.path(".", "Waldron_PublicData"))
 psets[psets[ , "Dataset.Type"] == "perturbation", ]
 ```
 Large drug perturbation data have been generated within the Connectivity Map Project [CAMP](https://clue.io/cmap), with CMAPv2 and CMAPv3 available from `PharmacoGx`, published in [Lamb et al., The Connectivity Map: Using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease, Science (2006)](http://science.sciencemag.org/content/313/5795/1929) and [Subramanian et al., A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles, Cell (2017)](https://www.cell.com/cell/abstract/S0092-8674(17)31309-0), respectively.
