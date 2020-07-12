@@ -996,7 +996,7 @@ This can also be converted to `r BiocStyle::Biocpkg("phyloseq")` for ecological 
     
 ## Pharmacogenomics
 
-Pharmacogenomics holds great promise for the development of biomarkers of drug response and the design of new therapeutic options, which are key challenges in precision medicine. However, such data are scattered and lack standards for efficient access and analysis, consequently preventing the realization of the full potential of pharmacogenomics. To address these issues, we implemented `r BiocStyle::Biocpkg("PharmacoGx")`, an easy-to-use, open source package for integrative analysis of multiple pharmacogenomic datasets. ~PharmacoGx` provides a unified framework for downloading and analyzing large pharmacogenomic datasets which are extensively curated to ensure maximum overlap and consistency.
+Pharmacogenomics holds great promise for the development of biomarkers of drug response and the design of new therapeutic options, which are key challenges in precision medicine. However, such data are scattered and lack standards for efficient access and analysis, consequently preventing the realization of the full potential of pharmacogenomics. To address these issues, we implemented `r BiocStyle::Biocpkg("PharmacoGx")`, an easy-to-use, open source package for integrative analysis of multiple pharmacogenomic datasets. `PharmacoGx` provides a unified framework for downloading and analyzing large pharmacogenomic datasets which are extensively curated to ensure maximum overlap and consistency.
 
 Examples of `PharmacoGx` usage in biomedical research can be found in the following publications:
 
@@ -1011,7 +1011,7 @@ Examples of `PharmacoGx` usage in biomedical research can be found in the follow
 
 Let us first load the `PharmacoGx` library.
 
-```{r loadLibrary10, message=FALSE}
+```{r loadLibrary10, message=FALSE, eval=FALSE}
 library(PharmacoGx)
 ```
 We can now access large-scale preclinical pharmacogenomic datasets that have been fully curated for ease of use.
@@ -1026,7 +1026,7 @@ We have made the PharmacoSet objects of the curated datasets available for downl
 
 To get a list of all the available `PharmacoSets` in PharmacoGx, we can use the availablePSets` function, which returns a table providing key information for each dataset.
 
-```{r availablePSets, message=FALSE}
+```{r availablePSets, message=FALSE, eval=FALSE}
 (psets <- availablePSets())
 ```
 
@@ -1039,7 +1039,7 @@ Drug sensitivity datasets refer to pharmacogenomic data where cancer cells are m
 
 [Schematic view of the drug sensitivity datasets.](`r system.file(package='PublicDataResources', 'vignettes', 'Drug_sensitivity.png')`)
 
-```{r availableSensitivityPSets, message=FALSE}
+```{r availableSensitivityPSets, message=FALSE, eval=FALSE}
 psets[psets[ , "Dataset.Type"] == "sensitivity", ]
 ```
 Notably, the Genomics of Drug Sensitivity in Cancer [GDSC](https://www.cancerrxgene.org/) and the Cancer Cell Line Encyclopedia [CCLE](https://portals.broadinstitute.org/ccle) are large drug sensitivity datasets published in seminal studies in Nature, [Garnett et al., https://www.nature.com/articles/nature11005, Nature (2012)](https://www.nature.com/articles/nature11005) and [Barretina et al., The Cancer Cell Line Encyclopedia enables predictive modelling of anticancer drug sensitivity, Nature (2012)](https://www.nature.com/articles/nature11003), respectively.
@@ -1051,7 +1051,7 @@ Drug perturbation datasets refer to pharmacogenomic data where gene expression p
 
 [Schematic view of drug perturbation datasets](`r system.file(package='PublicDataResources', 'vignettes', 'Drug_perturbation.png')`)
 
-```{r availablePerturbationPSets, message=FALSE}
+```{r availablePerturbationPSets, message=FALSE, eval=FALSE}
 psets[psets[ , "Dataset.Type"] == "perturbation", ]
 ```
 Large drug perturbation data have been generated within the Connectivity Map Project [CAMP](https://clue.io/cmap), with CMAPv2 and CMAPv3 available from `PharmacoGx`, published in [Lamb et al., The Connectivity Map: Using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease, Science (2006)](http://science.sciencemag.org/content/313/5795/1929) and [Subramanian et al., A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles, Cell (2017)](https://www.cell.com/cell/abstract/S0092-8674(17)31309-0), respectively.
