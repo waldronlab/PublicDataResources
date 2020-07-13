@@ -7,7 +7,7 @@ Authors@R: c(person("Sean", "Davis", email = "seandavi@gmail.com",
     person("Benjamin", "Haibe-Kains", email = "bhaibeka@gmail.com",
     role = "aut"),
     person("Levi", "Waldron", email = "lwaldron.research@gmail.com",
-    role = "aut"))
+    role = c("aut", "cre")))
 Description: The goal of this workshop is to introduce Bioconductor 
     packages for finding, accessing, and using large-scale public data 
     resources including the Gene Expression Omnibus GEO, the Genomic Data Commons GDC, and Bioconductor-hosted 
