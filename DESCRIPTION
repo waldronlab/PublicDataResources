@@ -34,3 +34,4 @@ Imports:
     HMP16SData,
     PharmacoGx
 DockerImage: waldronlab/publicdataresources:latest
+URL: https://waldronlab.io/PublicDataResources/
