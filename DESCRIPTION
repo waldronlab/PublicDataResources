@@ -23,6 +23,7 @@ Suggests:
 Imports:
     BiocStyle,
     igraph,
+    Rcpp,
     ggplot2,
     MultiAssayExperiment,
     GEOquery, 
