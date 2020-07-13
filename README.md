@@ -1,4 +1,4 @@
-![.github/workflows/basic_checks.yaml](https://github.com/waldronlab/PublicDataResources/workflows/.github/workflows/basic_checks.yaml/badge.svg)
+[![.github/workflows/basic_checks.yaml](https://github.com/waldronlab/PublicDataResources/workflows/.github/workflows/basic_checks.yaml/badge.svg)](https://waldronlab.io/PublicDataResources)
 
 # Public data resources and Bioconductor
 
@@ -51,13 +51,8 @@ This is a 1h45m workshop.
 
 | Activity                            | Time    |
 |-------------------------------------|---------|
-| Overview | 10m |
-| GEOquery | 15m |
-| GenomicDataCommons | 20m |
-| Sequence Read Archive | 20m |
-| curatedTCGAData   | 10m |
-| curatedMetagenomicData and HMP16SData | 15m |
-| PharmacoGx | 20m |
+| Overview | 30m |
+| Q & A.   | 25m |
 
 ### Workshop goals and objectives
 
