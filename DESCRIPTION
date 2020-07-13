@@ -2,8 +2,12 @@ Package: PublicDataResources
 Type: Package
 Title: Public Data Resources in Bioconductor
 Version: 0.2.0
-Author: Sean Davis, Benjamin Haibe-Kains, Levi Waldron
-Maintainer: Levi Waldron <lwaldron.research@gmail.com>
+Authors@R: c(person("Sean", "Davis", email = "seandavi@gmail.com",
+    role = c("aut")),
+    person("Benjamin", "Haibe-Kains", email = "bhaibeka@gmail.com",
+    role = "aut"),
+    person("Levi", "Waldron", email = "lwaldron.research@gmail.com",
+    role = "aut"))
 Description: The goal of this workshop is to introduce Bioconductor 
     packages for finding, accessing, and using large-scale public data 
     resources including the Gene Expression Omnibus GEO, the Genomic Data Commons GDC, and Bioconductor-hosted 
