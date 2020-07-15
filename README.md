@@ -1,4 +1,6 @@
-[![.github/workflows/basic_checks.yaml](https://github.com/waldronlab/PublicDataResources/workflows/.github/workflows/basic_checks.yaml/badge.svg)](https://waldronlab.io/PublicDataResources)
+
+| [![.github/workflows/basic_checks.yaml](https://github.com/waldronlab/PublicDataResources/workflows/.github/workflows/basic_checks.yaml/badge.svg)](https://waldronlab.io/PublicDataResources) |
+[![Docker](https://github.com/Bioconductor/BioC2020/raw/master/docs/images/docker_icon.png)](https://hub.docker.com/repository/docker/waldronlab/publicdataresources) |
 
 # Public data resources and Bioconductor
 
