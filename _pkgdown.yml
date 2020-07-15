@@ -11,7 +11,29 @@ home:
 
 
 navbar:
+  title: ~
+  type: default
+  left:
+    - text: Workshop
+      href: articles/PublicDataResources.html
+    - text: External Vignettes
+      menu:
+      - text: PharmacoGx
+        href: https://bioconductor.org/packages/release/bioc/html/PharmacoGx.html
+      - text: GEOquery
+        href: https://bioconductor.org/packages/release/bioc/vignettes/GEOquery/inst/doc/GEOquery.html
+      - text: GenomicDataCommons
+        href: https://bioconductor.org/packages/release/bioc/vignettes/GenomicDataCommons/inst/doc/overview.html
+      - text: curatedTCGAData
+        href: https://bioconductor.org/packages/release/data/experiment/vignettes/curatedTCGAData/inst/doc/curatedTCGAData.html
+      - text: TCGAutils
+        href: http://www.bioconductor.org/packages/release/bioc/vignettes/TCGAutils/inst/doc/TCGAutils.html
+      - text: curatedMetagenomicData
+        href: https://bioconductor.org/packages/release/data/experiment/vignettes/curatedMetagenomicData/inst/doc/curatedMetagenomicData.html
+      - text: HMP16SData
+        href: https://bioconductor.org/packages/release/data/experiment/html/HMP16SData.html        
   right:
    - icon: fa-github
      href: https://github.com/waldronlab/PublicDataResources
-     
+   - icon: fa-docker
+     href: https://hub.docker.com/repository/docker/waldronlab/publicdataresources
