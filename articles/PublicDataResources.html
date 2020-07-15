@@ -215,7 +215,7 @@
 </blockquote>
 <p>The <a href="https://gdc.cancer.gov/developers/gdc-data-model/gdc-data-model-components">data model for the GDC is complex</a>, but it worth a quick overview and a graphical representation is included here.</p>
 <div class="figure">
-<img src="../../../../tmp/RtmpwgmPLL/temp_libpath49b1e550290/PublicDataResources/vignettes/all_nodes_040318.png" alt=""><p class="caption">The data model is encoded as a so-called property graph. Nodes represent entities such as Projects, Cases, Diagnoses, Files (various kinds), and Annotations. The relationships between these entities are maintained as edges. Both nodes and edges may have Properties that supply instance details.</p>
+<img src="../../../../tmp/RtmpDfM3kV/temp_libpath49856e0aff6/PublicDataResources/vignettes/all_nodes_040318.png" alt=""><p class="caption">The data model is encoded as a so-called property graph. Nodes represent entities such as Projects, Cases, Diagnoses, Files (various kinds), and Annotations. The relationships between these entities are maintained as edges. Both nodes and edges may have Properties that supply instance details.</p>
 </div>
 <p>The GDC API exposes these nodes and edges in a somewhat simplified set of <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a> endpoints.</p>
 <div id="quickstart" class="section level3">
@@ -279,9 +279,6 @@
     <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results</a></span>(<span class="kw">size</span><span class="kw">=</span><span class="fl">10</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">projResults</span>,<span class="kw">list.len</span><span class="kw">=</span><span class="fl">5</span>)</pre></body></html></div>
 <pre><code>## List of 9
-##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
-##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
-##  $ id                    : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
 ##  $ primary_site          :List of 10
 ##   ..$ GENIE-MSK : chr [1:49] "Testis" "Gallbladder" "Unknown" "Other and unspecified parts of biliary tract" ...
 ##   ..$ TCGA-UCEC : chr [1:2] "Corpus uteri" "Uterus, NOS"
@@ -289,14 +286,23 @@
 ##   ..$ TCGA-LGG  : chr "Brain"
 ##   ..$ TCGA-SARC : chr [1:13] "Kidney" "Other and unspecified parts of tongue" "Bones, joints and articular cartilage of limbs" "Colon" ...
 ##   .. [list output truncated]
-##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
+##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
+##  $ disease_type          :List of 10
+##   ..$ GENIE-MSK : chr [1:49] "Germ Cell Neoplasms" "Granular Cell Tumors and Alveolar Soft Part Sarcomas" "Immunoproliferative Diseases" "Plasma Cell Tumors" ...
+##   ..$ TCGA-UCEC : chr [1:4] "Epithelial Neoplasms, NOS" "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas" "Not Reported"
+##   ..$ TCGA-ACC  : chr "Adenomas and Adenocarcinomas"
+##   ..$ TCGA-LGG  : chr "Gliomas"
+##   ..$ TCGA-SARC : chr [1:6] "Nerve Sheath Tumors" "Myomatous Neoplasms" "Fibromatous Neoplasms" "Lipomatous Neoplasms" ...
+##   .. [list output truncated]
+##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
+##  $ id                    : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
 ##   [list output truncated]
 ##  - attr(*, "row.names")= int [1:10] 1 2 3 4 5 6 7 8 9 10
 ##  - attr(*, "class")= chr [1:3] "GDCprojectsResults" "GDCResults" "list"</code></pre>
 <div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">projResults</span>)</pre></body></html></div>
-<pre><code>## [1] "name"                   "state"                  "id"                    
-## [4] "primary_site"           "releasable"             "project_id"            
-## [7] "released"               "disease_type"           "dbgap_accession_number"</code></pre>
+<pre><code>## [1] "primary_site"           "released"               "disease_type"          
+## [4] "name"                   "id"                     "state"                 
+## [7] "dbgap_accession_number" "releasable"             "project_id"</code></pre>
 <div class="sourceCode" id="cb24"><html><body><pre class="r"># or listviewer::jsonedit(clinResults)</pre></body></html></div>
 </div>
 </div>
@@ -392,7 +398,7 @@
 <a href="#creating-a-query" class="anchor"></a>Creating a query</h4>
 <p>The <em><a href="https://bioconductor.org/packages/3.12/GenomicDataCommons">GenomicDataCommons</a></em> package accesses the <em>same</em> API as the <em>GDC</em> website. Therefore, a useful approach, particularly for beginning users is to examine the filters available on the <a href="https://portal.gdc.cancer.gov/repository">GDC repository pages</a> to find appropriate filtering criteria. From there, converting those checkboxes to a GenomicDataCommons <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">query()</a></code> is relatively straightforward. Note that only a small subset of the <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/available_fields.html">available_fields()</a></code> are available by default on the website.</p>
 <div class="figure">
-<img src="../../../../tmp/RtmpwgmPLL/temp_libpath49b1e550290/PublicDataResources/vignettes/gdc_filtering.png" alt=""><p class="caption">A screenshot of an example query of the GDC repository portal.</p>
+<img src="../../../../tmp/RtmpDfM3kV/temp_libpath49856e0aff6/PublicDataResources/vignettes/gdc_filtering.png" alt=""><p class="caption">A screenshot of an example query of the GDC repository portal.</p>
 </div>
 <p>A query of the GDC starts its life in R. Queries follow the four metadata endpoints available at the GDC. In particular, there are four convenience functions that each create <code>GDCQuery</code> objects (actually, specific subclasses of <code>GDCQuery</code>):</p>
 <ul>
@@ -436,20 +442,7 @@
 <p>These results are returned from the GDC in <a href="http://www.json.org/">JSON</a> format and converted into a (potentially nested) list in R. The <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> method is useful for taking a quick glimpse of the data.</p>
 <div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">presults</span>)</pre></body></html></div>
 <pre><code>## List of 9
-##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
-##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
-##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
-##  $ primary_site          :List of 10
-##   ..$ GENIE-MSK : chr [1:49] "Testis" "Gallbladder" "Unknown" "Other and unspecified parts of biliary tract" ...
-##   ..$ TCGA-UCEC : chr [1:2] "Corpus uteri" "Uterus, NOS"
-##   ..$ TCGA-ACC  : chr "Adrenal gland"
-##   ..$ TCGA-LGG  : chr "Brain"
-##   ..$ TCGA-SARC : chr [1:13] "Kidney" "Other and unspecified parts of tongue" "Bones, joints and articular cartilage of limbs" "Colon" ...
-##   ..$ TCGA-PAAD : chr "Pancreas"
-##   ..$ TCGA-ESCA : chr [1:2] "Esophagus" "Stomach"
-##   ..$ TCGA-LUAD : chr "Bronchus and lung"
-##   ..$ TCGA-PRAD : chr "Prostate gland"
-##   ..$ GENIE-VICC: chr [1:46] "Testis" "Unknown" "Other and unspecified parts of biliary tract" "Adrenal gland" ...
+##  $ project_id            : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
 ##  $ disease_type          :List of 10
 ##   ..$ GENIE-MSK : chr [1:49] "Germ Cell Neoplasms" "Granular Cell Tumors and Alveolar Soft Part Sarcomas" "Immunoproliferative Diseases" "Plasma Cell Tumors" ...
 ##   ..$ TCGA-UCEC : chr [1:4] "Epithelial Neoplasms, NOS" "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas" "Not Reported"
@@ -461,10 +454,23 @@
 ##   ..$ TCGA-LUAD : chr [1:3] "Cystic, Mucinous and Serous Neoplasms" "Acinar Cell Neoplasms" "Adenomas and Adenocarcinomas"
 ##   ..$ TCGA-PRAD : chr [1:3] "Cystic, Mucinous and Serous Neoplasms" "Ductal and Lobular Neoplasms" "Adenomas and Adenocarcinomas"
 ##   ..$ GENIE-VICC: chr [1:41] "Germ Cell Neoplasms" "Acinar Cell Neoplasms" "Synovial-like Neoplasms" "Plasma Cell Tumors" ...
-##  $ project_id            : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
+##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
+##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
 ##  $ id                    : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
+##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
 ##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
 ##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
+##  $ primary_site          :List of 10
+##   ..$ GENIE-MSK : chr [1:49] "Testis" "Gallbladder" "Unknown" "Other and unspecified parts of biliary tract" ...
+##   ..$ TCGA-UCEC : chr [1:2] "Corpus uteri" "Uterus, NOS"
+##   ..$ TCGA-ACC  : chr "Adrenal gland"
+##   ..$ TCGA-LGG  : chr "Brain"
+##   ..$ TCGA-SARC : chr [1:13] "Kidney" "Other and unspecified parts of tongue" "Bones, joints and articular cartilage of limbs" "Colon" ...
+##   ..$ TCGA-PAAD : chr "Pancreas"
+##   ..$ TCGA-ESCA : chr [1:2] "Esophagus" "Stomach"
+##   ..$ TCGA-LUAD : chr "Bronchus and lung"
+##   ..$ TCGA-PRAD : chr "Prostate gland"
+##   ..$ GENIE-VICC: chr [1:46] "Testis" "Unknown" "Other and unspecified parts of biliary tract" "Adrenal gland" ...
 ##  - attr(*, "row.names")= int [1:10] 1 2 3 4 5 6 7 8 9 10
 ##  - attr(*, "class")= chr [1:3] "GDCprojectsResults" "GDCResults" "list"</code></pre>
 <p>A default of only 10 records are returned. We can use the <code>size</code> and <code>from</code> arguments to <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results()</a></code> to either page through results or to change the number of results. Finally, there is a convenience method, <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code> that will simply fetch all the available results given a query. Note that <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code> may take a long time and return HUGE result sets if not used carefully. Use of a combination of <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count()</a></code> and <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results()</a></code> to get a sense of the expected data size is probably warranted before calling <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code></p>
@@ -654,72 +660,72 @@
 <p>Interestingly, the project information is “nested” inside the case. We don’t need to know that detail other than to know that we now have a few potential guesses for where our information might be in the files records. We need to know where because we need to construct the appropriate filter.</p>
 <div class="sourceCode" id="cb57"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/faceting.html">facet</a></span>(<span class="st">'cases.project.project_id'</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/aggregations.html">aggregations</a></span>()</pre></body></html></div>
 <pre><code>## $cases.project.project_id
-##                      key doc_count
-## 1                  FM-AD     36134
-## 2              TCGA-BRCA     33766
-## 3              GENIE-MSK     36470
-## 4              TCGA-LUAD     18162
-## 5              TCGA-UCEC     17277
-## 6              TCGA-HNSC     16340
-## 7                TCGA-OV     16344
-## 8              TCGA-THCA     15445
-## 9              TCGA-LUSC     16368
-## 10              TCGA-LGG     15795
-## 11            GENIE-DFCI     28464
-## 12             TCGA-KIRC     16255
-## 13             TCGA-PRAD     15296
-## 14             TCGA-COAD     15338
-## 15              TCGA-GBM     13089
-## 16         TARGET-ALL-P2     19708
-## 17             TCGA-SKCM     13674
-## 18             TCGA-STAD     13739
-## 19             TCGA-BLCA     12513
-## 20         MMRF-COMMPASS     21790
-## 21             TCGA-LIHC     11578
-## 22               CPTAC-3     20334
-## 23             TCGA-CESC      9201
-## 24             TCGA-KIRP      9137
-## 25             TCGA-SARC      8002
-## 26            TARGET-AML      7772
-## 27             TCGA-PAAD      5671
-## 28             TCGA-ESCA      5657
-## 29             TCGA-PCPG      5378
-## 30               CPTAC-2      9978
-## 31             TCGA-READ      5269
-## 32            TARGET-NBL      5474
-## 33     BEATAML1.0-COHORT      8981
-## 34             TCGA-TGCT      4605
-## 35             TCGA-LAML      4814
-## 36             TCGA-THYM      3691
-## 37              TCGA-ACC      2736
-## 38             TCGA-KICH      2457
-## 39          NCICCR-DLBCL      4805
-## 40             TCGA-MESO      2518
-## 41             TARGET-WT      2405
-## 42              TCGA-UVM      2340
-## 43             TARGET-OS      2937
-## 44         TARGET-ALL-P3      3712
-## 45             GENIE-MDA      3857
-## 46            GENIE-VICC      3833
-## 47             GENIE-JHU      3320
-## 48              TCGA-UCS      1765
-## 49             TCGA-CHOL      1426
-## 50             GENIE-UHN      2632
-## 51             TCGA-DLBC      1325
-## 52         CGCI-HTMCP-CC      1968
-## 53            CGCI-BLGSP      1782
-## 54             HCMI-CMDC      1361
-## 55             TARGET-RT       909
-## 56            GENIE-GRCC      1038
-## 57            WCDT-MCRPC       994
-## 58             GENIE-NKI       801
-## 59              OHSU-CNL       798
-## 60   ORGANOID-PANCREATIC       703
-## 61           CTSP-DLBCL1       417
-## 62 BEATAML1.0-CRENOLANIB       223
-## 63           TARGET-CCSK       143
-## 64         TARGET-ALL-P1       109
-## 65        VAREPOP-APOLLO        21</code></pre>
+##    doc_count                   key
+## 1      36134                 FM-AD
+## 2      33766             TCGA-BRCA
+## 3      36470             GENIE-MSK
+## 4      18162             TCGA-LUAD
+## 5      17277             TCGA-UCEC
+## 6      16340             TCGA-HNSC
+## 7      16344               TCGA-OV
+## 8      15445             TCGA-THCA
+## 9      16368             TCGA-LUSC
+## 10     15795              TCGA-LGG
+## 11     28464            GENIE-DFCI
+## 12     16255             TCGA-KIRC
+## 13     15296             TCGA-PRAD
+## 14     15338             TCGA-COAD
+## 15     13089              TCGA-GBM
+## 16     19708         TARGET-ALL-P2
+## 17     13674             TCGA-SKCM
+## 18     13739             TCGA-STAD
+## 19     12513             TCGA-BLCA
+## 20     21790         MMRF-COMMPASS
+## 21     11578             TCGA-LIHC
+## 22     20334               CPTAC-3
+## 23      9201             TCGA-CESC
+## 24      9137             TCGA-KIRP
+## 25      8002             TCGA-SARC
+## 26      7772            TARGET-AML
+## 27      5671             TCGA-PAAD
+## 28      5657             TCGA-ESCA
+## 29      5378             TCGA-PCPG
+## 30      9978               CPTAC-2
+## 31      5269             TCGA-READ
+## 32      5474            TARGET-NBL
+## 33      8981     BEATAML1.0-COHORT
+## 34      4605             TCGA-TGCT
+## 35      4814             TCGA-LAML
+## 36      3691             TCGA-THYM
+## 37      2736              TCGA-ACC
+## 38      2457             TCGA-KICH
+## 39      4805          NCICCR-DLBCL
+## 40      2518             TCGA-MESO
+## 41      2405             TARGET-WT
+## 42      2340              TCGA-UVM
+## 43      2937             TARGET-OS
+## 44      3712         TARGET-ALL-P3
+## 45      3857             GENIE-MDA
+## 46      3833            GENIE-VICC
+## 47      3320             GENIE-JHU
+## 48      1765              TCGA-UCS
+## 49      1426             TCGA-CHOL
+## 50      2632             GENIE-UHN
+## 51      1325             TCGA-DLBC
+## 52      1968         CGCI-HTMCP-CC
+## 53      1782            CGCI-BLGSP
+## 54      1361             HCMI-CMDC
+## 55       909             TARGET-RT
+## 56      1038            GENIE-GRCC
+## 57       994            WCDT-MCRPC
+## 58       801             GENIE-NKI
+## 59       798              OHSU-CNL
+## 60       703   ORGANOID-PANCREATIC
+## 61       417           CTSP-DLBCL1
+## 62       223 BEATAML1.0-CRENOLANIB
+## 63       143           TARGET-CCSK
+## 64       109         TARGET-ALL-P1
+## 65        21        VAREPOP-APOLLO</code></pre>
 <p>We note that <code>cases.project.project_id</code> looks like it is a good fit. We also note that <code>TCGA-OV</code> is the correct project_id, not <code>TCGA-OVCA</code>. Note that <em>unlike with dplyr and friends, the <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">filter()</a></code> method here <strong>replaces</strong> the filter and does not build on any previous filters</em>.</p>
 <div class="sourceCode" id="cb59"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">filter</a></span>( ~ <span class="no">cases.project.project_id</span> <span class="kw">==</span> <span class="st">'TCGA-OV'</span> <span class="kw">&amp;</span> <span class="no">type</span> <span class="kw">==</span> <span class="st">'gene_expression'</span>)
@@ -928,7 +934,7 @@
 <span class="no">project_info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recount/man/abstract_search.html">abstract_search</a></span>(<span class="st">'GSE32465'</span>)</pre></body></html></div>
 <p>It is not an ExperimentHub package, so downloading and serializing is slightly more involved in involves two steps: first, download the gene-level RangedSummarizedExperiment data:</p>
 <div class="sourceCode" id="cb89"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/recount/man/download_study.html">download_study</a></span>(<span class="no">project_info</span>$<span class="no">project</span>)</pre></body></html></div>
-<pre><code>## 2020-07-15 09:47:16 downloading file rse_gene.Rdata to SRP009615</code></pre>
+<pre><code>## 2020-07-15 09:54:31 downloading file rse_gene.Rdata to SRP009615</code></pre>
 <p>followed by loading the data</p>
 <div class="sourceCode" id="cb91"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">project_info</span>$<span class="no">project</span>, <span class="st">'rse_gene.Rdata'</span>))</pre></body></html></div>
 </div>
@@ -1066,7 +1072,7 @@
 <a href="#overview-of-pharmacogx-datasets-pharmacosets" class="anchor"></a>Overview of PharmacoGx datasets (PharmacoSets)</h3>
 <p>To efficiently store and analyze large pharmacogenomic datasets, we developed the <code>PharmacoSet</code> class (also referred to as <code>PSet</code>), which acts as a data container storing pharmacological and molecular data along with experimental metadata (detailed structure provided in Supplementary materials). This class enables efficient implementation of curated annotations for cell lines, drug compounds and molecular features, which facilitates comparisons between different datasets stored as <code>PharmacoSet</code> objects.</p>
 <p>We have made the PharmacoSet objects of the curated datasets available for download using functions provided in the package. A table of available PharmacoSet objects can be obtained by using the <em>availablePSets</em> function. Any of the PharmacoSets in the table can then be downloaded by calling <em>downloadPSet</em>, which saves the datasets into a directory of the users choice, and returns the data into the R session.</p>
-<p><a href="/tmp/RtmpwgmPLL/temp_libpath49b1e550290/PublicDataResources/vignettes/PharmacoSet_structure.png">Structure of the PharmacoSet class</a></p>
+<p><a href="/tmp/RtmpDfM3kV/temp_libpath49856e0aff6/PublicDataResources/vignettes/PharmacoSet_structure.png">Structure of the PharmacoSet class</a></p>
 <p>To get a list of all the available <code>PharmacoSets</code> in PharmacoGx, we can use the availablePSets` function, which returns a table providing key information for each dataset.</p>
 <div class="sourceCode" id="cb122"><html><body><pre class="r">(<span class="no">psets</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/PharmacoGx/man/availablePSets.html">availablePSets</a></span>())</pre></body></html></div>
 <p>There are currently 11 datasets available in PharmacoGx, including 8 sensitivity datasets and 3 perturbation datasets (see below).</p>
@@ -1074,7 +1080,7 @@
 <h4 class="hasAnchor">
 <a href="#drug-sensitivity-datasets" class="anchor"></a>Drug Sensitivity Datasets</h4>
 <p>Drug sensitivity datasets refer to pharmacogenomic data where cancer cells are molecularly profiled at baseline (before drug treatment), and the effect of drug treatment on cell viability is measured using a pharmacological assay (e.g., Cell Titer-Glo). These datasets can be used for biomarker discovery by correlating the molecular features of cancer cells to their response to drugs of interest.</p>
-<p><a href="/tmp/RtmpwgmPLL/temp_libpath49b1e550290/PublicDataResources/vignettes/Drug_sensitivity.png">Schematic view of the drug sensitivity datasets.</a></p>
+<p><a href="/tmp/RtmpDfM3kV/temp_libpath49856e0aff6/PublicDataResources/vignettes/Drug_sensitivity.png">Schematic view of the drug sensitivity datasets.</a></p>
 <div class="sourceCode" id="cb123"><html><body><pre class="r"><span class="no">psets</span>[<span class="no">psets</span>[ , <span class="st">"Dataset.Type"</span>] <span class="kw">==</span> <span class="st">"sensitivity"</span>, ]</pre></body></html></div>
 <p>Notably, the Genomics of Drug Sensitivity in Cancer <a href="https://www.cancerrxgene.org/">GDSC</a> and the Cancer Cell Line Encyclopedia <a href="https://portals.broadinstitute.org/ccle">CCLE</a> are large drug sensitivity datasets published in seminal studies in Nature, <a href="https://www.nature.com/articles/nature11005">Garnett et al., https://www.nature.com/articles/nature11005, Nature (2012)</a> and <a href="https://www.nature.com/articles/nature11003">Barretina et al., The Cancer Cell Line Encyclopedia enables predictive modelling of anticancer drug sensitivity, Nature (2012)</a>, respectively.</p>
 </div>
@@ -1082,7 +1088,7 @@
 <h4 class="hasAnchor">
 <a href="#drug-perturbation-datasets" class="anchor"></a>Drug Perturbation Datasets</h4>
 <p>Drug perturbation datasets refer to pharmacogenomic data where gene expression profiles are measured before and after short-term (e.g., 6h) drug treatment to identify genes that are up- and down-regulated due to the drug treatment. These datasets can be to classify drug (drug taxonomy), infer their mechanism of action, or find drugs with similar effects (drug repurposing).</p>
-<p><a href="/tmp/RtmpwgmPLL/temp_libpath49b1e550290/PublicDataResources/vignettes/Drug_perturbation.png">Schematic view of drug perturbation datasets</a></p>
+<p><a href="/tmp/RtmpDfM3kV/temp_libpath49856e0aff6/PublicDataResources/vignettes/Drug_perturbation.png">Schematic view of drug perturbation datasets</a></p>
 <div class="sourceCode" id="cb124"><html><body><pre class="r"><span class="no">psets</span>[<span class="no">psets</span>[ , <span class="st">"Dataset.Type"</span>] <span class="kw">==</span> <span class="st">"perturbation"</span>, ]</pre></body></html></div>
 <p>Large drug perturbation data have been generated within the Connectivity Map Project <a href="https://clue.io/cmap">CAMP</a>, with CMAPv2 and CMAPv3 available from <code>PharmacoGx</code>, published in <a href="http://science.sciencemag.org/content/313/5795/1929">Lamb et al., The Connectivity Map: Using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease, Science (2006)</a> and <a href="https://www.cell.com/cell/abstract/S0092-8674(17)31309-0">Subramanian et al., A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles, Cell (2017)</a>, respectively.</p>
 </div>
