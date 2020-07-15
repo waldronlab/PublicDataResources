@@ -1,7 +1,7 @@
 Package: PublicDataResources
 Type: Package
 Title: Public Data Resources in Bioconductor
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: c(person("Sean", "Davis", email = "seandavi@gmail.com",
     role = c("aut")),
     person("Benjamin", "Haibe-Kains", email = "bhaibeka@gmail.com",
@@ -25,8 +25,8 @@ Suggests:
     pkgdown,
     rmarkdown
 Imports:
+    BioinformaticsFMRP/TCGAbiolinks,
     BiocStyle,
-    igraph,
     ggplot2,
     MultiAssayExperiment,
     GEOquery, 

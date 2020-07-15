@@ -193,19 +193,6 @@ To report bugs or problems, either
 or submit a `bug.report(package='GenomicDataCommons')` from within R (which will
 redirect you to the new issue on GitHub).
 
-#### Installation
-
-Installation of the `r BiocStyle::Biocpkg("GenomicDataCommons")` package is
-identical to installation of other Bioconductor packages.
-
-
-```{r install, eval=FALSE}
-install.packages('BiocManager')
-BiocManager::install('GenomicDataCommons')
-```
-
-After installation, load the library in order to use it.
-
 ```{r libraries, message=FALSE}
 library(GenomicDataCommons)
 ```
@@ -560,7 +547,7 @@ example)? Well, we have a couple of possible ways to discover available fields.
 The first is based on base R functionality and some intuition.
 
 ```{r filtAvailFields}
-grep('pro',available_fields('files'),value=TRUE)
+grep('pro', available_fields('files'), value=TRUE)
 ```
 
 Interestingly, the project information is "nested" inside the case. We don't
@@ -707,7 +694,7 @@ from adrenocortical carcinoma (ACC). For additional information and options, see
 the TCGAbiolinks vignettes[^13].
 
 Load packages:
-```{r, cache=FALSE, echo=FALSE, results='hide', eval=FALSE}
+```{r, cache=FALSE, echo=FALSE, results='hide'}
 suppressPackageStartupMessages({
   library(TCGAbiolinks)
   library(SummarizedExperiment)
@@ -715,7 +702,7 @@ suppressPackageStartupMessages({
 ```
 
 Search for matching data:
-```{r, message=FALSE, results="hide", eval=FALSE}
+```{r, message=FALSE, results="hide"}
 library(TCGAbiolinks)
 library(SummarizedExperiment)
 query <- GDCquery(project = "TCGA-ACC",
@@ -728,7 +715,7 @@ query <- GDCquery(project = "TCGA-ACC",
 ```
 
 Download data and convert it to `RangedSummarizedExperiment`:
-```{r, message=FALSE, results="hide", eval=FALSE}
+```{r, message=FALSE, results="hide"}
 gdcdir <- file.path("Waldron_PublicData", "GDCdata")
 GDCdownload(query, method = "api", files.per.chunk = 10,
             directory = gdcdir)
@@ -891,7 +878,7 @@ View(data.frame(combined_metadata))
 ```
 
 The main function provides a `list` of `ExpressionSet` objects:
-```{r, results="hide"}
+```{r, results="hide", message=FALSE}
 oral <- c("BritoIL_2016.metaphlan_bugs_list.oralcavity",
           "Castro-NallarE_2015.metaphlan_bugs_list.oralcavity")
 esl <- curatedMetagenomicData(oral, dryrun = FALSE)
@@ -915,7 +902,7 @@ suppressPackageStartupMessages(library(HMP16SData))
 ```
 
 `r BiocStyle::Biocpkg("HMP16SData")`[@Schiffer2018-qy] is a Bioconductor ExperimentData package of the Human Microbiome Project (HMP) 16S rRNA sequencing data. Taxonomic count data files are provided as downloaded from the HMP Data Analysis and Coordination Center from its QIIME pipeline. Processed data is provided as `SummarizedExperiment` class objects via `r BiocStyle::Biocpkg("ExperimentHub")`. Like other ExperimentHub-based packages, a convenience function does downloading, automatic local caching, and serializing of a Bioconductor data class. This returns taxonomic counts from the V1-3 variable region of the 16S rRNA gene, along with the unrestricted participant data and phylogenetic tree. 
-```{r}
+```{r, message=FALSE}
 V13()
 ```
 
@@ -953,11 +940,11 @@ We have made the PharmacoSet objects of the curated datasets available for downl
 
 To get a list of all the available `PharmacoSets` in PharmacoGx, we can use the availablePSets` function, which returns a table providing key information for each dataset.
 
-```{r availablePSets, message=FALSE, eval=FALSE}
+```{r availablePSets, message=FALSE}
 (psets <- availablePSets())
 ```
 
-There are currently 11 datasets available in PharmacoGx, including 8 sensitivity datasets and 3 perturbation datasets (see below).
+There are currently `r nrow(psets)` datasets available in PharmacoGx, including sensitivity datasets and perturbation datasets (see below).
 
 
 #### Drug Sensitivity Datasets
@@ -966,9 +953,6 @@ Drug sensitivity datasets refer to pharmacogenomic data where cancer cells are m
 
 [Schematic view of the drug sensitivity datasets.](`r system.file(package='PublicDataResources', 'vignettes', 'Drug_sensitivity.png')`)
 
-```{r availableSensitivityPSets, message=FALSE, eval=FALSE}
-psets[psets[ , "Dataset.Type"] == "sensitivity", ]
-```
 Notably, the Genomics of Drug Sensitivity in Cancer [GDSC](https://www.cancerrxgene.org/) and the Cancer Cell Line Encyclopedia [CCLE](https://portals.broadinstitute.org/ccle) are large drug sensitivity datasets published in seminal studies in Nature, [Garnett et al., https://www.nature.com/articles/nature11005, Nature (2012)](https://www.nature.com/articles/nature11005) and [Barretina et al., The Cancer Cell Line Encyclopedia enables predictive modelling of anticancer drug sensitivity, Nature (2012)](https://www.nature.com/articles/nature11003), respectively.
 
 
@@ -978,9 +962,6 @@ Drug perturbation datasets refer to pharmacogenomic data where gene expression p
 
 [Schematic view of drug perturbation datasets](`r system.file(package='PublicDataResources', 'vignettes', 'Drug_perturbation.png')`)
 
-```{r availablePerturbationPSets, message=FALSE, eval=FALSE}
-psets[psets[ , "Dataset.Type"] == "perturbation", ]
-```
 Large drug perturbation data have been generated within the Connectivity Map Project [CAMP](https://clue.io/cmap), with CMAPv2 and CMAPv3 available from `PharmacoGx`, published in [Lamb et al., The Connectivity Map: Using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease, Science (2006)](http://science.sciencemag.org/content/313/5795/1929) and [Subramanian et al., A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles, Cell (2017)](https://www.cell.com/cell/abstract/S0092-8674(17)31309-0), respectively.
  
 ### Exploring drug sensitivity datasets
