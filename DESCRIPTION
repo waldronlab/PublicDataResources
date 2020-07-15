@@ -25,7 +25,6 @@ Suggests:
     pkgdown,
     rmarkdown
 Imports:
-    BioinformaticsFMRP/TCGAbiolinks,
     BiocStyle,
     ggplot2,
     MultiAssayExperiment,
@@ -37,5 +36,7 @@ Imports:
     phyloseq,
     HMP16SData,
     PharmacoGx
+Remotes:
+    BioinformaticsFMRP/TCGAbiolinks
 DockerImage: waldronlab/publicdataresources:latest
 URL: https://waldronlab.io/PublicDataResources/
