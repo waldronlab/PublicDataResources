@@ -13,12 +13,11 @@
 ### Workshop Description 
 
 The goal of this workshop is to introduce Bioconductor packages for finding,
-accessing, and using large-scale public data resources including the 
-Gene Expression Omnibus [GEO](https://www.ncbi.nlm.nih.gov/geo), Sequence
-Read Archive [SRA](https://www.ncbi.nlm.nih.gov/sra), the Genomic Data
-Commons [GDC](https://portal.gdc.cancer.gov/), and Bioconductor-hosted 
-curated data resources for metagenomics, pharmacogenomics [PharmacoDB](http://pharmacodb.ca/), and The Cancer 
-Genome Atlas.
+accessing, and using large-scale public data resources including:
+* Gene Expression Omnibus [GEO](https://www.ncbi.nlm.nih.gov/geo),
+* Sequence Read Archive [SRA](https://www.ncbi.nlm.nih.gov/sra),
+* Genomic Data Commons [GDC](https://portal.gdc.cancer.gov/),
+* Bioconductor-hosted curated data resources for metagenomics, pharmacogenomics [PharmacoDB](http://pharmacodb.ca/), and The Cancer Genome Atlas.
 
 ### Pre-requisites
 
@@ -26,9 +25,13 @@ Genome Atlas.
 * Familiarity with the ExpressionSet and SummarizedExperiment classes
 * Basic familiarity with 'omics technologies such as microarray and NGS sequencing
 
-Interested students can prepare by reviewing vignettes of the packages listed in "R/Bioconductor packages used" to gain background on aspects of interest to them.
+Interested students can prepare by reviewing vignettes of the packages
+listed in "R/Bioconductor packages used" to gain background on aspects
+of interest to them.
 
-Some more general background on these resources is published in @Kannan2016-yv.
+Some more general background on these resources is published in Kannan
+*et al.* [(Brief. in Bioinf
+2006)](https://dx.doi.org/10.1093/bib/bbv080)
 
 ### Workshop Participation 
 
@@ -47,7 +50,9 @@ Each component will include runnable examples of typical usage that students are
 
 ### Time outline
 
-This is a 1h45m workshop.
+This is a 55m workshop. Working through all the materials will take
+longer than this, but this short period will provide an overview and
+chance to ask questions about the content.
 
 | Activity                            | Time    |
 |-------------------------------------|---------|
