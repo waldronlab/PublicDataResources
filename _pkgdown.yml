@@ -22,6 +22,8 @@ navbar:
         href: https://bioconductor.org/packages/release/bioc/html/PharmacoGx.html
       - text: GEOquery
         href: https://bioconductor.org/packages/release/bioc/vignettes/GEOquery/inst/doc/GEOquery.html
+      - text: TCGAbiolinks
+        href: https://bioconductor.org/packages/devel/bioc/html/TCGAbiolinks.html
       - text: GenomicDataCommons
         href: https://bioconductor.org/packages/release/bioc/vignettes/GenomicDataCommons/inst/doc/overview.html
       - text: curatedTCGAData
