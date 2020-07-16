@@ -35,8 +35,7 @@ Imports:
     curatedMetagenomicData,
     phyloseq,
     HMP16SData,
+    TCGAbiolinks,
     PharmacoGx
-Remotes:
-    BioinformaticsFMRP/TCGAbiolinks
 DockerImage: waldronlab/publicdataresources:latest
 URL: https://waldronlab.io/PublicDataResources/
