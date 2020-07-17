@@ -716,11 +716,12 @@ query <- GDCquery(project = "TCGA-ACC",
 
 Download data and convert it to `RangedSummarizedExperiment`:
 ```{r, message=FALSE, results="hide"}
-gdcdir <- file.path("Waldron_PublicData", "GDCdata")
-GDCdownload(query, method = "api", files.per.chunk = 10,
-            directory = gdcdir)
-ACCse <- GDCprepare(query, directory = gdcdir)
-ACCse
+#not working in current TCGAbiolinks
+#gdcdir <- file.path("Waldron_PublicData", "GDCdata")
+#GDCdownload(query, method = "api", files.per.chunk = 10,
+#            directory = gdcdir)
+#ACCse <- GDCprepare(query, directory = gdcdir)
+#ACCse
 ```
 
 [^13]: https://bioconductor.org/packages/release/bioc/vignettes/TCGAbiolinks/inst/doc/download_prepare.html
