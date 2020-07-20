@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PublicDataResources</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -58,6 +58,9 @@
     </li>
     <li>
       <a href="https://bioconductor.org/packages/release/bioc/vignettes/GEOquery/inst/doc/GEOquery.html">GEOquery</a>
+    </li>
+    <li>
+      <a href="https://bioconductor.org/packages/devel/bioc/html/TCGAbiolinks.html">TCGAbiolinks</a>
     </li>
     <li>
       <a href="https://bioconductor.org/packages/release/bioc/vignettes/GenomicDataCommons/inst/doc/overview.html">GenomicDataCommons</a>
@@ -100,7 +103,7 @@
 
       
 
-      </header><script src="PublicDataResources_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip></h1>
@@ -221,9 +224,8 @@
 ## GSM2772664 13.056599 13.88711   BC     no
 ## GSM2772665  7.903717 13.24731   BC     no</code></pre>
 <p>And do the plot.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)</pre></body></html></div>
-<pre><code>## Warning: package 'ggplot2' was built under R version 4.0.1</code></pre>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">mdsvals</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="no">V1</span>,<span class="kw">y</span><span class="kw">=</span><span class="no">V2</span>,<span class="kw">shape</span><span class="kw">=</span><span class="no">Normal</span>,<span class="kw">color</span><span class="kw">=</span><span class="no">Type</span>)) +
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">mdsvals</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="no">V1</span>,<span class="kw">y</span><span class="kw">=</span><span class="no">V2</span>,<span class="kw">shape</span><span class="kw">=</span><span class="no">Normal</span>,<span class="kw">color</span><span class="kw">=</span><span class="no">Type</span>)) +
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>( <span class="kw">alpha</span><span class="kw">=</span><span class="fl">0.6</span>) + <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">text</span><span class="kw">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">18</span>))</pre></body></html></div>
 <p><img src="PublicDataResources_files/figure-html/mdsplot-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
@@ -242,7 +244,7 @@
 </blockquote>
 <p>The <a href="https://gdc.cancer.gov/developers/gdc-data-model/gdc-data-model-components">data model for the GDC is complex</a>, but it worth a quick overview and a graphical representation is included here.</p>
 <div class="figure">
-<img src="../../../../tmp/RtmpeseFbl/temp_libpath3f279986ca3/PublicDataResources/vignettes/all_nodes_040318.png" alt=""><p class="caption">The data model is encoded as a so-called property graph. Nodes represent entities such as Projects, Cases, Diagnoses, Files (various kinds), and Annotations. The relationships between these entities are maintained as edges. Both nodes and edges may have Properties that supply instance details.</p>
+<img src="../../../../tmp/RtmpeCQQmr/temp_libpath62b41aadde7/PublicDataResources/vignettes/all_nodes_040318.png" alt=""><p class="caption">The data model is encoded as a so-called property graph. Nodes represent entities such as Projects, Cases, Diagnoses, Files (various kinds), and Annotations. The relationships between these entities are maintained as edges. Both nodes and edges may have Properties that supply instance details.</p>
 </div>
 <p>The GDC API exposes these nodes and edges in a somewhat simplified set of <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a> endpoints.</p>
 <div id="quickstart" class="section level3">
@@ -250,20 +252,12 @@
 <a href="#quickstart" class="anchor"></a>Quickstart</h3>
 <p>This quickstart section is just meant to show basic functionality. More details of functionality are included further on in this vignette and in function-specific help.</p>
 <p>To report bugs or problems, either <a href="https://github.com/Bioconductor/GenomicDataCommons/issues">submit a new issue</a> or submit a <code><a href="https://rdrr.io/r/utils/bug.report.html">bug.report(package='GenomicDataCommons')</a></code> from within R (which will redirect you to the new issue on GitHub).</p>
-<div id="installation-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#installation-1" class="anchor"></a>Installation</h4>
-<p>Installation of the <em><a href="https://bioconductor.org/packages/3.12/GenomicDataCommons">GenomicDataCommons</a></em> package is identical to installation of other Bioconductor packages.</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'BiocManager'</span>)
-<span class="kw pkg">BiocManager</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">'GenomicDataCommons'</span>)</pre></body></html></div>
-<p>After installation, load the library in order to use it.</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">GenomicDataCommons</span>)</pre></body></html></div>
-</div>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">GenomicDataCommons</span>)</pre></body></html></div>
 <div id="check-connectivity-and-status" class="section level4">
 <h4 class="hasAnchor">
 <a href="#check-connectivity-and-status" class="anchor"></a>Check connectivity and status</h4>
 <p>The <em><a href="https://bioconductor.org/packages/3.12/GenomicDataCommons">GenomicDataCommons</a></em> package relies on having network connectivity. In addition, the NCI GDC API must also be operational and not under maintenance. Checking <code>status</code> can be used to check this connectivity and functionality.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="kw pkg">GenomicDataCommons</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/status.html">status</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="kw pkg">GenomicDataCommons</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/status.html">status</a></span>()</pre></body></html></div>
 <pre><code>## $commit
 ## [1] "0137629ad19be1839669a25a741a165f90c7276c"
 ## 
@@ -283,7 +277,7 @@
 <h4 class="hasAnchor">
 <a href="#find-data" class="anchor"></a>Find data</h4>
 <p>The following code builds a <code>manifest</code> that can be used to guide the download of raw data. Here, filtering finds gene expression files quantified as raw counts using <code>HTSeq</code> from ovarian cancer patients.</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">ge_manifest</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">ge_manifest</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">filter</a></span>( ~ <span class="no">cases.project.project_id</span> <span class="kw">==</span> <span class="st">'TCGA-OV'</span> <span class="kw">&amp;</span>
                 <span class="no">type</span> <span class="kw">==</span> <span class="st">'gene_expression'</span> <span class="kw">&amp;</span>
                 <span class="no">analysis.workflow_type</span> <span class="kw">==</span> <span class="st">'HTSeq - Counts'</span>) <span class="kw">%&gt;%</span>
@@ -293,32 +287,44 @@
 <h4 class="hasAnchor">
 <a href="#download-data" class="anchor"></a>Download data</h4>
 <p>After the 379 gene expression files specified in the query above. Using multiple processes to do the download very significantly speeds up the transfer in many cases. On a standard 1Gb connection, the following completes in about 30 seconds. The first time the data are downloaded, R will ask to create a cache directory (see <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/gdc_cache.html">?gdc_cache</a></code> for details of setting and interacting with the cache). Resulting downloaded files will be stored in the cache directory. Future access to the same files will be directly from the cache, alleviating multiple downloads.</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">fnames</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">ge_manifest</span>$<span class="no">id</span>[<span class="fl">1</span>:<span class="fl">20</span>],<span class="no">gdcdata</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">fnames</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">ge_manifest</span>$<span class="no">id</span>[<span class="fl">1</span>:<span class="fl">20</span>],<span class="no">gdcdata</span>)</pre></body></html></div>
 <p>If the download had included controlled-access data, the download above would have needed to include a <code>token</code>. Details are available in <a href="#authentication">the authentication section below</a>.</p>
 </div>
 <div id="metadata-queries" class="section level4">
 <h4 class="hasAnchor">
 <a href="#metadata-queries" class="anchor"></a>Metadata queries</h4>
 <p>The <em><a href="https://bioconductor.org/packages/3.12/GenomicDataCommons">GenomicDataCommons</a></em> can access the significant clinical, demographic, biospecimen, and annotation information contained in the NCI GDC.</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">expands</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"diagnoses"</span>,<span class="st">"annotations"</span>,
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">expands</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"diagnoses"</span>,<span class="st">"annotations"</span>,
              <span class="st">"demographic"</span>,<span class="st">"exposures"</span>)
 <span class="no">projResults</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">projects</a></span>() <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results</a></span>(<span class="kw">size</span><span class="kw">=</span><span class="fl">10</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">projResults</span>,<span class="kw">list.len</span><span class="kw">=</span><span class="fl">5</span>)</pre></body></html></div>
 <pre><code>## List of 9
-##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
 ##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
-##  $ id                    : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
 ##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
 ##  $ project_id            : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
+##  $ primary_site          :List of 10
+##   ..$ GENIE-MSK : chr [1:49] "Testis" "Gallbladder" "Unknown" "Other and unspecified parts of biliary tract" ...
+##   ..$ TCGA-UCEC : chr [1:2] "Corpus uteri" "Uterus, NOS"
+##   ..$ TCGA-ACC  : chr "Adrenal gland"
+##   ..$ TCGA-LGG  : chr "Brain"
+##   ..$ TCGA-SARC : chr [1:13] "Kidney" "Other and unspecified parts of tongue" "Bones, joints and articular cartilage of limbs" "Colon" ...
+##   .. [list output truncated]
+##  $ disease_type          :List of 10
+##   ..$ GENIE-MSK : chr [1:49] "Germ Cell Neoplasms" "Granular Cell Tumors and Alveolar Soft Part Sarcomas" "Immunoproliferative Diseases" "Plasma Cell Tumors" ...
+##   ..$ TCGA-UCEC : chr [1:4] "Epithelial Neoplasms, NOS" "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas" "Not Reported"
+##   ..$ TCGA-ACC  : chr "Adenomas and Adenocarcinomas"
+##   ..$ TCGA-LGG  : chr "Gliomas"
+##   ..$ TCGA-SARC : chr [1:6] "Nerve Sheath Tumors" "Myomatous Neoplasms" "Fibromatous Neoplasms" "Lipomatous Neoplasms" ...
+##   .. [list output truncated]
 ##   [list output truncated]
 ##  - attr(*, "row.names")= int [1:10] 1 2 3 4 5 6 7 8 9 10
 ##  - attr(*, "class")= chr [1:3] "GDCprojectsResults" "GDCResults" "list"</code></pre>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">projResults</span>)</pre></body></html></div>
-<pre><code>## [1] "state"                  "dbgap_accession_number" "id"                    
-## [4] "name"                   "project_id"             "releasable"            
-## [7] "released"               "primary_site"           "disease_type"</code></pre>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"># or listviewer::jsonedit(clinResults)</pre></body></html></div>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">projResults</span>)</pre></body></html></div>
+<pre><code>## [1] "dbgap_accession_number" "name"                   "project_id"            
+## [4] "primary_site"           "disease_type"           "id"                    
+## [7] "state"                  "released"               "releasable"</code></pre>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"># or listviewer::jsonedit(clinResults)</pre></body></html></div>
 </div>
 </div>
 <div id="basic-design" class="section level3">
@@ -413,7 +419,7 @@
 <a href="#creating-a-query" class="anchor"></a>Creating a query</h4>
 <p>The <em><a href="https://bioconductor.org/packages/3.12/GenomicDataCommons">GenomicDataCommons</a></em> package accesses the <em>same</em> API as the <em>GDC</em> website. Therefore, a useful approach, particularly for beginning users is to examine the filters available on the <a href="https://portal.gdc.cancer.gov/repository">GDC repository pages</a> to find appropriate filtering criteria. From there, converting those checkboxes to a GenomicDataCommons <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">query()</a></code> is relatively straightforward. Note that only a small subset of the <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/available_fields.html">available_fields()</a></code> are available by default on the website.</p>
 <div class="figure">
-<img src="../../../../tmp/RtmpeseFbl/temp_libpath3f279986ca3/PublicDataResources/vignettes/gdc_filtering.png" alt=""><p class="caption">A screenshot of an example query of the GDC repository portal.</p>
+<img src="../../../../tmp/RtmpeCQQmr/temp_libpath62b41aadde7/PublicDataResources/vignettes/gdc_filtering.png" alt=""><p class="caption">A screenshot of an example query of the GDC repository portal.</p>
 </div>
 <p>A query of the GDC starts its life in R. Queries follow the four metadata endpoints available at the GDC. In particular, there are four convenience functions that each create <code>GDCQuery</code> objects (actually, specific subclasses of <code>GDCQuery</code>):</p>
 <ul>
@@ -422,7 +428,7 @@
 <li><code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files()</a></code></li>
 <li><code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">annotations()</a></code></li>
 </ul>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="no">pquery</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">projects</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">pquery</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">projects</a></span>()</pre></body></html></div>
 <p>The <code>pquery</code> object is now an object of (S3) class, <code>GDCQuery</code> (and <code>gdc_projects</code> and <code>list</code>). The object contains the following elements:</p>
 <ul>
 <li>fields: This is a character vector of the fields that will be returned when we <a href="#retrieving-results">retrieve data</a>. If no fields are specified to, for example, the <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">projects()</a></code> function, the default fields from the GDC are used (see <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/default_fields.html">default_fields()</a></code>)</li>
@@ -432,7 +438,7 @@
 <li>token: A character(1) token from the GDC. See <a href="#authentication">the authentication section</a> for details, but note that, in general, the token is not necessary for metadata query and retrieval, only for actual data download.</li>
 </ul>
 <p>Looking at the actual object (get used to using <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>!), note that the query contains no results.</p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">pquery</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">pquery</span>)</pre></body></html></div>
 <pre><code>## List of 5
 ##  $ fields : chr [1:10] "dbgap_accession_number" "disease_type" "intended_release_date" "name" ...
 ##  $ filters: NULL
@@ -447,23 +453,19 @@
 <p><a href="https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#size-and-from">[ GDC pagination documentation ]</a></p>
 <p><a href="https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#sort">[ GDC sorting documentation ]</a></p>
 <p>With a query object available, the next step is to retrieve results from the GDC. The GenomicDataCommons package. The most basic type of results we can get is a simple <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count()</a></code> of records available that satisfy the filter criteria. Note that we have not set any filters, so a <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count()</a></code> here will represent all the project records publicly available at the GDC in the “default” archive"</p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">pcount</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count</a></span>(<span class="no">pquery</span>)
+<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="no">pcount</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count</a></span>(<span class="no">pquery</span>)
 <span class="co"># or</span>
 <span class="no">pcount</span> <span class="kw">=</span> <span class="no">pquery</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count</a></span>()
 <span class="no">pcount</span></pre></body></html></div>
 <pre><code>## [1] 65</code></pre>
 <p>The <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results()</a></code> method will fetch actual results.</p>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">presults</span> <span class="kw">=</span> <span class="no">pquery</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">presults</span> <span class="kw">=</span> <span class="no">pquery</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results</a></span>()</pre></body></html></div>
 <p>These results are returned from the GDC in <a href="http://www.json.org/">JSON</a> format and converted into a (potentially nested) list in R. The <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> method is useful for taking a quick glimpse of the data.</p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">presults</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">presults</span>)</pre></body></html></div>
 <pre><code>## List of 9
-##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
 ##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
-##  $ id                    : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
 ##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
 ##  $ project_id            : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
-##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
-##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
 ##  $ primary_site          :List of 10
 ##   ..$ GENIE-MSK : chr [1:49] "Testis" "Gallbladder" "Unknown" "Other and unspecified parts of biliary tract" ...
 ##   ..$ TCGA-UCEC : chr [1:2] "Corpus uteri" "Uterus, NOS"
@@ -486,15 +488,19 @@
 ##   ..$ TCGA-LUAD : chr [1:3] "Cystic, Mucinous and Serous Neoplasms" "Acinar Cell Neoplasms" "Adenomas and Adenocarcinomas"
 ##   ..$ TCGA-PRAD : chr [1:3] "Cystic, Mucinous and Serous Neoplasms" "Ductal and Lobular Neoplasms" "Adenomas and Adenocarcinomas"
 ##   ..$ GENIE-VICC: chr [1:41] "Germ Cell Neoplasms" "Acinar Cell Neoplasms" "Synovial-like Neoplasms" "Plasma Cell Tumors" ...
+##  $ id                    : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
+##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
+##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
+##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
 ##  - attr(*, "row.names")= int [1:10] 1 2 3 4 5 6 7 8 9 10
 ##  - attr(*, "class")= chr [1:3] "GDCprojectsResults" "GDCResults" "list"</code></pre>
 <p>A default of only 10 records are returned. We can use the <code>size</code> and <code>from</code> arguments to <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results()</a></code> to either page through results or to change the number of results. Finally, there is a convenience method, <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code> that will simply fetch all the available results given a query. Note that <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code> may take a long time and return HUGE result sets if not used carefully. Use of a combination of <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count()</a></code> and <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results()</a></code> to get a sense of the expected data size is probably warranted before calling <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code></p>
-<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/ids.html">ids</a></span>(<span class="no">presults</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/ids.html">ids</a></span>(<span class="no">presults</span>))</pre></body></html></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb35"><html><body><pre class="r"><span class="no">presults</span> <span class="kw">=</span> <span class="no">pquery</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all</a></span>()
+<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">presults</span> <span class="kw">=</span> <span class="no">pquery</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all</a></span>()
 <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/ids.html">ids</a></span>(<span class="no">presults</span>))</pre></body></html></div>
 <pre><code>## [1] 65</code></pre>
-<div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="co"># includes all records</span>
+<div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="co"># includes all records</span>
 <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/ids.html">ids</a></span>(<span class="no">presults</span>)) <span class="kw">==</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count</a></span>(<span class="no">pquery</span>)</pre></body></html></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Extracting subsets of results or manipulating the results into a more conventional R data structure is not easily generalizable. However, the <a href="https://github.com/hadley/purrr">purrr</a>, <a href="https://renkun.me/rlist/">rlist</a>, and <a href="https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html">data.tree</a> packages are all potentially of interest for manipulating complex, nested list structures. For viewing the results in an interactive viewer, consider the <a href="https://github.com/timelyportfolio/listviewer">listviewer</a> package.</p>
@@ -504,7 +510,7 @@
 <a href="#fields-and-values" class="anchor"></a>Fields and Values</h4>
 <p><a href="https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#fields">[ GDC <code>fields</code> documentation ]</a></p>
 <p>Central to querying and retrieving data from the GDC is the ability to specify which fields to return, filtering by fields and values, and faceting or aggregating. The GenomicDataCommons package includes two simple functions, <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/available_fields.html">available_fields()</a></code> and <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/default_fields.html">default_fields()</a></code>. Each can operate on a character(1) endpoint name (“cases”, “files”, “annotations”, or “projects”) or a <code>GDCQuery</code> object.</p>
-<div class="sourceCode" id="cb39"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/default_fields.html">default_fields</a></span>(<span class="st">'files'</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb36"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/default_fields.html">default_fields</a></span>(<span class="st">'files'</span>)</pre></body></html></div>
 <pre><code>##  [1] "access"                         "acl"                           
 ##  [3] "average_base_quality"           "average_insert_size"           
 ##  [5] "average_read_length"            "channel"                       
@@ -531,16 +537,16 @@
 ## [47] "total_reads"                    "tumor_ploidy"                  
 ## [49] "tumor_purity"                   "type"                          
 ## [51] "updated_datetime"</code></pre>
-<div class="sourceCode" id="cb41"><html><body><pre class="r"><span class="co"># The number of fields available for files endpoint</span>
+<div class="sourceCode" id="cb38"><html><body><pre class="r"><span class="co"># The number of fields available for files endpoint</span>
 <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/available_fields.html">available_fields</a></span>(<span class="st">'files'</span>))</pre></body></html></div>
 <pre><code>## [1] 945</code></pre>
-<div class="sourceCode" id="cb43"><html><body><pre class="r"><span class="co"># The first few fields available for files endpoint</span>
+<div class="sourceCode" id="cb40"><html><body><pre class="r"><span class="co"># The first few fields available for files endpoint</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/available_fields.html">available_fields</a></span>(<span class="st">'files'</span>))</pre></body></html></div>
 <pre><code>## [1] "access"                      "acl"                        
 ## [3] "analysis.analysis_id"        "analysis.analysis_type"     
 ## [5] "analysis.created_datetime"   "analysis.input_files.access"</code></pre>
 <p>The fields to be returned by a query can be specified following a similar paradigm to that of the dplyr package. The <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/select.html">select()</a></code> function is a verb that resets the fields slot of a <code>GDCQuery</code>; note that this is not quite analogous to the dplyr <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/select.html">select()</a></code> verb that limits from already-present fields. We <em>completely replace</em> the fields when using <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/select.html">select()</a></code> on a <code>GDCQuery</code>.</p>
-<div class="sourceCode" id="cb45"><html><body><pre class="r"><span class="co"># Default fields here</span>
+<div class="sourceCode" id="cb42"><html><body><pre class="r"><span class="co"># Default fields here</span>
 <span class="no">qcases</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">cases</a></span>()
 <span class="no">qcases</span>$<span class="no">fields</span></pre></body></html></div>
 <pre><code>##  [1] "aliquot_ids"              "analyte_ids"             
@@ -556,7 +562,7 @@
 ## [21] "submitter_diagnosis_ids"  "submitter_id"            
 ## [23] "submitter_portion_ids"    "submitter_sample_ids"    
 ## [25] "submitter_slide_ids"      "updated_datetime"</code></pre>
-<div class="sourceCode" id="cb47"><html><body><pre class="r"><span class="co"># set up query to use ALL available fields</span>
+<div class="sourceCode" id="cb44"><html><body><pre class="r"><span class="co"># set up query to use ALL available fields</span>
 <span class="co"># Note that checking of fields is done by select()</span>
 <span class="no">qcases</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">cases</a></span>() <span class="kw">%&gt;%</span> <span class="kw pkg">GenomicDataCommons</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/select.html">select</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/available_fields.html">available_fields</a></span>(<span class="st">'cases'</span>))
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">qcases</span>$<span class="no">fields</span>)</pre></body></html></div>
@@ -570,7 +576,7 @@
 <a href="#facets-and-aggregation" class="anchor"></a>Facets and aggregation</h4>
 <p><a href="https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#facets">[ GDC <code>facet</code> documentation ]</a></p>
 <p>The GDC API offers a feature known as aggregation or faceting. By specifying one or more fields (of appropriate type), the GDC can return to us a count of the number of records matching each potential value. This is similar to the R <code>table</code> method. Multiple fields can be returned at once, but the GDC API does not have a cross-tabulation feature; all aggregations are only on one field at a time. Results of <code>aggregation()</code> calls come back as a list of data.frames (actually, tibbles).</p>
-<div class="sourceCode" id="cb49"><html><body><pre class="r"><span class="co"># total number of files of a specific type</span>
+<div class="sourceCode" id="cb46"><html><body><pre class="r"><span class="co"># total number of files of a specific type</span>
 <span class="no">res</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/faceting.html">facet</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'type'</span>,<span class="st">'data_type'</span>)) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/aggregations.html">aggregations</a></span>()
 <span class="no">res</span>$<span class="no">type</span></pre></body></html></div>
 <pre><code>##                            key doc_count
@@ -599,11 +605,11 @@
 <p>It’s best to use a formula because a formula captures both the expression to evaluate and the environment where the evaluation occurs. This is important if the expression is a mixture of variables in a data frame and objects in the local environment [for example].</p>
 </blockquote>
 <p>For the user, these details will not be too important except to note that a filter expression must begin with a “~”.</p>
-<div class="sourceCode" id="cb51"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>()
+<div class="sourceCode" id="cb48"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>()
 <span class="no">qfiles</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count</a></span>() <span class="co"># all files</span></pre></body></html></div>
 <pre><code>## [1] 570844</code></pre>
 <p>To limit the file type, we can refer back to the <a href="#facets-and-aggregation">section on faceting</a> to see the possible values for the file field “type”. For example, to filter file results to only “gene_expression” files, we simply specify a filter.</p>
-<div class="sourceCode" id="cb53"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">filter</a></span>(~ <span class="no">type</span> <span class="kw">==</span> <span class="st">'gene_expression'</span>)
+<div class="sourceCode" id="cb50"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">filter</a></span>(~ <span class="no">type</span> <span class="kw">==</span> <span class="st">'gene_expression'</span>)
 <span class="co"># here is what the filter looks like after translation</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">get_filter</a></span>(<span class="no">qfiles</span>))</pre></body></html></div>
 <pre><code>## List of 2
@@ -612,7 +618,7 @@
 ##   ..$ field: chr "type"
 ##   ..$ value: chr "gene_expression"</code></pre>
 <p>What if we want to create a filter based on the project (‘TCGA-OVCA’, for example)? Well, we have a couple of possible ways to discover available fields. The first is based on base R functionality and some intuition.</p>
-<div class="sourceCode" id="cb55"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">'pro'</span>,<span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/available_fields.html">available_fields</a></span>(<span class="st">'files'</span>),<span class="kw">value</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb52"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">'pro'</span>, <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/available_fields.html">available_fields</a></span>(<span class="st">'files'</span>), <span class="kw">value</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></body></html></div>
 <pre><code>##  [1] "analysis.input_files.proportion_base_mismatch"                  
 ##  [2] "analysis.input_files.proportion_coverage_10x"                   
 ##  [3] "analysis.input_files.proportion_coverage_10X"                   
@@ -673,76 +679,76 @@
 ## [58] "proportion_reads_mapped"                                        
 ## [59] "proportion_targets_no_coverage"</code></pre>
 <p>Interestingly, the project information is “nested” inside the case. We don’t need to know that detail other than to know that we now have a few potential guesses for where our information might be in the files records. We need to know where because we need to construct the appropriate filter.</p>
-<div class="sourceCode" id="cb57"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/faceting.html">facet</a></span>(<span class="st">'cases.project.project_id'</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/aggregations.html">aggregations</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb54"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/faceting.html">facet</a></span>(<span class="st">'cases.project.project_id'</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/aggregations.html">aggregations</a></span>()</pre></body></html></div>
 <pre><code>## $cases.project.project_id
-##    doc_count                   key
-## 1      36134                 FM-AD
-## 2      33766             TCGA-BRCA
-## 3      36470             GENIE-MSK
-## 4      18162             TCGA-LUAD
-## 5      17277             TCGA-UCEC
-## 6      16340             TCGA-HNSC
-## 7      16344               TCGA-OV
-## 8      15445             TCGA-THCA
-## 9      16368             TCGA-LUSC
-## 10     15795              TCGA-LGG
-## 11     28464            GENIE-DFCI
-## 12     16255             TCGA-KIRC
-## 13     15296             TCGA-PRAD
-## 14     15338             TCGA-COAD
-## 15     13089              TCGA-GBM
-## 16     19708         TARGET-ALL-P2
-## 17     13674             TCGA-SKCM
-## 18     13739             TCGA-STAD
-## 19     12513             TCGA-BLCA
-## 20     21790         MMRF-COMMPASS
-## 21     11578             TCGA-LIHC
-## 22     20334               CPTAC-3
-## 23      9201             TCGA-CESC
-## 24      9137             TCGA-KIRP
-## 25      8002             TCGA-SARC
-## 26      7772            TARGET-AML
-## 27      5671             TCGA-PAAD
-## 28      5657             TCGA-ESCA
-## 29      5378             TCGA-PCPG
-## 30      9978               CPTAC-2
-## 31      5269             TCGA-READ
-## 32      5474            TARGET-NBL
-## 33      8981     BEATAML1.0-COHORT
-## 34      4605             TCGA-TGCT
-## 35      4814             TCGA-LAML
-## 36      3691             TCGA-THYM
-## 37      2736              TCGA-ACC
-## 38      2457             TCGA-KICH
-## 39      4805          NCICCR-DLBCL
-## 40      2518             TCGA-MESO
-## 41      2405             TARGET-WT
-## 42      2340              TCGA-UVM
-## 43      2937             TARGET-OS
-## 44      3712         TARGET-ALL-P3
-## 45      3857             GENIE-MDA
-## 46      3833            GENIE-VICC
-## 47      3320             GENIE-JHU
-## 48      1765              TCGA-UCS
-## 49      1426             TCGA-CHOL
-## 50      2632             GENIE-UHN
-## 51      1325             TCGA-DLBC
-## 52      1968         CGCI-HTMCP-CC
-## 53      1782            CGCI-BLGSP
-## 54      1361             HCMI-CMDC
-## 55       909             TARGET-RT
-## 56      1038            GENIE-GRCC
-## 57       994            WCDT-MCRPC
-## 58       801             GENIE-NKI
-## 59       798              OHSU-CNL
-## 60       703   ORGANOID-PANCREATIC
-## 61       417           CTSP-DLBCL1
-## 62       223 BEATAML1.0-CRENOLANIB
-## 63       143           TARGET-CCSK
-## 64       109         TARGET-ALL-P1
-## 65        21        VAREPOP-APOLLO</code></pre>
+##                      key doc_count
+## 1                  FM-AD     36134
+## 2              TCGA-BRCA     33766
+## 3              GENIE-MSK     36470
+## 4              TCGA-LUAD     18162
+## 5              TCGA-UCEC     17277
+## 6              TCGA-HNSC     16340
+## 7                TCGA-OV     16344
+## 8              TCGA-THCA     15445
+## 9              TCGA-LUSC     16368
+## 10              TCGA-LGG     15795
+## 11            GENIE-DFCI     28464
+## 12             TCGA-KIRC     16255
+## 13             TCGA-PRAD     15296
+## 14             TCGA-COAD     15338
+## 15              TCGA-GBM     13089
+## 16         TARGET-ALL-P2     19708
+## 17             TCGA-SKCM     13674
+## 18             TCGA-STAD     13739
+## 19             TCGA-BLCA     12513
+## 20         MMRF-COMMPASS     21790
+## 21             TCGA-LIHC     11578
+## 22               CPTAC-3     20334
+## 23             TCGA-CESC      9201
+## 24             TCGA-KIRP      9137
+## 25             TCGA-SARC      8002
+## 26            TARGET-AML      7772
+## 27             TCGA-PAAD      5671
+## 28             TCGA-ESCA      5657
+## 29             TCGA-PCPG      5378
+## 30               CPTAC-2      9978
+## 31             TCGA-READ      5269
+## 32            TARGET-NBL      5474
+## 33     BEATAML1.0-COHORT      8981
+## 34             TCGA-TGCT      4605
+## 35             TCGA-LAML      4814
+## 36             TCGA-THYM      3691
+## 37              TCGA-ACC      2736
+## 38             TCGA-KICH      2457
+## 39          NCICCR-DLBCL      4805
+## 40             TCGA-MESO      2518
+## 41             TARGET-WT      2405
+## 42              TCGA-UVM      2340
+## 43             TARGET-OS      2937
+## 44         TARGET-ALL-P3      3712
+## 45             GENIE-MDA      3857
+## 46            GENIE-VICC      3833
+## 47             GENIE-JHU      3320
+## 48              TCGA-UCS      1765
+## 49             TCGA-CHOL      1426
+## 50             GENIE-UHN      2632
+## 51             TCGA-DLBC      1325
+## 52         CGCI-HTMCP-CC      1968
+## 53            CGCI-BLGSP      1782
+## 54             HCMI-CMDC      1361
+## 55             TARGET-RT       909
+## 56            GENIE-GRCC      1038
+## 57            WCDT-MCRPC       994
+## 58             GENIE-NKI       801
+## 59              OHSU-CNL       798
+## 60   ORGANOID-PANCREATIC       703
+## 61           CTSP-DLBCL1       417
+## 62 BEATAML1.0-CRENOLANIB       223
+## 63           TARGET-CCSK       143
+## 64         TARGET-ALL-P1       109
+## 65        VAREPOP-APOLLO        21</code></pre>
 <p>We note that <code>cases.project.project_id</code> looks like it is a good fit. We also note that <code>TCGA-OV</code> is the correct project_id, not <code>TCGA-OVCA</code>. Note that <em>unlike with dplyr and friends, the <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">filter()</a></code> method here <strong>replaces</strong> the filter and does not build on any previous filters</em>.</p>
-<div class="sourceCode" id="cb59"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb56"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">filter</a></span>( ~ <span class="no">cases.project.project_id</span> <span class="kw">==</span> <span class="st">'TCGA-OV'</span> <span class="kw">&amp;</span> <span class="no">type</span> <span class="kw">==</span> <span class="st">'gene_expression'</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">get_filter</a></span>(<span class="no">qfiles</span>))</pre></body></html></div>
 <pre><code>## List of 2
@@ -758,10 +764,10 @@
 ##   .. ..$ content:List of 2
 ##   .. .. ..$ field: chr "type"
 ##   .. .. ..$ value: chr "gene_expression"</code></pre>
-<div class="sourceCode" id="cb61"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb58"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count</a></span>()</pre></body></html></div>
 <pre><code>## [1] 1137</code></pre>
 <p>Asking for a <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count()</a></code> of results given these new filter criteria gives <code>r qfiles %&gt;% count()</code> results. Generating a manifest for bulk downloads is as simple as asking for the manifest from the current query.</p>
-<div class="sourceCode" id="cb63"><html><body><pre class="r"><span class="no">manifest_df</span> <span class="kw">=</span> <span class="no">qfiles</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/manifest.html">manifest</a></span>()
+<div class="sourceCode" id="cb60"><html><body><pre class="r"><span class="no">manifest_df</span> <span class="kw">=</span> <span class="no">qfiles</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/manifest.html">manifest</a></span>()
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">manifest_df</span>)</pre></body></html></div>
 <pre><code>## # A tibble: 6 x 5
 ##   id                  filename                    md5                size state 
@@ -773,7 +779,7 @@
 ## 5 f37c892c-8440-4498… bd727430-2539-4897-a754-2c… d2fb61d663f1024… 563204 relea…
 ## 6 a1bacdbd-60f6-472f… 4722ba18-27f6-480d-975b-59… e6835e5ac38301a… 264266 relea…</code></pre>
 <p>Note that we might still not be quite there. Looking at filenames, there are suspiciously named files that might include “FPKM”, “FPKM-UQ”, or “counts”. Another round of <code>grep</code> and <code>available_fields</code>, looking for “type” turned up that the field “analysis.workflow_type” has the appropriate filter criteria.</p>
-<div class="sourceCode" id="cb65"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">filter</a></span>( ~ <span class="no">cases.project.project_id</span> <span class="kw">==</span> <span class="st">'TCGA-OV'</span> <span class="kw">&amp;</span>
+<div class="sourceCode" id="cb62"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">filter</a></span>( ~ <span class="no">cases.project.project_id</span> <span class="kw">==</span> <span class="st">'TCGA-OV'</span> <span class="kw">&amp;</span>
                             <span class="no">type</span> <span class="kw">==</span> <span class="st">'gene_expression'</span> <span class="kw">&amp;</span>
                             <span class="no">analysis.workflow_type</span> <span class="kw">==</span> <span class="st">'HTSeq - Counts'</span>)
 <span class="no">manifest_df</span> <span class="kw">=</span> <span class="no">qfiles</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/manifest.html">manifest</a></span>()
@@ -797,7 +803,7 @@
 </li>
 </ol>
 <p>As a concrete example:</p>
-<div class="sourceCode" id="cb67"><html><body><pre class="r"><span class="no">token</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/gdc_token.html">gdc_token</a></span>()
+<div class="sourceCode" id="cb64"><html><body><pre class="r"><span class="no">token</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/gdc_token.html">gdc_token</a></span>()
 <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/transfer.html">transfer</a></span>(<span class="no">...</span>,<span class="kw">token</span><span class="kw">=</span><span class="no">token</span>)
 <span class="co"># or</span>
 <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/transfer.html">transfer</a></span>(<span class="no">...</span>,<span class="kw">token</span><span class="kw">=</span><span class="fu">get_token</span>())</pre></body></html></div>
@@ -806,10 +812,10 @@
 <h3 class="hasAnchor">
 <a href="#datafile-access-and-download" class="anchor"></a>Datafile access and download</h3>
 <p>The <code>gdcdata</code> function takes a character vector of one or more file ids. A simple way of producing such a vector is to produce a <code>manifest</code> data frame and then pass in the first column, which will contain file ids.</p>
-<div class="sourceCode" id="cb68"><html><body><pre class="r"><span class="no">fnames</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/gdcdata.html">gdcdata</a></span>(<span class="no">manifest_df</span>$<span class="no">id</span>[<span class="fl">1</span>:<span class="fl">2</span>],<span class="kw">progress</span><span class="kw">=</span><span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb65"><html><body><pre class="r"><span class="no">fnames</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/gdcdata.html">gdcdata</a></span>(<span class="no">manifest_df</span>$<span class="no">id</span>[<span class="fl">1</span>:<span class="fl">2</span>],<span class="kw">progress</span><span class="kw">=</span><span class="fl">FALSE</span>)</pre></body></html></div>
 <p>Note that for controlled-access data, a GDC <a href="#authentication">authentication token</a> is required. Using the <code>BiocParallel</code> package may be useful for downloading in parallel, particularly for large numbers of smallish files.</p>
 <p>The bulk download functionality is only efficient (as of v1.2.0 of the GDC Data Transfer Tool) for relatively large files, so use this approach only when transferring BAM files or larger VCF files, for example. Otherwise, consider using the approach shown above, perhaps in parallel.</p>
-<div class="sourceCode" id="cb69"><html><body><pre class="r"><span class="no">fnames</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/gdcdata.html">gdcdata</a></span>(<span class="no">manifest_df</span>$<span class="no">id</span>[<span class="fl">3</span>:<span class="fl">10</span>], <span class="kw">access_method</span> <span class="kw">=</span> <span class="st">'client'</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb66"><html><body><pre class="r"><span class="no">fnames</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/gdcdata.html">gdcdata</a></span>(<span class="no">manifest_df</span>$<span class="no">id</span>[<span class="fl">3</span>:<span class="fl">10</span>], <span class="kw">access_method</span> <span class="kw">=</span> <span class="st">'client'</span>)</pre></body></html></div>
 </div>
 </div>
 <div id="accessing-the-cancer-genome-atlas-tcga" class="section level2">
@@ -844,9 +850,9 @@
 <p>We demonstrate here generating a <code>RangedSummarizedExperiment</code> for RNA-seq data from adrenocortical carcinoma (ACC). For additional information and options, see the TCGAbiolinks vignettes<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
 <p>Load packages:</p>
 <p>Search for matching data:</p>
-<div class="sourceCode" id="cb70"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">TCGAbiolinks</span>)
+<div class="sourceCode" id="cb67"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">TCGAbiolinks</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">SummarizedExperiment</span>)
-<span class="no">query</span> <span class="kw">&lt;-</span> <span class="fu">GDCquery</span>(<span class="kw">project</span> <span class="kw">=</span> <span class="st">"TCGA-ACC"</span>,
+<span class="no">query</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TCGAbiolinks/man/GDCquery.html">GDCquery</a></span>(<span class="kw">project</span> <span class="kw">=</span> <span class="st">"TCGA-ACC"</span>,
                            <span class="kw">data.category</span> <span class="kw">=</span> <span class="st">"Gene expression"</span>,
                            <span class="kw">data.type</span> <span class="kw">=</span> <span class="st">"Gene expression quantification"</span>,
                            <span class="kw">platform</span> <span class="kw">=</span> <span class="st">"Illumina HiSeq"</span>,
@@ -854,20 +860,20 @@
                            <span class="kw">experimental.strategy</span> <span class="kw">=</span> <span class="st">"RNA-Seq"</span>,
                            <span class="kw">legacy</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p>Download data and convert it to <code>RangedSummarizedExperiment</code>:</p>
-<div class="sourceCode" id="cb71"><html><body><pre class="r"><span class="no">gdcdir</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"Waldron_PublicData"</span>, <span class="st">"GDCdata"</span>)
-<span class="fu">GDCdownload</span>(<span class="no">query</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"api"</span>, <span class="kw">files.per.chunk</span> <span class="kw">=</span> <span class="fl">10</span>,
-            <span class="kw">directory</span> <span class="kw">=</span> <span class="no">gdcdir</span>)
-<span class="no">ACCse</span> <span class="kw">&lt;-</span> <span class="fu">GDCprepare</span>(<span class="no">query</span>, <span class="kw">directory</span> <span class="kw">=</span> <span class="no">gdcdir</span>)
-<span class="no">ACCse</span></pre></body></html></div>
+<div class="sourceCode" id="cb68"><html><body><pre class="r">#gdcdir &lt;- file.path("Waldron_PublicData", "GDCdata")
+#GDCdownload(query, method = "api", files.per.chunk = 10,
+#            directory = gdcdir)
+#ACCse &lt;- GDCprepare(query, directory = gdcdir)
+#ACCse</pre></body></html></div>
 </div>
 <div id="curatedtcgadata-curated-data-from-the-cancer-genome-atlas-as-multiassayexperiment-objects" class="section level3">
 <h3 class="hasAnchor">
 <a href="#curatedtcgadata-curated-data-from-the-cancer-genome-atlas-as-multiassayexperiment-objects" class="anchor"></a>curatedTCGAData: Curated Data From The Cancer Genome Atlas as MultiAssayExperiment Objects</h3>
 <p><em><a href="https://bioconductor.org/packages/3.12/curatedTCGAData">curatedTCGAData</a></em> does not interface with the Genomic Data Commons, but downloads data from Bioconductor’s <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em>.</p>
-<div class="sourceCode" id="cb72"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">curatedTCGAData</span>)
+<div class="sourceCode" id="cb69"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">curatedTCGAData</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">MultiAssayExperiment</span>)</pre></body></html></div>
 <p>By default, the <code><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData()</a></code> function will only show available datasets, and not download anything. The arguments are shown here only for demonstration, the same result is obtained with no arguments:</p>
-<div class="sourceCode" id="cb73"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData</a></span>(<span class="kw">diseaseCode</span> <span class="kw">=</span> <span class="st">"*"</span>, <span class="kw">assays</span> <span class="kw">=</span> <span class="st">"*"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb70"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData</a></span>(<span class="kw">diseaseCode</span> <span class="kw">=</span> <span class="st">"*"</span>, <span class="kw">assays</span> <span class="kw">=</span> <span class="st">"*"</span>)</pre></body></html></div>
 <pre><code>## Please see the list below for available cohorts and assays</code></pre>
 <pre><code>## Available Cancer codes:
 ##  ACC BLCA BRCA CESC CHOL COAD DLBC ESCA GBM HNSC KICH
@@ -885,7 +891,7 @@
 ##  mRNAArray_TX_ht_hg_u133a Mutation
 ##  RNASeq2GeneNorm RNASeqGene RPPAArray</code></pre>
 <p>Check potential files to be downloaded for adrenocortical carcinoma (ACC):</p>
-<div class="sourceCode" id="cb76"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData</a></span>(<span class="kw">diseaseCode</span> <span class="kw">=</span> <span class="st">"ACC"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb73"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData</a></span>(<span class="kw">diseaseCode</span> <span class="kw">=</span> <span class="st">"ACC"</span>)</pre></body></html></div>
 <pre><code>##                                    Title DispatchClass
 ## 1                    ACC_CNASNP-20160128           Rda
 ## 2                    ACC_CNVSNP-20160128           Rda
@@ -899,7 +905,7 @@
 ## 12          ACC_RNASeq2GeneNorm-20160128           Rda
 ## 13                ACC_RPPAArray-20160128           Rda</code></pre>
 <p>Actually download the reverse phase protein array (RPPA) and RNA-seq data for ACC</p>
-<div class="sourceCode" id="cb78"><html><body><pre class="r"><span class="no">ACCmae</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData</a></span>(<span class="st">"ACC"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"RPPAArray"</span>, <span class="st">"RNASeq2GeneNorm"</span>),
+<div class="sourceCode" id="cb75"><html><body><pre class="r"><span class="no">ACCmae</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData</a></span>(<span class="st">"ACC"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"RPPAArray"</span>, <span class="st">"RNASeq2GeneNorm"</span>),
                           <span class="kw">dry.run</span><span class="kw">=</span><span class="fl">FALSE</span>)
 <span class="no">ACCmae</span></pre></body></html></div>
 <pre><code>## A MultiAssayExperiment object of 2 listed
@@ -917,9 +923,9 @@
 ##  exportClass() - save all data to files</code></pre>
 <p><strong>Note</strong>. Data will be downloaded the first time the above command is run; subsequent times it will be loaded from local cache.</p>
 <p>This object contains 822 columns of clinical, pathological, specimen, and subtypes data in its <code>colData</code>, merged from all available data levels (1-4) of the Firehose pipeline:</p>
-<div class="sourceCode" id="cb80"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span>(<span class="no">ACCmae</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb77"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span>(<span class="no">ACCmae</span>))</pre></body></html></div>
 <pre><code>## [1]  79 822</code></pre>
-<div class="sourceCode" id="cb82"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span>(<span class="no">ACCmae</span>)))</pre></body></html></div>
+<div class="sourceCode" id="cb79"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span>(<span class="no">ACCmae</span>)))</pre></body></html></div>
 <pre><code>## [1] "patientID"             "years_to_birth"        "vital_status"         
 ## [4] "days_to_death"         "days_to_last_followup" "tumor_tissue_site"</code></pre>
 <p>See the <em><a href="https://bioconductor.org/packages/3.12/MultiAssayExperiment">MultiAssayExperiment</a></em> vignette <span class="citation">(Ramos et al. 2017)</span> and the <em>Workflow for Multi-omics Analysis with MultiAssayExperiment</em> workshop for details on using this object.</p>
@@ -927,7 +933,7 @@
 <h4 class="hasAnchor">
 <a href="#subtype-information" class="anchor"></a>Subtype information</h4>
 <p>Some cancer datasets contain associated subtype information within the clinical datasets provided. This subtype information is included in the metadata of <code>colData</code> of the <code>MultiAssayExperiment</code> object. To obtain these variable names, run the <code>metadata</code> function on the <code>colData</code> of the object such as:</p>
-<div class="sourceCode" id="cb84"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu">metadata</span>(<span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span>(<span class="no">ACCmae</span>))<span class="kw">[[</span><span class="st">"subtypes"</span>]])</pre></body></html></div>
+<div class="sourceCode" id="cb81"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu">metadata</span>(<span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span>(<span class="no">ACCmae</span>))<span class="kw">[[</span><span class="st">"subtypes"</span>]])</pre></body></html></div>
 <pre><code>##         ACC_annotations   ACC_subtype
 ## 1            Patient_ID        SAMPLE
 ## 2 histological_subtypes     Histology
@@ -945,13 +951,13 @@
 <pre><code>## No methods found in package 'IRanges' for request: 'values&lt;-' when loading 'derfinder'</code></pre>
 <pre><code>## No methods found in package 'IRanges' for request: 'values' when loading 'derfinder'</code></pre>
 <p><em><a href="https://bioconductor.org/packages/3.12/recount">recount</a></em> provides a search function:</p>
-<div class="sourceCode" id="cb88"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">recount</span>)
+<div class="sourceCode" id="cb85"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">recount</span>)
 <span class="no">project_info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recount/man/abstract_search.html">abstract_search</a></span>(<span class="st">'GSE32465'</span>)</pre></body></html></div>
 <p>It is not an ExperimentHub package, so downloading and serializing is slightly more involved in involves two steps: first, download the gene-level RangedSummarizedExperiment data:</p>
-<div class="sourceCode" id="cb89"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/recount/man/download_study.html">download_study</a></span>(<span class="no">project_info</span>$<span class="no">project</span>)</pre></body></html></div>
-<pre><code>## 2020-07-15 14:30:27 downloading file rse_gene.Rdata to SRP009615</code></pre>
+<div class="sourceCode" id="cb86"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/recount/man/download_study.html">download_study</a></span>(<span class="no">project_info</span>$<span class="no">project</span>)</pre></body></html></div>
+<pre><code>## 2020-07-20 13:53:13 downloading file rse_gene.Rdata to SRP009615</code></pre>
 <p>followed by loading the data</p>
-<div class="sourceCode" id="cb91"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">project_info</span>$<span class="no">project</span>, <span class="st">'rse_gene.Rdata'</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb88"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">project_info</span>$<span class="no">project</span>, <span class="st">'rse_gene.Rdata'</span>))</pre></body></html></div>
 </div>
 <div id="curateddata-packages-for-standardized-cancer-transcriptomes" class="section level2">
 <h2 class="hasAnchor">
@@ -1002,30 +1008,18 @@
 <p>These datasets are documented in the <a href="https://bioconductor.org/packages/devel/data/experiment/manuals/curatedMetagenomicData/man/curatedMetagenomicData.pdf">reference manual</a>.</p>
 <p>This is an <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em> package, and its main workhorse function is <code><a href="https://rdrr.io/pkg/curatedMetagenomicData/man/curatedMetagenomicData.html">curatedMetagenomicData()</a></code>:</p>
 <p>The manually curated metadata for all available samples are provided in a single table <code>combined_metadata</code>:</p>
-<div class="sourceCode" id="cb92"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">curatedMetagenomicData</span>)
+<div class="sourceCode" id="cb89"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">curatedMetagenomicData</span>)
 ?<span class="no">combined_metadata</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">combined_metadata</span>))</pre></body></html></div>
 <p>The main function provides a <code>list</code> of <code>ExpressionSet</code> objects:</p>
-<div class="sourceCode" id="cb93"><html><body><pre class="r"><span class="no">oral</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"BritoIL_2016.metaphlan_bugs_list.oralcavity"</span>,
+<div class="sourceCode" id="cb90"><html><body><pre class="r"><span class="no">oral</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"BritoIL_2016.metaphlan_bugs_list.oralcavity"</span>,
           <span class="st">"Castro-NallarE_2015.metaphlan_bugs_list.oralcavity"</span>)
 <span class="no">esl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/curatedMetagenomicData/man/curatedMetagenomicData.html">curatedMetagenomicData</a></span>(<span class="no">oral</span>, <span class="kw">dryrun</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
-<pre><code>## Working on BritoIL_2016.metaphlan_bugs_list.oralcavity</code></pre>
-<pre><code>## snapshotDate(): 2020-07-10</code></pre>
-<pre><code>## see ?curatedMetagenomicData and browseVignettes('curatedMetagenomicData') for documentation</code></pre>
-<pre><code>## downloading 1 resources</code></pre>
-<pre><code>## retrieving 1 resource</code></pre>
-<pre><code>## loading from cache</code></pre>
-<pre><code>## Working on Castro-NallarE_2015.metaphlan_bugs_list.oralcavity</code></pre>
-<pre><code>## snapshotDate(): 2020-07-10</code></pre>
-<pre><code>## see ?curatedMetagenomicData and browseVignettes('curatedMetagenomicData') for documentation</code></pre>
-<pre><code>## downloading 1 resources</code></pre>
-<pre><code>## retrieving 1 resource</code></pre>
-<pre><code>## loading from cache</code></pre>
-<div class="sourceCode" id="cb106"><html><body><pre class="r"><span class="no">esl</span></pre></body></html></div>
+<div class="sourceCode" id="cb91"><html><body><pre class="r"><span class="no">esl</span></pre></body></html></div>
 <pre><code>## List of length 2
 ## names(2): BritoIL_2016.metaphlan_bugs_list.oralcavity ...</code></pre>
 <p>These <code>ExpressionSet</code> objects can also be converted to <em><a href="https://bioconductor.org/packages/3.12/phyloseq">phyloseq</a></em> object for ecological analysis and differential abundance analysis using the <em><a href="https://bioconductor.org/packages/3.12/DESeq2">DESeq2</a></em> package, using the <code><a href="https://rdrr.io/pkg/curatedMetagenomicData/man/ExpressionSet2phyloseq.html">ExpressionSet2phyloseq()</a></code> function:</p>
-<div class="sourceCode" id="cb108"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/curatedMetagenomicData/man/ExpressionSet2phyloseq.html">ExpressionSet2phyloseq</a></span>( <span class="no">esl</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">phylogenetictree</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb93"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/curatedMetagenomicData/man/ExpressionSet2phyloseq.html">ExpressionSet2phyloseq</a></span>( <span class="no">esl</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">phylogenetictree</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <pre><code>## Loading required namespace: phyloseq</code></pre>
 <pre><code>## Warning: `data_frame()` is deprecated as of tibble 1.1.0.
 ## Please use `tibble()` instead.
@@ -1041,15 +1035,10 @@
 <div id="hmp16sdata-16s-rrna-sequencing-data-from-the-human-microbiome-project" class="section level3">
 <h3 class="hasAnchor">
 <a href="#hmp16sdata-16s-rrna-sequencing-data-from-the-human-microbiome-project" class="anchor"></a>HMP16SData: 16S rRNA Sequencing Data from the Human Microbiome Project</h3>
-<div class="sourceCode" id="cb112"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">HMP16SData</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb97"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">HMP16SData</span>))</pre></body></html></div>
 <pre><code>## snapshotDate(): 2020-07-10</code></pre>
 <p><em><a href="https://bioconductor.org/packages/3.12/HMP16SData">HMP16SData</a></em><span class="citation">(Schiffer et al. 2018)</span> is a Bioconductor ExperimentData package of the Human Microbiome Project (HMP) 16S rRNA sequencing data. Taxonomic count data files are provided as downloaded from the HMP Data Analysis and Coordination Center from its QIIME pipeline. Processed data is provided as <code>SummarizedExperiment</code> class objects via <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em>. Like other ExperimentHub-based packages, a convenience function does downloading, automatic local caching, and serializing of a Bioconductor data class. This returns taxonomic counts from the V1-3 variable region of the 16S rRNA gene, along with the unrestricted participant data and phylogenetic tree.</p>
-<div class="sourceCode" id="cb114"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/HMP16SData/man/V13.html">V13</a></span>()</pre></body></html></div>
-<pre><code>## snapshotDate(): 2020-07-10</code></pre>
-<pre><code>## see ?HMP16SData and browseVignettes('HMP16SData') for documentation</code></pre>
-<pre><code>## downloading 1 resources</code></pre>
-<pre><code>## retrieving 1 resource</code></pre>
-<pre><code>## loading from cache</code></pre>
+<div class="sourceCode" id="cb99"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/HMP16SData/man/V13.html">V13</a></span>()</pre></body></html></div>
 <pre><code>## class: SummarizedExperiment 
 ## dim: 43140 2898 
 ## metadata(2): experimentData phylogeneticTree
@@ -1079,7 +1068,8 @@
 <h3 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h3>
 <p>Let us first load the <code>PharmacoGx</code> library.</p>
-<div class="sourceCode" id="cb121"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">PharmacoGx</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb101"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">PharmacoGx</span>)</pre></body></html></div>
+<pre><code>## Warning: no DISPLAY variable so Tk is not available</code></pre>
 <p>We can now access large-scale preclinical pharmacogenomic datasets that have been fully curated for ease of use.</p>
 </div>
 <div id="overview-of-pharmacogx-datasets-pharmacosets" class="section level3">
@@ -1087,24 +1077,87 @@
 <a href="#overview-of-pharmacogx-datasets-pharmacosets" class="anchor"></a>Overview of PharmacoGx datasets (PharmacoSets)</h3>
 <p>To efficiently store and analyze large pharmacogenomic datasets, we developed the <code>PharmacoSet</code> class (also referred to as <code>PSet</code>), which acts as a data container storing pharmacological and molecular data along with experimental metadata (detailed structure provided in Supplementary materials). This class enables efficient implementation of curated annotations for cell lines, drug compounds and molecular features, which facilitates comparisons between different datasets stored as <code>PharmacoSet</code> objects.</p>
 <p>We have made the PharmacoSet objects of the curated datasets available for download using functions provided in the package. A table of available PharmacoSet objects can be obtained by using the <em>availablePSets</em> function. Any of the PharmacoSets in the table can then be downloaded by calling <em>downloadPSet</em>, which saves the datasets into a directory of the users choice, and returns the data into the R session.</p>
-<p><a href="/tmp/RtmpeseFbl/temp_libpath3f279986ca3/PublicDataResources/vignettes/PharmacoSet_structure.png">Structure of the PharmacoSet class</a></p>
+<p><a href="/tmp/RtmpeCQQmr/temp_libpath62b41aadde7/PublicDataResources/vignettes/PharmacoSet_structure.png">Structure of the PharmacoSet class</a></p>
 <p>To get a list of all the available <code>PharmacoSets</code> in PharmacoGx, we can use the availablePSets` function, which returns a table providing key information for each dataset.</p>
-<div class="sourceCode" id="cb122"><html><body><pre class="r">(<span class="no">psets</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/PharmacoGx/man/availablePSets.html">availablePSets</a></span>())</pre></body></html></div>
-<p>There are currently 11 datasets available in PharmacoGx, including 8 sensitivity datasets and 3 perturbation datasets (see below).</p>
+<div class="sourceCode" id="cb103"><html><body><pre class="r">(<span class="no">psets</span> <span class="kw">&lt;-</span> <span class="kw pkg">PharmacoGx</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/PharmacoGx/man/availablePSets.html">availablePSets</a></span>())</pre></body></html></div>
+<pre><code>##    Dataset Name             Date Created         PSet Name      version
+## 1          GDSC 2020-06-24T14:39:26.588Z GDSC_2019(v2-8.0) 2019(v2-8.0)
+## 2          FIMM 2020-06-24T14:39:26.588Z         FIMM_2016         2016
+## 3        CTRPv2 2020-06-24T14:39:26.588Z       CTRPv2_2015         2015
+## 4          CCLE 2020-06-24T14:39:26.588Z         CCLE_2015         2015
+## 5          GDSC 2020-06-24T14:39:26.588Z GDSC_2019(v1-8.0) 2019(v1-8.0)
+## 6          gCSI 2020-06-24T14:39:26.588Z         gCSI_2017         2017
+## 7          GRAY 2020-06-24T14:39:26.587Z         GRAY_2013         2013
+## 8     UHNBreast 2020-06-24T14:39:26.588Z    UHNBreast_2019         2019
+## 9          GDSC 2020-06-24T14:39:26.588Z GDSC_2020(v2-8.2) 2020(v2-8.2)
+## 10         GRAY 2020-06-24T14:39:26.588Z         GRAY_2017         2017
+## 11         GDSC 2020-06-24T14:39:26.588Z GDSC_2020(v1-8.2) 2020(v1-8.2)
+## 12         CMAP 2020-07-15T16:33:03.834Z         CMAP_2016         2016
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         publication
+## 1                  Yang, Wanjuan et al. “Genomics of Drug Sensitivity in Cancer (GDSC): a resource for therapeutic biomarker discovery in cancer cells.” Nucleic acids research vol. 41,Database issue (2013): D955-61. doi:10.1093/nar/gks1111, Iorio F, Knijnenburg TA, Vis DJ, et al. A Landscape of Pharmacogenomic Interactions in Cancer. Cell. 2016;166(3):740‐754. doi:10.1016/j.cell.2016.06.017, Garnett MJ, Edelman EJ, Heidorn SJ, et al. Systematic identification of genomic markers of drug sensitivity in cancer cells. Nature. 2012;483(7391):570‐575. Published 2012 Mar 28. doi:10.1038/nature11005, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3531057/, https://pubmed.ncbi.nlm.nih.gov/27397505/, https://pubmed.ncbi.nlm.nih.gov/22460902/
+## 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Mpindi, J., Yadav, B., Östling, P. et al. Consistency in drug response profiling. Nature 540, E5–E6 (2016) doi:10.1038/nature20171, https://www.nature.com/articles/nature20171
+## 3  Rees, Matthew G et al. “Correlating chemical sensitivity and basal gene expression reveals mechanism of action.” Nature chemical biology vol. 12,2 (2016): 109-16. doi:10.1038/nchembio.1986, Seashore-Ludlow, Brinton et al. “Harnessing Connectivity in a Large-Scale Small-Molecule Sensitivity Dataset.” Cancer discovery vol. 5,11 (2015): 1210-23. doi:10.1158/2159-8290.CD-15-0235, Basu, Amrita et al. “An interactive resource to identify cancer genetic and lineage dependencies targeted by small molecules.” Cell vol. 154,5 (2013): 1151-1161. doi:10.1016/j.cell.2013.08.003, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4718762/, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4631646/, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3954635/
+## 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 Barretina, Jordi et al. “The Cancer Cell Line Encyclopedia enables predictive modelling of anticancer drug sensitivity.” Nature vol. 483,7391 603-7. 28 Mar. 2012, doi:10.1038/nature11003, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3320027/
+## 5                  Yang, Wanjuan et al. “Genomics of Drug Sensitivity in Cancer (GDSC): a resource for therapeutic biomarker discovery in cancer cells.” Nucleic acids research vol. 41,Database issue (2013): D955-61. doi:10.1093/nar/gks1111, Iorio F, Knijnenburg TA, Vis DJ, et al. A Landscape of Pharmacogenomic Interactions in Cancer. Cell. 2016;166(3):740‐754. doi:10.1016/j.cell.2016.06.017, Garnett MJ, Edelman EJ, Heidorn SJ, et al. Systematic identification of genomic markers of drug sensitivity in cancer cells. Nature. 2012;483(7391):570‐575. Published 2012 Mar 28. doi:10.1038/nature11005, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3531057/, https://pubmed.ncbi.nlm.nih.gov/27397505/, https://pubmed.ncbi.nlm.nih.gov/22460902/
+## 6                                                                                                                                                                                                                                                                                                              Haverty, P., Lin, E., Tan, J. et al. Reproducible pharmacogenomic profiling of cancer cell line panels. Nature 533, 333–337 (2016). https://doi.org/10.1038/nature17987, Klijn, C., Durinck, S., Stawiski, E. et al. A comprehensive transcriptional portrait of human cancer cell lines. Nat Biotechnol 33, 306–312 (2015). https://doi.org/10.1038/nbt.3080, https://www.nature.com/articles/nature17987, https://www.nature.com/articles/nbt.3080
+## 7                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Daemen, Anneleen et al. “Modeling precision treatment of breast cancer.” Genome biology vol. 14,10 (2013): R110. doi:10.1186/gb-2013-14-10-r110, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3937590/
+## 8                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Mammoliti, Anthony et al. “Creating reproducible pharmacogenomic analysis pipelines.” Scientific data vol. 6,1 166. 3 Sep. 2019, doi:10.1038/s41597-019-0174-7, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6722117/
+## 9                  Yang, Wanjuan et al. “Genomics of Drug Sensitivity in Cancer (GDSC): a resource for therapeutic biomarker discovery in cancer cells.” Nucleic acids research vol. 41,Database issue (2013): D955-61. doi:10.1093/nar/gks1111, Iorio F, Knijnenburg TA, Vis DJ, et al. A Landscape of Pharmacogenomic Interactions in Cancer. Cell. 2016;166(3):740‐754. doi:10.1016/j.cell.2016.06.017, Garnett MJ, Edelman EJ, Heidorn SJ, et al. Systematic identification of genomic markers of drug sensitivity in cancer cells. Nature. 2012;483(7391):570‐575. Published 2012 Mar 28. doi:10.1038/nature11005, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3531057/, https://pubmed.ncbi.nlm.nih.gov/27397505/, https://pubmed.ncbi.nlm.nih.gov/22460902/
+## 10                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              Hafner, Marc et al. “Quantification of sensitivity and resistance of breast cancer cell lines to anti-cancer drugs using GR metrics.” Scientific data vol. 4 170166. 7 Nov. 2017, doi:10.1038/sdata.2017.166, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5674849/
+## 11                 Yang, Wanjuan et al. “Genomics of Drug Sensitivity in Cancer (GDSC): a resource for therapeutic biomarker discovery in cancer cells.” Nucleic acids research vol. 41,Database issue (2013): D955-61. doi:10.1093/nar/gks1111, Iorio F, Knijnenburg TA, Vis DJ, et al. A Landscape of Pharmacogenomic Interactions in Cancer. Cell. 2016;166(3):740‐754. doi:10.1016/j.cell.2016.06.017, Garnett MJ, Edelman EJ, Heidorn SJ, et al. Systematic identification of genomic markers of drug sensitivity in cancer cells. Nature. 2012;483(7391):570‐575. Published 2012 Mar 28. doi:10.1038/nature11005, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3531057/, https://pubmed.ncbi.nlm.nih.gov/27397505/, https://pubmed.ncbi.nlm.nih.gov/22460902/
+## 12                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Lamb J, Crawford ED, Peck D, et al. The Connectivity Map: using gene-expression signatures to connect small molecules, genes, and disease. Science. 2006;313(5795):1929-1935. doi:10.1126/science.1132939, https://pubmed.ncbi.nlm.nih.gov/17008526/
+##                                                  rawSeqDataRNA
+## 1  https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-3983/
+## 2        https://portal.gdc.cancer.gov/legacy-archive/search/f
+## 3                                                             
+## 4        https://portal.gdc.cancer.gov/legacy-archive/search/f
+## 5  https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-3983/
+## 6  https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-2706/
+## 7   http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE48213
+## 8  https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE73526
+## 9  https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-3983/
+## 10  http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE48213
+## 11 https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-3983/
+## 12                                                            
+##                       DOI
+## 1  10.5281/zenodo.3905496
+## 2  10.5281/zenodo.3905448
+## 3  10.5281/zenodo.3905470
+## 4  10.5281/zenodo.3905462
+## 5  10.5281/zenodo.3905505
+## 6  10.5281/zenodo.3905452
+## 7  10.5281/zenodo.3905454
+## 8  10.5281/zenodo.3905460
+## 9  10.5281/zenodo.3905481
+## 10 10.5281/zenodo.3905458
+## 11 10.5281/zenodo.3905485
+## 12 10.5281/zenodo.3946534
+##                                                            Download
+## 1      https://zenodo.org/record/3905496/files/GDSC2.rds?download=1
+## 2       https://zenodo.org/record/3905448/files/FIMM.rds?download=1
+## 3     https://zenodo.org/record/3905470/files/CTRPv2.rds?download=1
+## 4       https://zenodo.org/record/3905462/files/CCLE.rds?download=1
+## 5      https://zenodo.org/record/3905505/files/GDSC1.rds?download=1
+## 6       https://zenodo.org/record/3905452/files/gCSI.rds?download=1
+## 7       https://zenodo.org/record/3905454/files/GRAY.rds?download=1
+## 8  https://zenodo.org/record/3905460/files/UHNBreast.rds?download=1
+## 9      https://zenodo.org/record/3905481/files/GDSC2.rds?download=1
+## 10      https://zenodo.org/record/3905458/files/GRAY.rds?download=1
+## 11     https://zenodo.org/record/3905485/files/GDSC1.rds?download=1
+## 12      https://zenodo.org/record/3946534/files/CMAP.rds?download=1</code></pre>
+<p>There are currently 12 datasets available in PharmacoGx, including sensitivity datasets and perturbation datasets (see below).</p>
 <div id="drug-sensitivity-datasets" class="section level4">
 <h4 class="hasAnchor">
 <a href="#drug-sensitivity-datasets" class="anchor"></a>Drug Sensitivity Datasets</h4>
 <p>Drug sensitivity datasets refer to pharmacogenomic data where cancer cells are molecularly profiled at baseline (before drug treatment), and the effect of drug treatment on cell viability is measured using a pharmacological assay (e.g., Cell Titer-Glo). These datasets can be used for biomarker discovery by correlating the molecular features of cancer cells to their response to drugs of interest.</p>
-<p><a href="/tmp/RtmpeseFbl/temp_libpath3f279986ca3/PublicDataResources/vignettes/Drug_sensitivity.png">Schematic view of the drug sensitivity datasets.</a></p>
-<div class="sourceCode" id="cb123"><html><body><pre class="r"><span class="no">psets</span>[<span class="no">psets</span>[ , <span class="st">"Dataset.Type"</span>] <span class="kw">==</span> <span class="st">"sensitivity"</span>, ]</pre></body></html></div>
+<p><a href="/tmp/RtmpeCQQmr/temp_libpath62b41aadde7/PublicDataResources/vignettes/Drug_sensitivity.png">Schematic view of the drug sensitivity datasets.</a></p>
 <p>Notably, the Genomics of Drug Sensitivity in Cancer <a href="https://www.cancerrxgene.org/">GDSC</a> and the Cancer Cell Line Encyclopedia <a href="https://portals.broadinstitute.org/ccle">CCLE</a> are large drug sensitivity datasets published in seminal studies in Nature, <a href="https://www.nature.com/articles/nature11005">Garnett et al., https://www.nature.com/articles/nature11005, Nature (2012)</a> and <a href="https://www.nature.com/articles/nature11003">Barretina et al., The Cancer Cell Line Encyclopedia enables predictive modelling of anticancer drug sensitivity, Nature (2012)</a>, respectively.</p>
 </div>
 <div id="drug-perturbation-datasets" class="section level4">
 <h4 class="hasAnchor">
 <a href="#drug-perturbation-datasets" class="anchor"></a>Drug Perturbation Datasets</h4>
 <p>Drug perturbation datasets refer to pharmacogenomic data where gene expression profiles are measured before and after short-term (e.g., 6h) drug treatment to identify genes that are up- and down-regulated due to the drug treatment. These datasets can be to classify drug (drug taxonomy), infer their mechanism of action, or find drugs with similar effects (drug repurposing).</p>
-<p><a href="/tmp/RtmpeseFbl/temp_libpath3f279986ca3/PublicDataResources/vignettes/Drug_perturbation.png">Schematic view of drug perturbation datasets</a></p>
-<div class="sourceCode" id="cb124"><html><body><pre class="r"><span class="no">psets</span>[<span class="no">psets</span>[ , <span class="st">"Dataset.Type"</span>] <span class="kw">==</span> <span class="st">"perturbation"</span>, ]</pre></body></html></div>
+<p><a href="/tmp/RtmpeCQQmr/temp_libpath62b41aadde7/PublicDataResources/vignettes/Drug_perturbation.png">Schematic view of drug perturbation datasets</a></p>
 <p>Large drug perturbation data have been generated within the Connectivity Map Project <a href="https://clue.io/cmap">CAMP</a>, with CMAPv2 and CMAPv3 available from <code>PharmacoGx</code>, published in <a href="http://science.sciencemag.org/content/313/5795/1929">Lamb et al., The Connectivity Map: Using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease, Science (2006)</a> and <a href="https://www.cell.com/cell/abstract/S0092-8674(17)31309-0">Subramanian et al., A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles, Cell (2017)</a>, respectively.</p>
 </div>
 </div>
