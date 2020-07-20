@@ -16,7 +16,6 @@
 The goal of this workshop is to introduce Bioconductor packages for finding,
 accessing, and using large-scale public data resources including:
 * Gene Expression Omnibus [GEO](https://www.ncbi.nlm.nih.gov/geo),
-* Sequence Read Archive [SRA](https://www.ncbi.nlm.nih.gov/sra),
 * Genomic Data Commons [GDC](https://portal.gdc.cancer.gov/),
 * Bioconductor-hosted curated data resources for metagenomics, pharmacogenomics [PharmacoDB](http://pharmacodb.ca/), and The Cancer Genome Atlas.
 
