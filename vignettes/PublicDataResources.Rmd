@@ -925,7 +925,7 @@ Examples of `PharmacoGx` usage in biomedical research can be found in the follow
 
 Let us first load the `PharmacoGx` library.
 
-```{r loadLibrary10, message=FALSE, eval=FALSE}
+```{r loadLibrary10, message=FALSE, eval=TRUE}
 library(PharmacoGx)
 ```
 We can now access large-scale preclinical pharmacogenomic datasets that have been fully curated for ease of use.
@@ -941,7 +941,7 @@ We have made the PharmacoSet objects of the curated datasets available for downl
 To get a list of all the available `PharmacoSets` in PharmacoGx, we can use the availablePSets` function, which returns a table providing key information for each dataset.
 
 ```{r availablePSets, message=FALSE}
-(psets <- availablePSets())
+(psets <- PharmacoGx::availablePSets())
 ```
 
 There are currently `r nrow(psets)` datasets available in PharmacoGx, including sensitivity datasets and perturbation datasets (see below).
