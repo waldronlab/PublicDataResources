@@ -26,6 +26,7 @@ Suggests:
     rmarkdown
 Imports:
     BiocStyle,
+    igraph,
     ggplot2,
     MultiAssayExperiment,
     GEOquery, 
