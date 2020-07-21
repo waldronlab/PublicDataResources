@@ -300,18 +300,24 @@
     <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results</a></span>(<span class="kw">size</span><span class="kw">=</span><span class="fl">10</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">projResults</span>,<span class="kw">list.len</span><span class="kw">=</span><span class="fl">5</span>)</pre></body></html></div>
 <pre><code>## List of 9
-##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
+##  $ disease_type          :List of 10
+##   ..$ GENIE-MSK : chr [1:49] "Germ Cell Neoplasms" "Granular Cell Tumors and Alveolar Soft Part Sarcomas" "Immunoproliferative Diseases" "Plasma Cell Tumors" ...
+##   ..$ TCGA-UCEC : chr [1:4] "Epithelial Neoplasms, NOS" "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas" "Not Reported"
+##   ..$ TCGA-ACC  : chr "Adenomas and Adenocarcinomas"
+##   ..$ TCGA-LGG  : chr "Gliomas"
+##   ..$ TCGA-SARC : chr [1:6] "Nerve Sheath Tumors" "Myomatous Neoplasms" "Fibromatous Neoplasms" "Lipomatous Neoplasms" ...
+##   .. [list output truncated]
 ##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
 ##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
-##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
+##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
 ##  $ project_id            : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
 ##   [list output truncated]
 ##  - attr(*, "row.names")= int [1:10] 1 2 3 4 5 6 7 8 9 10
 ##  - attr(*, "class")= chr [1:3] "GDCprojectsResults" "GDCResults" "list"</code></pre>
 <div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">projResults</span>)</pre></body></html></div>
-<pre><code>## [1] "released"               "name"                   "releasable"            
-## [4] "state"                  "project_id"             "dbgap_accession_number"
-## [7] "primary_site"           "disease_type"           "id"</code></pre>
+<pre><code>## [1] "disease_type"           "name"                   "releasable"            
+## [4] "dbgap_accession_number" "project_id"             "state"                 
+## [7] "released"               "primary_site"           "id"</code></pre>
 <div class="sourceCode" id="cb21"><html><body><pre class="r"># or listviewer::jsonedit(clinResults)</pre></body></html></div>
 </div>
 </div>
@@ -451,12 +457,7 @@
 <p>These results are returned from the GDC in <a href="http://www.json.org/">JSON</a> format and converted into a (potentially nested) list in R. The <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> method is useful for taking a quick glimpse of the data.</p>
 <div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">presults</span>)</pre></body></html></div>
 <pre><code>## List of 9
-##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
-##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
-##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
-##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
 ##  $ project_id            : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
-##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
 ##  $ primary_site          :List of 10
 ##   ..$ GENIE-MSK : chr [1:49] "Testis" "Gallbladder" "Unknown" "Other and unspecified parts of biliary tract" ...
 ##   ..$ TCGA-UCEC : chr [1:2] "Corpus uteri" "Uterus, NOS"
@@ -468,6 +469,8 @@
 ##   ..$ TCGA-LUAD : chr "Bronchus and lung"
 ##   ..$ TCGA-PRAD : chr "Prostate gland"
 ##   ..$ GENIE-VICC: chr [1:46] "Testis" "Unknown" "Other and unspecified parts of biliary tract" "Adrenal gland" ...
+##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
+##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
 ##  $ disease_type          :List of 10
 ##   ..$ GENIE-MSK : chr [1:49] "Germ Cell Neoplasms" "Granular Cell Tumors and Alveolar Soft Part Sarcomas" "Immunoproliferative Diseases" "Plasma Cell Tumors" ...
 ##   ..$ TCGA-UCEC : chr [1:4] "Epithelial Neoplasms, NOS" "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas" "Not Reported"
@@ -479,6 +482,9 @@
 ##   ..$ TCGA-LUAD : chr [1:3] "Cystic, Mucinous and Serous Neoplasms" "Acinar Cell Neoplasms" "Adenomas and Adenocarcinomas"
 ##   ..$ TCGA-PRAD : chr [1:3] "Cystic, Mucinous and Serous Neoplasms" "Ductal and Lobular Neoplasms" "Adenomas and Adenocarcinomas"
 ##   ..$ GENIE-VICC: chr [1:41] "Germ Cell Neoplasms" "Acinar Cell Neoplasms" "Synovial-like Neoplasms" "Plasma Cell Tumors" ...
+##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
+##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
+##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
 ##  $ id                    : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
 ##  - attr(*, "row.names")= int [1:10] 1 2 3 4 5 6 7 8 9 10
 ##  - attr(*, "class")= chr [1:3] "GDCprojectsResults" "GDCResults" "list"</code></pre>
@@ -669,72 +675,72 @@
 <p>Interestingly, the project information is “nested” inside the case. We don’t need to know that detail other than to know that we now have a few potential guesses for where our information might be in the files records. We need to know where because we need to construct the appropriate filter.</p>
 <div class="sourceCode" id="cb54"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/faceting.html">facet</a></span>(<span class="st">'cases.project.project_id'</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/aggregations.html">aggregations</a></span>()</pre></body></html></div>
 <pre><code>## $cases.project.project_id
-##    doc_count                   key
-## 1      36134                 FM-AD
-## 2      33766             TCGA-BRCA
-## 3      36470             GENIE-MSK
-## 4      18162             TCGA-LUAD
-## 5      17277             TCGA-UCEC
-## 6      16340             TCGA-HNSC
-## 7      16344               TCGA-OV
-## 8      15445             TCGA-THCA
-## 9      16368             TCGA-LUSC
-## 10     15795              TCGA-LGG
-## 11     28464            GENIE-DFCI
-## 12     16255             TCGA-KIRC
-## 13     15296             TCGA-PRAD
-## 14     15338             TCGA-COAD
-## 15     13089              TCGA-GBM
-## 16     19708         TARGET-ALL-P2
-## 17     13674             TCGA-SKCM
-## 18     13739             TCGA-STAD
-## 19     12513             TCGA-BLCA
-## 20     21790         MMRF-COMMPASS
-## 21     11578             TCGA-LIHC
-## 22     20334               CPTAC-3
-## 23      9201             TCGA-CESC
-## 24      9137             TCGA-KIRP
-## 25      8002             TCGA-SARC
-## 26      7772            TARGET-AML
-## 27      5671             TCGA-PAAD
-## 28      5657             TCGA-ESCA
-## 29      5378             TCGA-PCPG
-## 30      9978               CPTAC-2
-## 31      5269             TCGA-READ
-## 32      5474            TARGET-NBL
-## 33      8981     BEATAML1.0-COHORT
-## 34      4605             TCGA-TGCT
-## 35      4814             TCGA-LAML
-## 36      3691             TCGA-THYM
-## 37      2736              TCGA-ACC
-## 38      2457             TCGA-KICH
-## 39      4805          NCICCR-DLBCL
-## 40      2518             TCGA-MESO
-## 41      2405             TARGET-WT
-## 42      2340              TCGA-UVM
-## 43      2937             TARGET-OS
-## 44      3712         TARGET-ALL-P3
-## 45      3857             GENIE-MDA
-## 46      3833            GENIE-VICC
-## 47      3320             GENIE-JHU
-## 48      1765              TCGA-UCS
-## 49      1426             TCGA-CHOL
-## 50      2632             GENIE-UHN
-## 51      1325             TCGA-DLBC
-## 52      1968         CGCI-HTMCP-CC
-## 53      1782            CGCI-BLGSP
-## 54      1361             HCMI-CMDC
-## 55       909             TARGET-RT
-## 56      1038            GENIE-GRCC
-## 57       994            WCDT-MCRPC
-## 58       801             GENIE-NKI
-## 59       798              OHSU-CNL
-## 60       703   ORGANOID-PANCREATIC
-## 61       417           CTSP-DLBCL1
-## 62       223 BEATAML1.0-CRENOLANIB
-## 63       143           TARGET-CCSK
-## 64       109         TARGET-ALL-P1
-## 65        21        VAREPOP-APOLLO</code></pre>
+##                      key doc_count
+## 1                  FM-AD     36134
+## 2              TCGA-BRCA     33766
+## 3              GENIE-MSK     36470
+## 4              TCGA-LUAD     18162
+## 5              TCGA-UCEC     17277
+## 6              TCGA-HNSC     16340
+## 7                TCGA-OV     16344
+## 8              TCGA-THCA     15445
+## 9              TCGA-LUSC     16368
+## 10              TCGA-LGG     15795
+## 11            GENIE-DFCI     28464
+## 12             TCGA-KIRC     16255
+## 13             TCGA-PRAD     15296
+## 14             TCGA-COAD     15338
+## 15              TCGA-GBM     13089
+## 16         TARGET-ALL-P2     19708
+## 17             TCGA-SKCM     13674
+## 18             TCGA-STAD     13739
+## 19             TCGA-BLCA     12513
+## 20         MMRF-COMMPASS     21790
+## 21             TCGA-LIHC     11578
+## 22               CPTAC-3     20334
+## 23             TCGA-CESC      9201
+## 24             TCGA-KIRP      9137
+## 25             TCGA-SARC      8002
+## 26            TARGET-AML      7772
+## 27             TCGA-PAAD      5671
+## 28             TCGA-ESCA      5657
+## 29             TCGA-PCPG      5378
+## 30               CPTAC-2      9978
+## 31             TCGA-READ      5269
+## 32            TARGET-NBL      5474
+## 33     BEATAML1.0-COHORT      8981
+## 34             TCGA-TGCT      4605
+## 35             TCGA-LAML      4814
+## 36             TCGA-THYM      3691
+## 37              TCGA-ACC      2736
+## 38             TCGA-KICH      2457
+## 39          NCICCR-DLBCL      4805
+## 40             TCGA-MESO      2518
+## 41             TARGET-WT      2405
+## 42              TCGA-UVM      2340
+## 43             TARGET-OS      2937
+## 44         TARGET-ALL-P3      3712
+## 45             GENIE-MDA      3857
+## 46            GENIE-VICC      3833
+## 47             GENIE-JHU      3320
+## 48              TCGA-UCS      1765
+## 49             TCGA-CHOL      1426
+## 50             GENIE-UHN      2632
+## 51             TCGA-DLBC      1325
+## 52         CGCI-HTMCP-CC      1968
+## 53            CGCI-BLGSP      1782
+## 54             HCMI-CMDC      1361
+## 55             TARGET-RT       909
+## 56            GENIE-GRCC      1038
+## 57            WCDT-MCRPC       994
+## 58             GENIE-NKI       801
+## 59              OHSU-CNL       798
+## 60   ORGANOID-PANCREATIC       703
+## 61           CTSP-DLBCL1       417
+## 62 BEATAML1.0-CRENOLANIB       223
+## 63           TARGET-CCSK       143
+## 64         TARGET-ALL-P1       109
+## 65        VAREPOP-APOLLO        21</code></pre>
 <p>We note that <code>cases.project.project_id</code> looks like it is a good fit. We also note that <code>TCGA-OV</code> is the correct project_id, not <code>TCGA-OVCA</code>. Note that <em>unlike with dplyr and friends, the <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">filter()</a></code> method here <strong>replaces</strong> the filter and does not build on any previous filters</em>.</p>
 <div class="sourceCode" id="cb56"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">filter</a></span>( ~ <span class="no">cases.project.project_id</span> <span class="kw">==</span> <span class="st">'TCGA-OV'</span> <span class="kw">&amp;</span> <span class="no">type</span> <span class="kw">==</span> <span class="st">'gene_expression'</span>)
@@ -943,7 +949,7 @@
 <span class="no">project_info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recount/man/abstract_search.html">abstract_search</a></span>(<span class="st">'GSE32465'</span>)</pre></body></html></div>
 <p>It is not an ExperimentHub package, so downloading and serializing is slightly more involved in involves two steps: first, download the gene-level RangedSummarizedExperiment data:</p>
 <div class="sourceCode" id="cb86"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/recount/man/download_study.html">download_study</a></span>(<span class="no">project_info</span>$<span class="no">project</span>)</pre></body></html></div>
-<pre><code>## 2020-07-21 02:59:43 downloading file rse_gene.Rdata to SRP009615</code></pre>
+<pre><code>## 2020-07-21 14:36:28 downloading file rse_gene.Rdata to SRP009615</code></pre>
 <p>followed by loading the data</p>
 <div class="sourceCode" id="cb88"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">project_info</span>$<span class="no">project</span>, <span class="st">'rse_gene.Rdata'</span>))</pre></body></html></div>
 </div>
@@ -1046,11 +1052,12 @@
 <ul>
 <li>
 <a href="https://academic.oup.com/bioinformatics/article/32/8/1244/1744214/PharmacoGx-an-R-package-for-analysis-of-large">Smirnov et al. PharmacoGx: an R package for analysis of large pharmacogenomic datasets." Bioinformatics (2015): 1244-1246</a>.</li>
-<li><a href="https://f1000research.com/articles/5-825/v1">Safikhani et al., Assessment of pharmacogenomic agreement, F1000 Research (2017)</a></li>
-<li><a href="https://f1000research.com/articles/5-2333/v3">Safikhani et al., Revisiting inconsistency in large pharmacogenomic studies, F1000 Research (2017)</a></li>
 <li><a href="https://doi.org/10.1093/jamia/ocx062">Yao et al., Tissue specificity of in vitro drug sensitivity, JAMIA (2017)</a></li>
 <li><a href="https://www.nature.com/articles/s41467-017-01153-8">Safikhani et al., Gene isoforms as expression-based biomarkers predictive of drug response in vitro, Nature Communications (2017)</a></li>
 <li><a href="http://cancerres.aacrjournals.org/content/77/11/3057.long">El-Hachem et al., Integrative Cancer Pharmacogenomics to Infer Large-Scale Drug Taxonomy, Cancer Research (2017)</a></li>
+<li><a href="https://cancerres.aacrjournals.org/content/78/17/5124">Singh, M. et al. Therapeutic Targeting of the Premetastatic Stage in Human Lung-to-Brain Metastasis. Cancer Research (2018).</a></li>
+<li><a href="https://doi.org/10.1371/journal.pcbi.1006743">Knowles, D. A., Bouchard, G. &amp; Plevritis, S. Sparse discriminative latent characteristics for predicting cancer drug sensitivity from genomic features. PLOS Computational Biology (2019)</a></li>
+<li><a href="doi:10.1038/s43018-019-0018-6">Corsello, S. M. et al. Discovering the anticancer potential of non-oncology drugs by systematic viability profiling, Nat Cancer (2020)</a></li>
 </ul>
 <div id="getting-started" class="section level3">
 <h3 class="hasAnchor">
@@ -1065,9 +1072,11 @@
 <a href="#overview-of-pharmacogx-datasets-pharmacosets" class="anchor"></a>Overview of PharmacoGx datasets (PharmacoSets)</h3>
 <p>To efficiently store and analyze large pharmacogenomic datasets, we developed the <code>PharmacoSet</code> class (also referred to as <code>PSet</code>), which acts as a data container storing pharmacological and molecular data along with experimental metadata (detailed structure provided in Supplementary materials). This class enables efficient implementation of curated annotations for cell lines, drug compounds and molecular features, which facilitates comparisons between different datasets stored as <code>PharmacoSet</code> objects.</p>
 <p>We have made the PharmacoSet objects of the curated datasets available for download using functions provided in the package. A table of available PharmacoSet objects can be obtained by using the <em>availablePSets</em> function. Any of the PharmacoSets in the table can then be downloaded by calling <em>downloadPSet</em>, which saves the datasets into a directory of the users choice, and returns the data into the R session.</p>
-<p><a href="figures/PharmacoSet_structure.png">Structure of the PharmacoSet class</a></p>
+<div class="figure">
+<img src="figures/PharmacoSet_structure.png" alt=""><p class="caption">Overview of PharmacoGx</p>
+</div>
 <p>To get a list of all the available <code>PharmacoSets</code> in PharmacoGx, we can use the availablePSets` function, which returns a table providing key information for each dataset.</p>
-<div class="sourceCode" id="cb103"><html><body><pre class="r">(<span class="no">psets</span> <span class="kw">&lt;-</span> <span class="kw pkg">PharmacoGx</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/PharmacoGx/man/availablePSets.html">availablePSets</a></span>())</pre></body></html></div>
+<div class="sourceCode" id="cb103"><html><body><pre class="r">(<span class="no">psets</span> <span class="kw">&lt;-</span> <span class="kw pkg">PharmacoGx</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/PharmacoGx/man/availablePSets.html">availablePSets</a></span>()[,-<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">6</span>,<span class="fl">7</span>)])</pre></body></html></div>
 <pre><code>##    Dataset Name             Date Created         PSet Name      version
 ## 1          GDSC 2020-06-24T14:39:26.588Z GDSC_2019(v2-8.0) 2019(v2-8.0)
 ## 2          FIMM 2020-06-24T14:39:26.588Z         FIMM_2016         2016
@@ -1081,58 +1090,19 @@
 ## 10         GRAY 2020-06-24T14:39:26.588Z         GRAY_2017         2017
 ## 11         GDSC 2020-06-24T14:39:26.588Z GDSC_2020(v1-8.2) 2020(v1-8.2)
 ## 12         CMAP 2020-07-15T16:33:03.834Z         CMAP_2016         2016
-##            type
-## 1   sensitivity
-## 2   sensitivity
-## 3   sensitivity
-## 4   sensitivity
-## 5   sensitivity
-## 6   sensitivity
-## 7   sensitivity
-## 8          both
-## 9   sensitivity
-## 10  sensitivity
-## 11  sensitivity
-## 12 perturbation
-##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         publication
-## 1                  Yang, Wanjuan et al. “Genomics of Drug Sensitivity in Cancer (GDSC): a resource for therapeutic biomarker discovery in cancer cells.” Nucleic acids research vol. 41,Database issue (2013): D955-61. doi:10.1093/nar/gks1111, Iorio F, Knijnenburg TA, Vis DJ, et al. A Landscape of Pharmacogenomic Interactions in Cancer. Cell. 2016;166(3):740‐754. doi:10.1016/j.cell.2016.06.017, Garnett MJ, Edelman EJ, Heidorn SJ, et al. Systematic identification of genomic markers of drug sensitivity in cancer cells. Nature. 2012;483(7391):570‐575. Published 2012 Mar 28. doi:10.1038/nature11005, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3531057/, https://pubmed.ncbi.nlm.nih.gov/27397505/, https://pubmed.ncbi.nlm.nih.gov/22460902/
-## 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Mpindi, J., Yadav, B., Östling, P. et al. Consistency in drug response profiling. Nature 540, E5–E6 (2016) doi:10.1038/nature20171, https://www.nature.com/articles/nature20171
-## 3  Rees, Matthew G et al. “Correlating chemical sensitivity and basal gene expression reveals mechanism of action.” Nature chemical biology vol. 12,2 (2016): 109-16. doi:10.1038/nchembio.1986, Seashore-Ludlow, Brinton et al. “Harnessing Connectivity in a Large-Scale Small-Molecule Sensitivity Dataset.” Cancer discovery vol. 5,11 (2015): 1210-23. doi:10.1158/2159-8290.CD-15-0235, Basu, Amrita et al. “An interactive resource to identify cancer genetic and lineage dependencies targeted by small molecules.” Cell vol. 154,5 (2013): 1151-1161. doi:10.1016/j.cell.2013.08.003, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4718762/, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4631646/, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3954635/
-## 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 Barretina, Jordi et al. “The Cancer Cell Line Encyclopedia enables predictive modelling of anticancer drug sensitivity.” Nature vol. 483,7391 603-7. 28 Mar. 2012, doi:10.1038/nature11003, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3320027/
-## 5                  Yang, Wanjuan et al. “Genomics of Drug Sensitivity in Cancer (GDSC): a resource for therapeutic biomarker discovery in cancer cells.” Nucleic acids research vol. 41,Database issue (2013): D955-61. doi:10.1093/nar/gks1111, Iorio F, Knijnenburg TA, Vis DJ, et al. A Landscape of Pharmacogenomic Interactions in Cancer. Cell. 2016;166(3):740‐754. doi:10.1016/j.cell.2016.06.017, Garnett MJ, Edelman EJ, Heidorn SJ, et al. Systematic identification of genomic markers of drug sensitivity in cancer cells. Nature. 2012;483(7391):570‐575. Published 2012 Mar 28. doi:10.1038/nature11005, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3531057/, https://pubmed.ncbi.nlm.nih.gov/27397505/, https://pubmed.ncbi.nlm.nih.gov/22460902/
-## 6                                                                                                                                                                                                                                                                                                              Haverty, P., Lin, E., Tan, J. et al. Reproducible pharmacogenomic profiling of cancer cell line panels. Nature 533, 333–337 (2016). https://doi.org/10.1038/nature17987, Klijn, C., Durinck, S., Stawiski, E. et al. A comprehensive transcriptional portrait of human cancer cell lines. Nat Biotechnol 33, 306–312 (2015). https://doi.org/10.1038/nbt.3080, https://www.nature.com/articles/nature17987, https://www.nature.com/articles/nbt.3080
-## 7                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Daemen, Anneleen et al. “Modeling precision treatment of breast cancer.” Genome biology vol. 14,10 (2013): R110. doi:10.1186/gb-2013-14-10-r110, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3937590/
-## 8                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Mammoliti, Anthony et al. “Creating reproducible pharmacogenomic analysis pipelines.” Scientific data vol. 6,1 166. 3 Sep. 2019, doi:10.1038/s41597-019-0174-7, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6722117/
-## 9                  Yang, Wanjuan et al. “Genomics of Drug Sensitivity in Cancer (GDSC): a resource for therapeutic biomarker discovery in cancer cells.” Nucleic acids research vol. 41,Database issue (2013): D955-61. doi:10.1093/nar/gks1111, Iorio F, Knijnenburg TA, Vis DJ, et al. A Landscape of Pharmacogenomic Interactions in Cancer. Cell. 2016;166(3):740‐754. doi:10.1016/j.cell.2016.06.017, Garnett MJ, Edelman EJ, Heidorn SJ, et al. Systematic identification of genomic markers of drug sensitivity in cancer cells. Nature. 2012;483(7391):570‐575. Published 2012 Mar 28. doi:10.1038/nature11005, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3531057/, https://pubmed.ncbi.nlm.nih.gov/27397505/, https://pubmed.ncbi.nlm.nih.gov/22460902/
-## 10                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              Hafner, Marc et al. “Quantification of sensitivity and resistance of breast cancer cell lines to anti-cancer drugs using GR metrics.” Scientific data vol. 4 170166. 7 Nov. 2017, doi:10.1038/sdata.2017.166, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5674849/
-## 11                 Yang, Wanjuan et al. “Genomics of Drug Sensitivity in Cancer (GDSC): a resource for therapeutic biomarker discovery in cancer cells.” Nucleic acids research vol. 41,Database issue (2013): D955-61. doi:10.1093/nar/gks1111, Iorio F, Knijnenburg TA, Vis DJ, et al. A Landscape of Pharmacogenomic Interactions in Cancer. Cell. 2016;166(3):740‐754. doi:10.1016/j.cell.2016.06.017, Garnett MJ, Edelman EJ, Heidorn SJ, et al. Systematic identification of genomic markers of drug sensitivity in cancer cells. Nature. 2012;483(7391):570‐575. Published 2012 Mar 28. doi:10.1038/nature11005, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3531057/, https://pubmed.ncbi.nlm.nih.gov/27397505/, https://pubmed.ncbi.nlm.nih.gov/22460902/
-## 12                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Lamb J, Crawford ED, Peck D, et al. The Connectivity Map: using gene-expression signatures to connect small molecules, genes, and disease. Science. 2006;313(5795):1929-1935. doi:10.1126/science.1132939, https://pubmed.ncbi.nlm.nih.gov/17008526/
-##                                                  rawSeqDataRNA
-## 1  https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-3983/
-## 2        https://portal.gdc.cancer.gov/legacy-archive/search/f
-## 3                                                             
-## 4        https://portal.gdc.cancer.gov/legacy-archive/search/f
-## 5  https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-3983/
-## 6  https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-2706/
-## 7   http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE48213
-## 8  https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE73526
-## 9  https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-3983/
-## 10  http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE48213
-## 11 https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-3983/
-## 12                                                            
-##                       DOI
-## 1  10.5281/zenodo.3905496
-## 2  10.5281/zenodo.3905448
-## 3  10.5281/zenodo.3905470
-## 4  10.5281/zenodo.3905462
-## 5  10.5281/zenodo.3905505
-## 6  10.5281/zenodo.3905452
-## 7  10.5281/zenodo.3905454
-## 8  10.5281/zenodo.3905460
-## 9  10.5281/zenodo.3905481
-## 10 10.5281/zenodo.3905458
-## 11 10.5281/zenodo.3905485
-## 12 10.5281/zenodo.3946534
+##            type                    DOI
+## 1   sensitivity 10.5281/zenodo.3905496
+## 2   sensitivity 10.5281/zenodo.3905448
+## 3   sensitivity 10.5281/zenodo.3905470
+## 4   sensitivity 10.5281/zenodo.3905462
+## 5   sensitivity 10.5281/zenodo.3905505
+## 6   sensitivity 10.5281/zenodo.3905452
+## 7   sensitivity 10.5281/zenodo.3905454
+## 8          both 10.5281/zenodo.3905460
+## 9   sensitivity 10.5281/zenodo.3905481
+## 10  sensitivity 10.5281/zenodo.3905458
+## 11  sensitivity 10.5281/zenodo.3905485
+## 12 perturbation 10.5281/zenodo.3946534
 ##                                                            Download
 ## 1      https://zenodo.org/record/3905496/files/GDSC2.rds?download=1
 ## 2       https://zenodo.org/record/3905448/files/FIMM.rds?download=1
@@ -1159,17 +1129,19 @@
 <div id="drug-perturbation-datasets" class="section level4">
 <h4 class="hasAnchor">
 <a href="#drug-perturbation-datasets" class="anchor"></a>Drug Perturbation Datasets</h4>
-<p>Drug perturbation datasets refer to pharmacogenomic data where gene expression profiles are measured before and after short-term (e.g., 6h) drug treatment to identify genes that are up- and down-regulated due to the drug treatment. These datasets can be to classify drug (drug taxonomy), infer their mechanism of action, or find drugs with similar effects (drug repurposing).</p>
+<p>Drug perturbation datasets refer to pharmacogenomic data where gene expression profiles are measured before and after short-term or medium term (e.g., 6h, 24h) drug treatment to identify genes that are up- and down-regulated due to the drug treatment. These datasets can be to classify drug (drug taxonomy), infer their mechanism of action, or find drugs with similar effects (drug repurposing).</p>
 <div class="figure">
 <img src="figures/Drug_perturbation.png" alt=""><p class="caption">Schematic view of drug perturbation datasets</p>
 </div>
 <p>Large drug perturbation data have been generated within the Connectivity Map Project <a href="https://clue.io/cmap">CAMP</a>, with CMAPv2 and CMAPv3 available from <code>PharmacoGx</code>, published in <a href="http://science.sciencemag.org/content/313/5795/1929">Lamb et al., The Connectivity Map: Using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease, Science (2006)</a> and <a href="https://www.cell.com/cell/abstract/S0092-8674(17)31309-0">Subramanian et al., A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles, Cell (2017)</a>, respectively.</p>
 </div>
 </div>
-<div id="exploring-drug-sensitivity-datasets" class="section level3">
+<div id="exploring-other-treatment-types" class="section level3">
 <h3 class="hasAnchor">
-<a href="#exploring-drug-sensitivity-datasets" class="anchor"></a>Exploring drug sensitivity datasets</h3>
-<p>The <a href="https://bioconductor.github.io/BiocWorkshops/biomarker-discovery-from-large-pharmacogenomics-datasets.html">Biomarker discovery from large pharmacogenomics datasets</a> workshop demonstrates analyses of <em><a href="https://bioconductor.org/packages/3.12/PharmacoGx">PharmacoGx</a></em> data.</p>
+<a href="#exploring-other-treatment-types" class="anchor"></a>Exploring Other Treatment Types</h3>
+<p>In addition to PharmacoGx, there is a suite of packages in Bioconductor for exploring public high throughput screening data. For Sensitivity datasets, <em><a href="https://bioconductor.org/packages/3.12/Xeva">Xeva</a></em> provides access to public drug screening datasets in Patient Derived Xenograft models, including providing access to the Novartis PDX Encyclopedia dataset, published in <a href="https://www.nature.com/articles/nm.3954">Gao, H. et al. High-throughput screening using patient-derived tumor xenografts to predict clinical trial drug response, Nature Medicine.</a>. Additionally, <em><a href="https://bioconductor.org/packages/3.12/RadioGx">RadioGx</a></em> is currently available in the development branch of Bioconductor, providing access to cell line screening data for response to radiation treatment, featuring data from <a href="https://www.nature.com/articles/ncomms11428">Yard, B. D. et al. A genetic basis for the variation in the vulnerability of cancer to DNA damage. Nature Communications 7, 11428 (2016).</a>.</p>
+<p>The <a href="http://bhklab.ca/bioc2020workshop/articles/GxWorkshop.html">Biomarker Discovery from High Throughput Screening Datasets</a> workshop at Bioc2020 goes into depth about using these packages for accessing and exploring public sensitivity datasets.</p>
+<p>In addition, Bioconductor also includes the <em><a href="https://bioconductor.org/packages/3.12/ToxicoGx">ToxicoGx</a></em> package, which provides access to Sensitivity and Perturbation datasets characterizing <em>in vitro</em> response of human tissue to toxicant exposure, currently providing access to data from the <a href="https://pubmed.ncbi.nlm.nih.gov/25313160/">TGGates</a> and <a href="https://ntp.niehs.nih.gov/data/drugmatrix/">DrugMatrix</a> datasets.</p>
 </div>
 </div>
 <div id="bibliography" class="section level2 unnumbered">
