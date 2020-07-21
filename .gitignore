@@ -28,6 +28,10 @@ vignettes/*.pdf
 /*_cache/
 /cache/
 
+# Above does not catch cache in vignette directory
+vignettes/*_cache
+vignettes/*_files
+
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md

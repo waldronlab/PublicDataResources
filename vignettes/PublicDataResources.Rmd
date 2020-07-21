@@ -174,8 +174,8 @@ but it worth a quick overview and a graphical representation is included here.
 ![The data model is encoded as a
 so-called property graph. Nodes represent entities such as Projects,
 Cases, Diagnoses, Files (various kinds), and Annotations. The
-relationships between these entities are maintained as edges.  Both
-nodes and edges may have Properties that supply instance details. ](`r system.file(package='PublicDataResources', 'vignettes', 'all_nodes_040318.png')`)
+relationships between these entities are maintained as edges. Both
+nodes and edges may have Properties that supply instance details. ](figures/all_nodes_040318.png)
 
  The
 GDC API exposes these nodes and edges in a somewhat simplified set
@@ -347,7 +347,7 @@ to find appropriate filtering criteria. From there, converting those checkboxes
 to a GenomicDataCommons `query()` is relatively straightforward. Note that only 
 a small subset of the `available_fields()` are available by default on the website.
 
-![A screenshot of an example query of the GDC repository portal.](`r system.file(package='PublicDataResources', 'vignettes', 'gdc_filtering.png')`)
+![A screenshot of an example query of the GDC repository portal.](figures/gdc_filtering.png)
 
 A query of the GDC starts its life in R. Queries follow the four metadata
 endpoints available at the GDC.  In particular, there are four convenience
@@ -936,7 +936,7 @@ To efficiently store and analyze large pharmacogenomic datasets, we developed th
 
 We have made the PharmacoSet objects of the curated datasets available for download using functions provided in the package. A table of available PharmacoSet objects can be obtained by using the *availablePSets* function. Any of the PharmacoSets in the table can then be downloaded by calling *downloadPSet*, which saves the datasets into a directory of the users choice, and returns the data into the R session. 
 
-[Structure of the PharmacoSet class](`r system.file(package='PublicDataResources', 'vignettes', 'PharmacoSet_structure.png')`)
+[Structure of the PharmacoSet class](figures/PharmacoSet_structure.png)
 
 To get a list of all the available `PharmacoSets` in PharmacoGx, we can use the availablePSets` function, which returns a table providing key information for each dataset.
 
@@ -951,16 +951,16 @@ There are currently `r nrow(psets)` datasets available in PharmacoGx, including 
 
 Drug sensitivity datasets refer to pharmacogenomic data where cancer cells are molecularly profiled at baseline (before drug treatment), and the effect of drug treatment on cell viability is measured using a pharmacological assay (e.g., Cell Titer-Glo). These datasets can be used for biomarker discovery by correlating the molecular features of cancer cells to their response to drugs of interest.
 
-[Schematic view of the drug sensitivity datasets.](`r system.file(package='PublicDataResources', 'vignettes', 'Drug_sensitivity.png')`)
+![Schematic view of the drug sensitivity datasets.](figures/Drug_sensitivity.png)
 
-Notably, the Genomics of Drug Sensitivity in Cancer [GDSC](https://www.cancerrxgene.org/) and the Cancer Cell Line Encyclopedia [CCLE](https://portals.broadinstitute.org/ccle) are large drug sensitivity datasets published in seminal studies in Nature, [Garnett et al., https://www.nature.com/articles/nature11005, Nature (2012)](https://www.nature.com/articles/nature11005) and [Barretina et al., The Cancer Cell Line Encyclopedia enables predictive modelling of anticancer drug sensitivity, Nature (2012)](https://www.nature.com/articles/nature11003), respectively.
+Notably, the Genomics of Drug Sensitivity in Cancer [GDSC](https://www.cancerrxgene.org/) and the Cancer Cell Line Encyclopedia [CCLE](https://portals.broadinstitute.org/ccle) are large drug sensitivity datasets published in seminal studies in Nature, [Garnett et al., https://www.nature.com/articles/nature11005, Nature (2012)](https://www.nature.com/articles/nature11005) and [Barretina et al., The Cancer Cell Line Encyclopedia enables predictive modelling of anticancer drug sensitivity, Nature (2012)](https://www.nature.com/articles/nature11003), respectively. 
 
 
 #### Drug Perturbation Datasets
 
 Drug perturbation datasets refer to pharmacogenomic data where gene expression profiles are measured before and after short-term (e.g., 6h) drug treatment to identify genes that are up- and down-regulated due to the drug treatment. These datasets can be to classify drug (drug taxonomy), infer their mechanism of action, or find drugs with similar effects (drug repurposing).
 
-[Schematic view of drug perturbation datasets](`r system.file(package='PublicDataResources', 'vignettes', 'Drug_perturbation.png')`)
+![Schematic view of drug perturbation datasets](figures/Drug_perturbation.png)
 
 Large drug perturbation data have been generated within the Connectivity Map Project [CAMP](https://clue.io/cmap), with CMAPv2 and CMAPv3 available from `PharmacoGx`, published in [Lamb et al., The Connectivity Map: Using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease, Science (2006)](http://science.sciencemag.org/content/313/5795/1929) and [Subramanian et al., A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles, Cell (2017)](https://www.cell.com/cell/abstract/S0092-8674(17)31309-0), respectively.
  
