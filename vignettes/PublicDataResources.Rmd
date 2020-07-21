@@ -915,11 +915,13 @@ Pharmacogenomics holds great promise for the development of biomarkers of drug r
 Examples of `PharmacoGx` usage in biomedical research can be found in the following publications:
 
 * [Smirnov et al. PharmacoGx: an R package for analysis of large pharmacogenomic datasets." Bioinformatics (2015): 1244-1246](https://academic.oup.com/bioinformatics/article/32/8/1244/1744214/PharmacoGx-an-R-package-for-analysis-of-large).
-* [Safikhani et al., Assessment of pharmacogenomic agreement, F1000 Research (2017)](https://f1000research.com/articles/5-825/v1)
-* [Safikhani et al., Revisiting inconsistency in large pharmacogenomic studies, F1000 Research (2017)](https://f1000research.com/articles/5-2333/v3)
 * [Yao et al., Tissue specificity of in vitro drug sensitivity, JAMIA (2017)](https://doi.org/10.1093/jamia/ocx062)
 * [Safikhani et al., Gene isoforms as expression-based biomarkers predictive of drug response in vitro, Nature Communications (2017)](https://www.nature.com/articles/s41467-017-01153-8)
 * [El-Hachem et al., Integrative Cancer Pharmacogenomics to Infer Large-Scale Drug Taxonomy, Cancer Research (2017)](http://cancerres.aacrjournals.org/content/77/11/3057.long)
+* [Singh, M. et al. Therapeutic Targeting of the Premetastatic Stage in Human Lung-to-Brain Metastasis. Cancer Research (2018).](https://cancerres.aacrjournals.org/content/78/17/5124)
+* [Knowles, D. A., Bouchard, G. & Plevritis, S. Sparse discriminative latent characteristics for predicting cancer drug sensitivity from genomic features. PLOS Computational Biology (2019)](https://doi.org/10.1371/journal.pcbi.1006743)
+* [Corsello, S. M. et al. Discovering the anticancer potential of non-oncology drugs by systematic viability profiling, Nat Cancer (2020)](doi:10.1038/s43018-019-0018-6)
+
 
 ### Getting started 
 
@@ -936,12 +938,12 @@ To efficiently store and analyze large pharmacogenomic datasets, we developed th
 
 We have made the PharmacoSet objects of the curated datasets available for download using functions provided in the package. A table of available PharmacoSet objects can be obtained by using the *availablePSets* function. Any of the PharmacoSets in the table can then be downloaded by calling *downloadPSet*, which saves the datasets into a directory of the users choice, and returns the data into the R session. 
 
-[Structure of the PharmacoSet class](figures/PharmacoSet_structure.png)
+![Overview of PharmacoGx](figures/PharmacoSet_structure.png)
 
 To get a list of all the available `PharmacoSets` in PharmacoGx, we can use the availablePSets` function, which returns a table providing key information for each dataset.
 
 ```{r availablePSets, message=FALSE}
-(psets <- PharmacoGx::availablePSets())
+(psets <- PharmacoGx::availablePSets()[,-c(6,7)])
 ```
 
 There are currently `r nrow(psets)` datasets available in PharmacoGx, including sensitivity datasets and perturbation datasets (see below).
@@ -958,15 +960,20 @@ Notably, the Genomics of Drug Sensitivity in Cancer [GDSC](https://www.cancerrxg
 
 #### Drug Perturbation Datasets
 
-Drug perturbation datasets refer to pharmacogenomic data where gene expression profiles are measured before and after short-term (e.g., 6h) drug treatment to identify genes that are up- and down-regulated due to the drug treatment. These datasets can be to classify drug (drug taxonomy), infer their mechanism of action, or find drugs with similar effects (drug repurposing).
+Drug perturbation datasets refer to pharmacogenomic data where gene expression profiles are measured before and after short-term or medium term (e.g., 6h, 24h) drug treatment to identify genes that are up- and down-regulated due to the drug treatment. These datasets can be to classify drug (drug taxonomy), infer their mechanism of action, or find drugs with similar effects (drug repurposing).
 
 ![Schematic view of drug perturbation datasets](figures/Drug_perturbation.png)
 
 Large drug perturbation data have been generated within the Connectivity Map Project [CAMP](https://clue.io/cmap), with CMAPv2 and CMAPv3 available from `PharmacoGx`, published in [Lamb et al., The Connectivity Map: Using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease, Science (2006)](http://science.sciencemag.org/content/313/5795/1929) and [Subramanian et al., A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles, Cell (2017)](https://www.cell.com/cell/abstract/S0092-8674(17)31309-0), respectively.
  
-### Exploring drug sensitivity datasets
 
-The [Biomarker discovery from large pharmacogenomics datasets](https://bioconductor.github.io/BiocWorkshops/biomarker-discovery-from-large-pharmacogenomics-datasets.html) workshop demonstrates analyses of `r BiocStyle::Biocpkg("PharmacoGx")` data.
+### Exploring Other Treatment Types 
+
+In addition to PharmacoGx, there is a suite of packages in Bioconductor for exploring public high throughput screening data. For Sensitivity datasets, `r BiocStyle::Biocpkg("Xeva")` provides access to public drug screening datasets in Patient Derived Xenograft models, including providing access to the Novartis PDX Encyclopedia dataset, published in [Gao, H. et al. High-throughput screening using patient-derived tumor xenografts to predict clinical trial drug response, Nature Medicine.](https://www.nature.com/articles/nm.3954). Additionally, `r BiocStyle::Biocpkg("RadioGx")` is currently available in the development branch of Bioconductor, providing access to cell line screening data for response to radiation treatment, featuring data from [Yard, B. D. et al. A genetic basis for the variation in the vulnerability of cancer to DNA damage. Nature Communications 7, 11428 (2016).](https://www.nature.com/articles/ncomms11428). 
+
+The [Biomarker Discovery from High Throughput Screening Datasets](http://bhklab.ca/bioc2020workshop/articles/GxWorkshop.html) workshop at Bioc2020 goes into depth about using these packages for accessing and exploring public sensitivity datasets.
+
+In addition, Bioconductor also includes the `r BiocStyle::Biocpkg("ToxicoGx")` package, which provides access to Sensitivity and Perturbation datasets characterizing _in vitro_ response of human tissue to toxicant exposure, currently providing access to data from the [TGGates](https://pubmed.ncbi.nlm.nih.gov/25313160/) and [DrugMatrix](https://ntp.niehs.nih.gov/data/drugmatrix/) datasets. 
 
 ## Bibliography
 
