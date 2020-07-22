@@ -262,7 +262,7 @@
 ## [1] "0137629ad19be1839669a25a741a165f90c7276c"
 ## 
 ## $data_release
-## [1] "Data Release 24.0 - May 07, 2020"
+## [1] "Data Release 25.0 - July 22, 2020"
 ## 
 ## $status
 ## [1] "OK"
@@ -300,6 +300,8 @@
     <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results</a></span>(<span class="kw">size</span><span class="kw">=</span><span class="fl">10</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">projResults</span>,<span class="kw">list.len</span><span class="kw">=</span><span class="fl">5</span>)</pre></body></html></div>
 <pre><code>## List of 9
+##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
+##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
 ##  $ disease_type          :List of 10
 ##   ..$ GENIE-MSK : chr [1:49] "Germ Cell Neoplasms" "Granular Cell Tumors and Alveolar Soft Part Sarcomas" "Immunoproliferative Diseases" "Plasma Cell Tumors" ...
 ##   ..$ TCGA-UCEC : chr [1:4] "Epithelial Neoplasms, NOS" "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas" "Not Reported"
@@ -307,17 +309,15 @@
 ##   ..$ TCGA-LGG  : chr "Gliomas"
 ##   ..$ TCGA-SARC : chr [1:6] "Nerve Sheath Tumors" "Myomatous Neoplasms" "Fibromatous Neoplasms" "Lipomatous Neoplasms" ...
 ##   .. [list output truncated]
-##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
 ##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
 ##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
-##  $ project_id            : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
 ##   [list output truncated]
 ##  - attr(*, "row.names")= int [1:10] 1 2 3 4 5 6 7 8 9 10
 ##  - attr(*, "class")= chr [1:3] "GDCprojectsResults" "GDCResults" "list"</code></pre>
 <div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">projResults</span>)</pre></body></html></div>
-<pre><code>## [1] "disease_type"           "name"                   "releasable"            
-## [4] "dbgap_accession_number" "project_id"             "state"                 
-## [7] "released"               "primary_site"           "id"</code></pre>
+<pre><code>## [1] "name"                   "state"                  "disease_type"          
+## [4] "releasable"             "dbgap_accession_number" "primary_site"          
+## [7] "id"                     "project_id"             "released"</code></pre>
 <div class="sourceCode" id="cb21"><html><body><pre class="r"># or listviewer::jsonedit(clinResults)</pre></body></html></div>
 </div>
 </div>
@@ -457,20 +457,10 @@
 <p>These results are returned from the GDC in <a href="http://www.json.org/">JSON</a> format and converted into a (potentially nested) list in R. The <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> method is useful for taking a quick glimpse of the data.</p>
 <div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">presults</span>)</pre></body></html></div>
 <pre><code>## List of 9
+##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
 ##  $ project_id            : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
-##  $ primary_site          :List of 10
-##   ..$ GENIE-MSK : chr [1:49] "Testis" "Gallbladder" "Unknown" "Other and unspecified parts of biliary tract" ...
-##   ..$ TCGA-UCEC : chr [1:2] "Corpus uteri" "Uterus, NOS"
-##   ..$ TCGA-ACC  : chr "Adrenal gland"
-##   ..$ TCGA-LGG  : chr "Brain"
-##   ..$ TCGA-SARC : chr [1:13] "Kidney" "Other and unspecified parts of tongue" "Bones, joints and articular cartilage of limbs" "Colon" ...
-##   ..$ TCGA-PAAD : chr "Pancreas"
-##   ..$ TCGA-ESCA : chr [1:2] "Esophagus" "Stomach"
-##   ..$ TCGA-LUAD : chr "Bronchus and lung"
-##   ..$ TCGA-PRAD : chr "Prostate gland"
-##   ..$ GENIE-VICC: chr [1:46] "Testis" "Unknown" "Other and unspecified parts of biliary tract" "Adrenal gland" ...
-##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
-##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
+##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
+##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
 ##  $ disease_type          :List of 10
 ##   ..$ GENIE-MSK : chr [1:49] "Germ Cell Neoplasms" "Granular Cell Tumors and Alveolar Soft Part Sarcomas" "Immunoproliferative Diseases" "Plasma Cell Tumors" ...
 ##   ..$ TCGA-UCEC : chr [1:4] "Epithelial Neoplasms, NOS" "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas" "Not Reported"
@@ -482,10 +472,20 @@
 ##   ..$ TCGA-LUAD : chr [1:3] "Cystic, Mucinous and Serous Neoplasms" "Acinar Cell Neoplasms" "Adenomas and Adenocarcinomas"
 ##   ..$ TCGA-PRAD : chr [1:3] "Cystic, Mucinous and Serous Neoplasms" "Ductal and Lobular Neoplasms" "Adenomas and Adenocarcinomas"
 ##   ..$ GENIE-VICC: chr [1:41] "Germ Cell Neoplasms" "Acinar Cell Neoplasms" "Synovial-like Neoplasms" "Plasma Cell Tumors" ...
-##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
-##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
-##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
+##  $ primary_site          :List of 10
+##   ..$ GENIE-MSK : chr [1:49] "Testis" "Gallbladder" "Unknown" "Other and unspecified parts of biliary tract" ...
+##   ..$ TCGA-UCEC : chr [1:2] "Corpus uteri" "Uterus, NOS"
+##   ..$ TCGA-ACC  : chr "Adrenal gland"
+##   ..$ TCGA-LGG  : chr "Brain"
+##   ..$ TCGA-SARC : chr [1:13] "Kidney" "Other and unspecified parts of tongue" "Bones, joints and articular cartilage of limbs" "Colon" ...
+##   ..$ TCGA-PAAD : chr "Pancreas"
+##   ..$ TCGA-ESCA : chr [1:2] "Esophagus" "Stomach"
+##   ..$ TCGA-LUAD : chr "Bronchus and lung"
+##   ..$ TCGA-PRAD : chr "Prostate gland"
+##   ..$ GENIE-VICC: chr [1:46] "Testis" "Unknown" "Other and unspecified parts of biliary tract" "Adrenal gland" ...
 ##  $ id                    : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
+##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
+##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
 ##  - attr(*, "row.names")= int [1:10] 1 2 3 4 5 6 7 8 9 10
 ##  - attr(*, "class")= chr [1:3] "GDCprojectsResults" "GDCResults" "list"</code></pre>
 <p>A default of only 10 records are returned. We can use the <code>size</code> and <code>from</code> arguments to <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results()</a></code> to either page through results or to change the number of results. Finally, there is a convenience method, <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code> that will simply fetch all the available results given a query. Note that <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code> may take a long time and return HUGE result sets if not used carefully. Use of a combination of <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count()</a></code> and <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results()</a></code> to get a sense of the expected data size is probably warranted before calling <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code></p>
@@ -573,21 +573,21 @@
 <div class="sourceCode" id="cb46"><html><body><pre class="r"><span class="co"># total number of files of a specific type</span>
 <span class="no">res</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/faceting.html">facet</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'type'</span>,<span class="st">'data_type'</span>)) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/aggregations.html">aggregations</a></span>()
 <span class="no">res</span>$<span class="no">type</span></pre></body></html></div>
-<pre><code>##    doc_count                         key
-## 1     136411  annotated_somatic_mutation
-## 2      81371     simple_somatic_mutation
-## 3      76609               aligned_reads
-## 4      57285             gene_expression
-## 5      56840         copy_number_segment
-## 6      44143        copy_number_estimate
-## 7      30072                 slide_image
-## 8      29590            mirna_expression
-## 9      25510      biospecimen_supplement
-## 10     12870         clinical_supplement
-## 11     12359      methylation_beta_value
-## 12      3132        structural_variation
-## 13      2347 aggregated_somatic_mutation
-## 14      2305     masked_somatic_mutation</code></pre>
+<pre><code>##                            key doc_count
+## 1   annotated_somatic_mutation    142950
+## 2      simple_somatic_mutation     81911
+## 3                aligned_reads     78009
+## 4              gene_expression     58290
+## 5          copy_number_segment     56840
+## 6         copy_number_estimate     44143
+## 7                  slide_image     30072
+## 8             mirna_expression     29996
+## 9       biospecimen_supplement     25510
+## 10         clinical_supplement     12870
+## 11      methylation_beta_value     12359
+## 12        structural_variation      5426
+## 13 aggregated_somatic_mutation      3547
+## 14     masked_somatic_mutation      3505</code></pre>
 <p>Using <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/aggregations.html">aggregations()</a></code> is an also easy way to learn the contents of individual fields and forms the basis for faceted search pages.</p>
 </div>
 <div id="filtering" class="section level4">
@@ -601,7 +601,7 @@
 <p>For the user, these details will not be too important except to note that a filter expression must begin with a “~”.</p>
 <div class="sourceCode" id="cb48"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>()
 <span class="no">qfiles</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count</a></span>() <span class="co"># all files</span></pre></body></html></div>
-<pre><code>## [1] 570844</code></pre>
+<pre><code>## [1] 585428</code></pre>
 <p>To limit the file type, we can refer back to the <a href="#facets-and-aggregation">section on faceting</a> to see the possible values for the file field “type”. For example, to filter file results to only “gene_expression” files, we simply specify a filter.</p>
 <div class="sourceCode" id="cb50"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">filter</a></span>(~ <span class="no">type</span> <span class="kw">==</span> <span class="st">'gene_expression'</span>)
 <span class="co"># here is what the filter looks like after translation</span>
@@ -684,20 +684,20 @@
 ## 6              TCGA-HNSC     16340
 ## 7                TCGA-OV     16344
 ## 8              TCGA-THCA     15445
-## 9              TCGA-LUSC     16368
-## 10              TCGA-LGG     15795
-## 11            GENIE-DFCI     28464
-## 12             TCGA-KIRC     16255
-## 13             TCGA-PRAD     15296
-## 14             TCGA-COAD     15338
-## 15              TCGA-GBM     13089
-## 16         TARGET-ALL-P2     19708
-## 17             TCGA-SKCM     13674
-## 18             TCGA-STAD     13739
-## 19             TCGA-BLCA     12513
-## 20         MMRF-COMMPASS     21790
-## 21             TCGA-LIHC     11578
-## 22               CPTAC-3     20334
+## 9          MMRF-COMMPASS     29433
+## 10             TCGA-LUSC     16368
+## 11              TCGA-LGG     15795
+## 12            GENIE-DFCI     28464
+## 13             TCGA-KIRC     16255
+## 14             TCGA-PRAD     15296
+## 15             TCGA-COAD     15338
+## 16              TCGA-GBM     13089
+## 17         TARGET-ALL-P2     20772
+## 18             TCGA-SKCM     13674
+## 19             TCGA-STAD     13739
+## 20               CPTAC-3     25005
+## 21             TCGA-BLCA     12513
+## 22             TCGA-LIHC     11578
 ## 23             TCGA-CESC      9201
 ## 24             TCGA-KIRP      9137
 ## 25             TCGA-SARC      8002
@@ -707,19 +707,19 @@
 ## 29             TCGA-PCPG      5378
 ## 30               CPTAC-2      9978
 ## 31             TCGA-READ      5269
-## 32            TARGET-NBL      5474
+## 32            TARGET-NBL      5796
 ## 33     BEATAML1.0-COHORT      8981
 ## 34             TCGA-TGCT      4605
 ## 35             TCGA-LAML      4814
 ## 36             TCGA-THYM      3691
 ## 37              TCGA-ACC      2736
 ## 38             TCGA-KICH      2457
-## 39          NCICCR-DLBCL      4805
-## 40             TCGA-MESO      2518
-## 41             TARGET-WT      2405
+## 39             TARGET-WT      2677
+## 40          NCICCR-DLBCL      4805
+## 41             TCGA-MESO      2518
 ## 42              TCGA-UVM      2340
-## 43             TARGET-OS      2937
-## 44         TARGET-ALL-P3      3712
+## 43             TARGET-OS      3113
+## 44         TARGET-ALL-P3      3982
 ## 45             GENIE-MDA      3857
 ## 46            GENIE-VICC      3833
 ## 47             GENIE-JHU      3320
@@ -729,8 +729,8 @@
 ## 51             TCGA-DLBC      1325
 ## 52         CGCI-HTMCP-CC      1968
 ## 53            CGCI-BLGSP      1782
-## 54             HCMI-CMDC      1361
-## 55             TARGET-RT       909
+## 54             TARGET-RT      1049
+## 55             HCMI-CMDC      1337
 ## 56            GENIE-GRCC      1038
 ## 57            WCDT-MCRPC       994
 ## 58             GENIE-NKI       801
@@ -738,8 +738,8 @@
 ## 60   ORGANOID-PANCREATIC       703
 ## 61           CTSP-DLBCL1       417
 ## 62 BEATAML1.0-CRENOLANIB       223
-## 63           TARGET-CCSK       143
-## 64         TARGET-ALL-P1       109
+## 63           TARGET-CCSK       169
+## 64         TARGET-ALL-P1       133
 ## 65        VAREPOP-APOLLO        21</code></pre>
 <p>We note that <code>cases.project.project_id</code> looks like it is a good fit. We also note that <code>TCGA-OV</code> is the correct project_id, not <code>TCGA-OVCA</code>. Note that <em>unlike with dplyr and friends, the <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">filter()</a></code> method here <strong>replaces</strong> the filter and does not build on any previous filters</em>.</p>
 <div class="sourceCode" id="cb56"><html><body><pre class="r"><span class="no">qfiles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span>
@@ -949,7 +949,7 @@
 <span class="no">project_info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recount/man/abstract_search.html">abstract_search</a></span>(<span class="st">'GSE32465'</span>)</pre></body></html></div>
 <p>It is not an ExperimentHub package, so downloading and serializing is slightly more involved in involves two steps: first, download the gene-level RangedSummarizedExperiment data:</p>
 <div class="sourceCode" id="cb86"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/recount/man/download_study.html">download_study</a></span>(<span class="no">project_info</span>$<span class="no">project</span>)</pre></body></html></div>
-<pre><code>## 2020-07-21 14:36:28 downloading file rse_gene.Rdata to SRP009615</code></pre>
+<pre><code>## 2020-07-22 18:43:24 downloading file rse_gene.Rdata to SRP009615</code></pre>
 <p>followed by loading the data</p>
 <div class="sourceCode" id="cb88"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">project_info</span>$<span class="no">project</span>, <span class="st">'rse_gene.Rdata'</span>))</pre></body></html></div>
 </div>
@@ -1141,7 +1141,7 @@
 <a href="#exploring-other-treatment-types" class="anchor"></a>Exploring Other Treatment Types</h3>
 <p>In addition to PharmacoGx, there is a suite of packages in Bioconductor for exploring public high throughput screening data. For Sensitivity datasets, <em><a href="https://bioconductor.org/packages/3.12/Xeva">Xeva</a></em> provides access to public drug screening datasets in Patient Derived Xenograft models, including providing access to the Novartis PDX Encyclopedia dataset, published in <a href="https://www.nature.com/articles/nm.3954">Gao, H. et al. High-throughput screening using patient-derived tumor xenografts to predict clinical trial drug response, Nature Medicine.</a>. Additionally, <em><a href="https://bioconductor.org/packages/3.12/RadioGx">RadioGx</a></em> is currently available in the development branch of Bioconductor, providing access to cell line screening data for response to radiation treatment, featuring data from <a href="https://www.nature.com/articles/ncomms11428">Yard, B. D. et al. A genetic basis for the variation in the vulnerability of cancer to DNA damage. Nature Communications 7, 11428 (2016).</a>.</p>
 <p>The <a href="http://bhklab.ca/bioc2020workshop/articles/GxWorkshop.html">Biomarker Discovery from High Throughput Screening Datasets</a> workshop at Bioc2020 goes into depth about using these packages for accessing and exploring public sensitivity datasets.</p>
-<p>In addition, Bioconductor also includes the <em><a href="https://bioconductor.org/packages/3.12/ToxicoGx">ToxicoGx</a></em> package, which provides access to Sensitivity and Perturbation datasets characterizing <em>in vitro</em> response of human tissue to toxicant exposure, currently providing access to data from the <a href="https://pubmed.ncbi.nlm.nih.gov/25313160/">TGGates</a> and <a href="https://ntp.niehs.nih.gov/data/drugmatrix/">DrugMatrix</a> datasets.</p>
+<p>In addition, Bioconductor also includes the <em><a href="https://bioconductor.org/packages/3.12/ToxicoGx">ToxicoGx</a></em> package, which provides access to Sensitivity and Perturbation datasets characterizing <em>in vitro</em> response of human tissue to toxicant exposure, currently providing access to data from the <a href="https://pubmed.ncbi.nlm.nih.gov/25313160/">TGGates</a> and <a href="https://ntp.niehs.nih.gov/data/drugmatrix/">DrugMatrix</a> datasets. More information about the ToxicoGx package can be found at the <a href="https://doi.org/10.7490/f1000research.1118037.1">Bioc2020 poster presentation on the package</a>.</p>
 </div>
 </div>
 <div id="bibliography" class="section level2 unnumbered">
