@@ -300,8 +300,7 @@
     <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results</a></span>(<span class="kw">size</span><span class="kw">=</span><span class="fl">10</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">projResults</span>,<span class="kw">list.len</span><span class="kw">=</span><span class="fl">5</span>)</pre></body></html></div>
 <pre><code>## List of 9
-##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
-##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
+##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
 ##  $ disease_type          :List of 10
 ##   ..$ GENIE-MSK : chr [1:49] "Germ Cell Neoplasms" "Granular Cell Tumors and Alveolar Soft Part Sarcomas" "Immunoproliferative Diseases" "Plasma Cell Tumors" ...
 ##   ..$ TCGA-UCEC : chr [1:4] "Epithelial Neoplasms, NOS" "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas" "Not Reported"
@@ -309,15 +308,16 @@
 ##   ..$ TCGA-LGG  : chr "Gliomas"
 ##   ..$ TCGA-SARC : chr [1:6] "Nerve Sheath Tumors" "Myomatous Neoplasms" "Fibromatous Neoplasms" "Lipomatous Neoplasms" ...
 ##   .. [list output truncated]
-##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
+##  $ id                    : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
 ##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
+##  $ project_id            : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
 ##   [list output truncated]
 ##  - attr(*, "row.names")= int [1:10] 1 2 3 4 5 6 7 8 9 10
 ##  - attr(*, "class")= chr [1:3] "GDCprojectsResults" "GDCResults" "list"</code></pre>
 <div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">projResults</span>)</pre></body></html></div>
-<pre><code>## [1] "name"                   "state"                  "disease_type"          
-## [4] "releasable"             "dbgap_accession_number" "primary_site"          
-## [7] "id"                     "project_id"             "released"</code></pre>
+<pre><code>## [1] "releasable"             "disease_type"           "id"                    
+## [4] "dbgap_accession_number" "project_id"             "name"                  
+## [7] "state"                  "released"               "primary_site"</code></pre>
 <div class="sourceCode" id="cb21"><html><body><pre class="r"># or listviewer::jsonedit(clinResults)</pre></body></html></div>
 </div>
 </div>
@@ -457,10 +457,7 @@
 <p>These results are returned from the GDC in <a href="http://www.json.org/">JSON</a> format and converted into a (potentially nested) list in R. The <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> method is useful for taking a quick glimpse of the data.</p>
 <div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">presults</span>)</pre></body></html></div>
 <pre><code>## List of 9
-##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
-##  $ project_id            : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
-##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
-##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
+##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
 ##  $ disease_type          :List of 10
 ##   ..$ GENIE-MSK : chr [1:49] "Germ Cell Neoplasms" "Granular Cell Tumors and Alveolar Soft Part Sarcomas" "Immunoproliferative Diseases" "Plasma Cell Tumors" ...
 ##   ..$ TCGA-UCEC : chr [1:4] "Epithelial Neoplasms, NOS" "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas" "Not Reported"
@@ -472,6 +469,8 @@
 ##   ..$ TCGA-LUAD : chr [1:3] "Cystic, Mucinous and Serous Neoplasms" "Acinar Cell Neoplasms" "Adenomas and Adenocarcinomas"
 ##   ..$ TCGA-PRAD : chr [1:3] "Cystic, Mucinous and Serous Neoplasms" "Ductal and Lobular Neoplasms" "Adenomas and Adenocarcinomas"
 ##   ..$ GENIE-VICC: chr [1:41] "Germ Cell Neoplasms" "Acinar Cell Neoplasms" "Synovial-like Neoplasms" "Plasma Cell Tumors" ...
+##  $ project_id            : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
+##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
 ##  $ primary_site          :List of 10
 ##   ..$ GENIE-MSK : chr [1:49] "Testis" "Gallbladder" "Unknown" "Other and unspecified parts of biliary tract" ...
 ##   ..$ TCGA-UCEC : chr [1:2] "Corpus uteri" "Uterus, NOS"
@@ -483,9 +482,10 @@
 ##   ..$ TCGA-LUAD : chr "Bronchus and lung"
 ##   ..$ TCGA-PRAD : chr "Prostate gland"
 ##   ..$ GENIE-VICC: chr [1:46] "Testis" "Unknown" "Other and unspecified parts of biliary tract" "Adrenal gland" ...
+##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
 ##  $ id                    : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
+##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
 ##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
-##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
 ##  - attr(*, "row.names")= int [1:10] 1 2 3 4 5 6 7 8 9 10
 ##  - attr(*, "class")= chr [1:3] "GDCprojectsResults" "GDCResults" "list"</code></pre>
 <p>A default of only 10 records are returned. We can use the <code>size</code> and <code>from</code> arguments to <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results()</a></code> to either page through results or to change the number of results. Finally, there is a convenience method, <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code> that will simply fetch all the available results given a query. Note that <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code> may take a long time and return HUGE result sets if not used carefully. Use of a combination of <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count()</a></code> and <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results()</a></code> to get a sense of the expected data size is probably warranted before calling <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code></p>
@@ -812,238 +812,6 @@
 <div class="sourceCode" id="cb66"><html><body><pre class="r"><span class="no">fnames</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/gdcdata.html">gdcdata</a></span>(<span class="no">manifest_df</span>$<span class="no">id</span>[<span class="fl">3</span>:<span class="fl">10</span>], <span class="kw">access_method</span> <span class="kw">=</span> <span class="st">'client'</span>)</pre></body></html></div>
 </div>
 </div>
-<div id="accessing-the-cancer-genome-atlas-tcga" class="section level2">
-<h2 class="hasAnchor">
-<a href="#accessing-the-cancer-genome-atlas-tcga" class="anchor"></a>Accessing The Cancer Genome Atlas (TCGA)</h2>
-<p>We summarize two approaches to accessing TCGA data:</p>
-<ol style="list-style-type: decimal">
-<li>
-<em><a href="https://bioconductor.org/packages/3.12/TCGAbiolinks">TCGAbiolinks</a></em>:
-<ol style="list-style-type: lower-alpha">
-<li>data access through <em><a href="https://bioconductor.org/packages/3.12/GenomicDataCommons">GenomicDataCommons</a></em>
-</li>
-<li>provides data both from the legacy Firehose pipeline used by the TCGA publications (alignments based on hg18 and hg19 builds<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>), and the GDC harmonized GRCh38 pipeline<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</li>
-<li>downloads files from the Genomic Data Commons, and provides conversion to <code>(Ranged)SummarizedExperiment</code> where possible</li>
-</ol>
-</li>
-<li>
-<em><a href="https://bioconductor.org/packages/3.12/curatedTCGAData">curatedTCGAData</a></em>:
-<ol style="list-style-type: lower-alpha">
-<li>data access through <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em>
-</li>
-<li>provides data from the legacy Firehose pipeline<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>
-</li>
-<li>provides individual assays as <code>(Ranged)SummarizedExperiment</code> and <code>RaggedExperiment</code>, integrates multiple assays within and across cancer types using <code>MultiAssayExperiment</code>
-</li>
-</ol>
-</li>
-</ol>
-<div id="tcgabiolinks" class="section level3">
-<h3 class="hasAnchor">
-<a href="#tcgabiolinks" class="anchor"></a>TCGAbiolinks</h3>
-<p>We demonstrate here generating a <code>RangedSummarizedExperiment</code> for RNA-seq data from adrenocortical carcinoma (ACC). For additional information and options, see the TCGAbiolinks vignettes<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
-<p>Load packages:</p>
-<p>Search for matching data:</p>
-<div class="sourceCode" id="cb67"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">TCGAbiolinks</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">SummarizedExperiment</span>)
-<span class="no">query</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TCGAbiolinks/man/GDCquery.html">GDCquery</a></span>(<span class="kw">project</span> <span class="kw">=</span> <span class="st">"TCGA-ACC"</span>,
-                           <span class="kw">data.category</span> <span class="kw">=</span> <span class="st">"Gene expression"</span>,
-                           <span class="kw">data.type</span> <span class="kw">=</span> <span class="st">"Gene expression quantification"</span>,
-                           <span class="kw">platform</span> <span class="kw">=</span> <span class="st">"Illumina HiSeq"</span>,
-                           <span class="kw">file.type</span>  <span class="kw">=</span> <span class="st">"normalized_results"</span>,
-                           <span class="kw">experimental.strategy</span> <span class="kw">=</span> <span class="st">"RNA-Seq"</span>,
-                           <span class="kw">legacy</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
-<p>Download data and convert it to <code>RangedSummarizedExperiment</code>:</p>
-<div class="sourceCode" id="cb68"><html><body><pre class="r">#gdcdir &lt;- file.path("Waldron_PublicData", "GDCdata")
-#GDCdownload(query, method = "api", files.per.chunk = 10,
-#            directory = gdcdir)
-#ACCse &lt;- GDCprepare(query, directory = gdcdir)
-#ACCse</pre></body></html></div>
-</div>
-<div id="curatedtcgadata-curated-data-from-the-cancer-genome-atlas-as-multiassayexperiment-objects" class="section level3">
-<h3 class="hasAnchor">
-<a href="#curatedtcgadata-curated-data-from-the-cancer-genome-atlas-as-multiassayexperiment-objects" class="anchor"></a>curatedTCGAData: Curated Data From The Cancer Genome Atlas as MultiAssayExperiment Objects</h3>
-<p><em><a href="https://bioconductor.org/packages/3.12/curatedTCGAData">curatedTCGAData</a></em> does not interface with the Genomic Data Commons, but downloads data from Bioconductor’s <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em>.</p>
-<div class="sourceCode" id="cb69"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">curatedTCGAData</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">MultiAssayExperiment</span>)</pre></body></html></div>
-<p>By default, the <code><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData()</a></code> function will only show available datasets, and not download anything. The arguments are shown here only for demonstration, the same result is obtained with no arguments:</p>
-<div class="sourceCode" id="cb70"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData</a></span>(<span class="kw">diseaseCode</span> <span class="kw">=</span> <span class="st">"*"</span>, <span class="kw">assays</span> <span class="kw">=</span> <span class="st">"*"</span>)</pre></body></html></div>
-<pre><code>## Please see the list below for available cohorts and assays</code></pre>
-<pre><code>## Available Cancer codes:
-##  ACC BLCA BRCA CESC CHOL COAD DLBC ESCA GBM HNSC KICH
-##  KIRC KIRP LAML LGG LIHC LUAD LUSC MESO OV PAAD PCPG
-##  PRAD READ SARC SKCM STAD TGCT THCA THYM UCEC UCS UVM 
-## Available Data Types:
-##  CNACGH CNACGH_CGH_hg_244a
-##  CNACGH_CGH_hg_415k_g4124a CNASeq CNASNP
-##  CNVSNP GISTIC_AllByGene GISTIC_Peaks
-##  GISTIC_ThresholdedByGene Methylation
-##  Methylation_methyl27 Methylation_methyl450
-##  miRNAArray miRNASeqGene mRNAArray
-##  mRNAArray_huex mRNAArray_TX_g4502a
-##  mRNAArray_TX_g4502a_1
-##  mRNAArray_TX_ht_hg_u133a Mutation
-##  RNASeq2GeneNorm RNASeqGene RPPAArray</code></pre>
-<p>Check potential files to be downloaded for adrenocortical carcinoma (ACC):</p>
-<div class="sourceCode" id="cb73"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData</a></span>(<span class="kw">diseaseCode</span> <span class="kw">=</span> <span class="st">"ACC"</span>)</pre></body></html></div>
-<pre><code>##                                    Title DispatchClass
-## 1                    ACC_CNASNP-20160128           Rda
-## 2                    ACC_CNVSNP-20160128           Rda
-## 4          ACC_GISTIC_AllByGene-20160128           Rda
-## 5              ACC_GISTIC_Peaks-20160128           Rda
-## 6  ACC_GISTIC_ThresholdedByGene-20160128           Rda
-## 8        ACC_Methylation-20160128_assays        H5File
-## 9            ACC_Methylation-20160128_se           Rds
-## 10             ACC_miRNASeqGene-20160128           Rda
-## 11                 ACC_Mutation-20160128           Rda
-## 12          ACC_RNASeq2GeneNorm-20160128           Rda
-## 13                ACC_RPPAArray-20160128           Rda</code></pre>
-<p>Actually download the reverse phase protein array (RPPA) and RNA-seq data for ACC</p>
-<div class="sourceCode" id="cb75"><html><body><pre class="r"><span class="no">ACCmae</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData</a></span>(<span class="st">"ACC"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"RPPAArray"</span>, <span class="st">"RNASeq2GeneNorm"</span>),
-                          <span class="kw">dry.run</span><span class="kw">=</span><span class="fl">FALSE</span>)
-<span class="no">ACCmae</span></pre></body></html></div>
-<pre><code>## A MultiAssayExperiment object of 2 listed
-##  experiments with user-defined names and respective classes.
-##  Containing an ExperimentList class object of length 2:
-##  [1] ACC_RNASeq2GeneNorm-20160128: SummarizedExperiment with 20501 rows and 79 columns
-##  [2] ACC_RPPAArray-20160128: SummarizedExperiment with 192 rows and 46 columns
-## Functionality:
-##  experiments() - obtain the ExperimentList instance
-##  colData() - the primary/phenotype DataFrame
-##  sampleMap() - the sample coordination DataFrame
-##  `$`, `[`, `[[` - extract colData columns, subset, or experiment
-##  *Format() - convert into a long or wide DataFrame
-##  assays() - convert ExperimentList to a SimpleList of matrices
-##  exportClass() - save all data to files</code></pre>
-<p><strong>Note</strong>. Data will be downloaded the first time the above command is run; subsequent times it will be loaded from local cache.</p>
-<p>This object contains 822 columns of clinical, pathological, specimen, and subtypes data in its <code>colData</code>, merged from all available data levels (1-4) of the Firehose pipeline:</p>
-<div class="sourceCode" id="cb77"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span>(<span class="no">ACCmae</span>))</pre></body></html></div>
-<pre><code>## [1]  79 822</code></pre>
-<div class="sourceCode" id="cb79"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span>(<span class="no">ACCmae</span>)))</pre></body></html></div>
-<pre><code>## [1] "patientID"             "years_to_birth"        "vital_status"         
-## [4] "days_to_death"         "days_to_last_followup" "tumor_tissue_site"</code></pre>
-<p>See the <em><a href="https://bioconductor.org/packages/3.12/MultiAssayExperiment">MultiAssayExperiment</a></em> vignette <span class="citation">(Ramos et al. 2017)</span> and the <em>Workflow for Multi-omics Analysis with MultiAssayExperiment</em> workshop for details on using this object.</p>
-<div id="subtype-information" class="section level4">
-<h4 class="hasAnchor">
-<a href="#subtype-information" class="anchor"></a>Subtype information</h4>
-<p>Some cancer datasets contain associated subtype information within the clinical datasets provided. This subtype information is included in the metadata of <code>colData</code> of the <code>MultiAssayExperiment</code> object. To obtain these variable names, run the <code>metadata</code> function on the <code>colData</code> of the object such as:</p>
-<div class="sourceCode" id="cb81"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu">metadata</span>(<span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span>(<span class="no">ACCmae</span>))<span class="kw">[[</span><span class="st">"subtypes"</span>]])</pre></body></html></div>
-<pre><code>##         ACC_annotations   ACC_subtype
-## 1            Patient_ID        SAMPLE
-## 2 histological_subtypes     Histology
-## 3         mrna_subtypes       C1A/C1B
-## 4         mrna_subtypes       mRNA_K4
-## 5                  cimp    MethyLevel
-## 6     microrna_subtypes miRNA cluster</code></pre>
-</div>
-</div>
-</div>
-<div id="recount-reproducible-rna-seq-analysis-using-recount2" class="section level2">
-<h2 class="hasAnchor">
-<a href="#recount-reproducible-rna-seq-analysis-using-recount2" class="anchor"></a>recount: Reproducible RNA-seq Analysis Using recount2</h2>
-<p>The <em><a href="https://bioconductor.org/packages/3.12/recount">recount</a></em><span class="citation">(Collado-Torres et al. 2017)</span> package provides uniformly processed <code>RangedSummarizedExperiment</code> objects at the gene, exon, or exon-exon junctions level, the raw counts, the phenotype metadata used, the urls to sample coverage bigWig files and mean coverage bigWig file, for every study available. The <code>RangedSummarizedExperiment</code> objects can be used for differential expression analysis. These are also accessible through a web interface.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
-<pre><code>## No methods found in package 'IRanges' for request: 'values&lt;-' when loading 'derfinder'</code></pre>
-<pre><code>## No methods found in package 'IRanges' for request: 'values' when loading 'derfinder'</code></pre>
-<p><em><a href="https://bioconductor.org/packages/3.12/recount">recount</a></em> provides a search function:</p>
-<div class="sourceCode" id="cb85"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">recount</span>)
-<span class="no">project_info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recount/man/abstract_search.html">abstract_search</a></span>(<span class="st">'GSE32465'</span>)</pre></body></html></div>
-<p>It is not an ExperimentHub package, so downloading and serializing is slightly more involved in involves two steps: first, download the gene-level RangedSummarizedExperiment data:</p>
-<div class="sourceCode" id="cb86"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/recount/man/download_study.html">download_study</a></span>(<span class="no">project_info</span>$<span class="no">project</span>)</pre></body></html></div>
-<pre><code>## 2020-07-22 18:43:24 downloading file rse_gene.Rdata to SRP009615</code></pre>
-<p>followed by loading the data</p>
-<div class="sourceCode" id="cb88"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">project_info</span>$<span class="no">project</span>, <span class="st">'rse_gene.Rdata'</span>))</pre></body></html></div>
-</div>
-<div id="curateddata-packages-for-standardized-cancer-transcriptomes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#curateddata-packages-for-standardized-cancer-transcriptomes" class="anchor"></a>curated*Data packages for standardized cancer transcriptomes</h2>
-<p>There are focused databases of cancer microarray data for several cancer types, which can be useful for researchers of those cancer types or for methodological development:</p>
-<ul>
-<li>
-<em><a href="https://bioconductor.org/packages/3.12/curatedOvarianData">curatedOvarianData</a></em><span class="citation">(Ganzfried et al. 2013)</span>: Clinically Annotated Data for the Ovarian Cancer Transcriptome (data available with additional options through the <em><a href="https://bioconductor.org/packages/3.12/MetaGxOvarian">MetaGxOvarian</a></em> package).</li>
-<li>
-<em><a href="https://bioconductor.org/packages/3.12/curatedBladderData">curatedBladderData</a></em>: Clinically Annotated Data for the Bladder Cancer Transcriptome</li>
-<li>
-<em><a href="https://bioconductor.org/packages/3.12/curatedCRCData">curatedCRCData</a></em>: Clinically Annotated Data for the Colorectal Cancer Transcriptome</li>
-</ul>
-<p>These provide data from the Gene Expression Omnibus and other sources, but use a formally vocabulary for clinicopathological data and use a common pipeline for preprocessing of microarray data (for Affymetrix, other for other platforms the processed data are provided as processed by original study authors), merging probesets, and mapping to gene symbols. The pipeline is described by <span class="citation">Ganzfried et al. (2013)</span>.</p>
-</div>
-<div id="microbiome-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#microbiome-data" class="anchor"></a>Microbiome data</h2>
-<p>Bioconductor provides curated resources of microbiome data. Most microbiome data are generated either by targeted amplicon sequencing (usually of variable regions of the 16S ribosomal RNA gene) or by metagenomic shotgun sequencing (MGX). These two approaches are analyzed by different sequence analysis tools, but downstream statistical and ecological analysis can involve any of the following types of data:</p>
-<ul>
-<li>taxonomic abundance at different levels of the taxonomic hierarchy</li>
-<li>phylogenetic distances and the phylogenetic tree of life</li>
-<li>metabolic potential of the microbiome</li>
-<li>abundance of microbial genes and gene families</li>
-</ul>
-<p>A review of types and properties of microbiome data is provided by <span class="citation">(Morgan and Huttenhower 2012)</span>.</p>
-<div id="curatedmetagenomicdata-curated-and-processed-metagenomic-data-through-experimenthub" class="section level3">
-<h3 class="hasAnchor">
-<a href="#curatedmetagenomicdata-curated-and-processed-metagenomic-data-through-experimenthub" class="anchor"></a>curatedMetagenomicData: Curated and processed metagenomic data through ExperimentHub</h3>
-<p><code>curatedMetagenomicData</code><span class="citation">(Pasolli et al. 2017)</span> provides 6 types of processed data for &gt;30 publicly available whole-metagenome shotgun sequencing datasets (obtained from the Sequence Read Archive):</p>
-<ol style="list-style-type: decimal">
-<li>Species-level taxonomic profiles, expressed as relative abundance from kingdom to strain level</li>
-<li>Presence of unique, clade-specific markers</li>
-<li>Abundance of unique, clade-specific markers</li>
-<li>Abundance of gene families</li>
-<li>Metabolic pathway coverage</li>
-<li>Metabolic pathway abundance</li>
-</ol>
-<p>Types 1-3 are generated by <a href="http://huttenhower.sph.harvard.edu/metaphlan2">MetaPhlAn2</a>; 4-6 are generated by <a href="http://huttenhower.sph.harvard.edu/humann2">HUMAnN2</a>.</p>
-<p>Currently, <code>curatedMetagenomicData</code> provides:</p>
-<ul>
-<li>10199 samples from 57 datasets, primarily of the human gut but including body sites profiled in the Human Microbiome Project</li>
-<li>Processed data from whole-metagenome shotgun metagenomics, with manually-curated metadata, as integrated and documented Bioconductor ExpressionSet objects</li>
-<li>~80 fields of specimen metadata from original papers, supplementary files, and websites, with manual curation to standardize annotations</li>
-<li>Processing of data through the <a href="http://huttenhower.sph.harvard.edu/metaphlan2">MetaPhlAn2</a> pipeline for taxonomic abundance, and <a href="http://huttenhower.sph.harvard.edu/humann2">HUMAnN2</a> pipeline for metabolic analysis</li>
-<li>These represent ~100TB of raw sequencing data, but the processed data provided are much smaller.</li>
-</ul>
-<p>These datasets are documented in the <a href="https://bioconductor.org/packages/devel/data/experiment/manuals/curatedMetagenomicData/man/curatedMetagenomicData.pdf">reference manual</a>.</p>
-<p>This is an <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em> package, and its main workhorse function is <code><a href="https://rdrr.io/pkg/curatedMetagenomicData/man/curatedMetagenomicData.html">curatedMetagenomicData()</a></code>:</p>
-<p>The manually curated metadata for all available samples are provided in a single table <code>combined_metadata</code>:</p>
-<div class="sourceCode" id="cb89"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">curatedMetagenomicData</span>)
-?<span class="no">combined_metadata</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">combined_metadata</span>))</pre></body></html></div>
-<p>The main function provides a <code>list</code> of <code>ExpressionSet</code> objects:</p>
-<div class="sourceCode" id="cb90"><html><body><pre class="r"><span class="no">oral</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"BritoIL_2016.metaphlan_bugs_list.oralcavity"</span>,
-          <span class="st">"Castro-NallarE_2015.metaphlan_bugs_list.oralcavity"</span>)
-<span class="no">esl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/curatedMetagenomicData/man/curatedMetagenomicData.html">curatedMetagenomicData</a></span>(<span class="no">oral</span>, <span class="kw">dryrun</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb91"><html><body><pre class="r"><span class="no">esl</span></pre></body></html></div>
-<pre><code>## List of length 2
-## names(2): BritoIL_2016.metaphlan_bugs_list.oralcavity ...</code></pre>
-<p>These <code>ExpressionSet</code> objects can also be converted to <em><a href="https://bioconductor.org/packages/3.12/phyloseq">phyloseq</a></em> object for ecological analysis and differential abundance analysis using the <em><a href="https://bioconductor.org/packages/3.12/DESeq2">DESeq2</a></em> package, using the <code><a href="https://rdrr.io/pkg/curatedMetagenomicData/man/ExpressionSet2phyloseq.html">ExpressionSet2phyloseq()</a></code> function:</p>
-<div class="sourceCode" id="cb93"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/curatedMetagenomicData/man/ExpressionSet2phyloseq.html">ExpressionSet2phyloseq</a></span>( <span class="no">esl</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">phylogenetictree</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
-<pre><code>## Loading required namespace: phyloseq</code></pre>
-<pre><code>## Warning: `data_frame()` is deprecated as of tibble 1.1.0.
-## Please use `tibble()` instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
-<pre><code>## phyloseq-class experiment-level object
-## otu_table()   OTU Table:         [ 535 taxa and 140 samples ]
-## sample_data() Sample Data:       [ 140 samples by 17 sample variables ]
-## tax_table()   Taxonomy Table:    [ 535 taxa by 8 taxonomic ranks ]
-## phy_tree()    Phylogenetic Tree: [ 535 tips and 534 internal nodes ]</code></pre>
-<p>See the documentation of <em><a href="https://bioconductor.org/packages/3.12/phyloseq">phyloseq</a></em> for more on ecological and differential abundance analysis of the microbiome.</p>
-</div>
-<div id="hmp16sdata-16s-rrna-sequencing-data-from-the-human-microbiome-project" class="section level3">
-<h3 class="hasAnchor">
-<a href="#hmp16sdata-16s-rrna-sequencing-data-from-the-human-microbiome-project" class="anchor"></a>HMP16SData: 16S rRNA Sequencing Data from the Human Microbiome Project</h3>
-<div class="sourceCode" id="cb97"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">HMP16SData</span>))</pre></body></html></div>
-<pre><code>## snapshotDate(): 2020-07-10</code></pre>
-<p><em><a href="https://bioconductor.org/packages/3.12/HMP16SData">HMP16SData</a></em><span class="citation">(Schiffer et al. 2018)</span> is a Bioconductor ExperimentData package of the Human Microbiome Project (HMP) 16S rRNA sequencing data. Taxonomic count data files are provided as downloaded from the HMP Data Analysis and Coordination Center from its QIIME pipeline. Processed data is provided as <code>SummarizedExperiment</code> class objects via <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em>. Like other ExperimentHub-based packages, a convenience function does downloading, automatic local caching, and serializing of a Bioconductor data class. This returns taxonomic counts from the V1-3 variable region of the 16S rRNA gene, along with the unrestricted participant data and phylogenetic tree.</p>
-<div class="sourceCode" id="cb99"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/HMP16SData/man/V13.html">V13</a></span>()</pre></body></html></div>
-<pre><code>## class: SummarizedExperiment 
-## dim: 43140 2898 
-## metadata(2): experimentData phylogeneticTree
-## assays(1): 16SrRNA
-## rownames(43140): OTU_97.1 OTU_97.10 ... OTU_97.9997 OTU_97.9999
-## rowData names(7): CONSENSUS_LINEAGE SUPERKINGDOM ... FAMILY GENUS
-## colnames(2898): 700013549 700014386 ... 700114963 700114965
-## colData names(7): RSID VISITNO ... HMP_BODY_SUBSITE SRS_SAMPLE_ID</code></pre>
-<p>This can also be converted to <em><a href="https://bioconductor.org/packages/3.12/phyloseq">phyloseq</a></em> for ecological and differential abundance analysis; see the <em><a href="https://bioconductor.org/packages/3.12/HMP16SData">HMP16SData</a></em> vignette for details.</p>
-</div>
-</div>
 <div id="pharmacogenomics" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pharmacogenomics" class="anchor"></a>Pharmacogenomics</h2>
@@ -1063,7 +831,7 @@
 <h3 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h3>
 <p>Let us first load the <code>PharmacoGx</code> library.</p>
-<div class="sourceCode" id="cb101"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">PharmacoGx</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb67"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">PharmacoGx</span>)</pre></body></html></div>
 <pre><code>## Warning: no DISPLAY variable so Tk is not available</code></pre>
 <p>We can now access large-scale preclinical pharmacogenomic datasets that have been fully curated for ease of use.</p>
 </div>
@@ -1076,7 +844,7 @@
 <img src="figures/PharmacoSet_structure.png" alt=""><p class="caption">Overview of PharmacoGx</p>
 </div>
 <p>To get a list of all the available <code>PharmacoSets</code> in PharmacoGx, we can use the availablePSets` function, which returns a table providing key information for each dataset.</p>
-<div class="sourceCode" id="cb103"><html><body><pre class="r">(<span class="no">psets</span> <span class="kw">&lt;-</span> <span class="kw pkg">PharmacoGx</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/PharmacoGx/man/availablePSets.html">availablePSets</a></span>()[,-<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">6</span>,<span class="fl">7</span>)])</pre></body></html></div>
+<div class="sourceCode" id="cb69"><html><body><pre class="r">(<span class="no">psets</span> <span class="kw">&lt;-</span> <span class="kw pkg">PharmacoGx</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/PharmacoGx/man/availablePSets.html">availablePSets</a></span>()[,-<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">6</span>,<span class="fl">7</span>)])</pre></body></html></div>
 <pre><code>##    Dataset Name             Date Created         PSet Name      version
 ## 1          GDSC 2020-06-24T14:39:26.588Z GDSC_2019(v2-8.0) 2019(v2-8.0)
 ## 2          FIMM 2020-06-24T14:39:26.588Z         FIMM_2016         2016
@@ -1142,6 +910,238 @@
 <p>In addition to PharmacoGx, there is a suite of packages in Bioconductor for exploring public high throughput screening data. For Sensitivity datasets, <em><a href="https://bioconductor.org/packages/3.12/Xeva">Xeva</a></em> provides access to public drug screening datasets in Patient Derived Xenograft models, including providing access to the Novartis PDX Encyclopedia dataset, published in <a href="https://www.nature.com/articles/nm.3954">Gao, H. et al. High-throughput screening using patient-derived tumor xenografts to predict clinical trial drug response, Nature Medicine.</a>. Additionally, <em><a href="https://bioconductor.org/packages/3.12/RadioGx">RadioGx</a></em> is currently available in the development branch of Bioconductor, providing access to cell line screening data for response to radiation treatment, featuring data from <a href="https://www.nature.com/articles/ncomms11428">Yard, B. D. et al. A genetic basis for the variation in the vulnerability of cancer to DNA damage. Nature Communications 7, 11428 (2016).</a>.</p>
 <p>The <a href="http://bhklab.ca/bioc2020workshop/articles/GxWorkshop.html">Biomarker Discovery from High Throughput Screening Datasets</a> workshop at Bioc2020 goes into depth about using these packages for accessing and exploring public sensitivity datasets.</p>
 <p>In addition, Bioconductor also includes the <em><a href="https://bioconductor.org/packages/3.12/ToxicoGx">ToxicoGx</a></em> package, which provides access to Sensitivity and Perturbation datasets characterizing <em>in vitro</em> response of human tissue to toxicant exposure, currently providing access to data from the <a href="https://pubmed.ncbi.nlm.nih.gov/25313160/">TGGates</a> and <a href="https://ntp.niehs.nih.gov/data/drugmatrix/">DrugMatrix</a> datasets. More information about the ToxicoGx package can be found at the <a href="https://doi.org/10.7490/f1000research.1118037.1">Bioc2020 poster presentation on the package</a>.</p>
+</div>
+</div>
+<div id="accessing-the-cancer-genome-atlas-tcga" class="section level2">
+<h2 class="hasAnchor">
+<a href="#accessing-the-cancer-genome-atlas-tcga" class="anchor"></a>Accessing The Cancer Genome Atlas (TCGA)</h2>
+<p>We summarize two approaches to accessing TCGA data:</p>
+<ol style="list-style-type: decimal">
+<li>
+<em><a href="https://bioconductor.org/packages/3.12/TCGAbiolinks">TCGAbiolinks</a></em>:
+<ol style="list-style-type: lower-alpha">
+<li>data access through <em><a href="https://bioconductor.org/packages/3.12/GenomicDataCommons">GenomicDataCommons</a></em>
+</li>
+<li>provides data both from the legacy Firehose pipeline used by the TCGA publications (alignments based on hg18 and hg19 builds<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>), and the GDC harmonized GRCh38 pipeline<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</li>
+<li>downloads files from the Genomic Data Commons, and provides conversion to <code>(Ranged)SummarizedExperiment</code> where possible</li>
+</ol>
+</li>
+<li>
+<em><a href="https://bioconductor.org/packages/3.12/curatedTCGAData">curatedTCGAData</a></em>:
+<ol style="list-style-type: lower-alpha">
+<li>data access through <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em>
+</li>
+<li>provides data from the legacy Firehose pipeline<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>
+</li>
+<li>provides individual assays as <code>(Ranged)SummarizedExperiment</code> and <code>RaggedExperiment</code>, integrates multiple assays within and across cancer types using <code>MultiAssayExperiment</code>
+</li>
+</ol>
+</li>
+</ol>
+<div id="tcgabiolinks" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tcgabiolinks" class="anchor"></a>TCGAbiolinks</h3>
+<p>We demonstrate here generating a <code>RangedSummarizedExperiment</code> for RNA-seq data from adrenocortical carcinoma (ACC). For additional information and options, see the TCGAbiolinks vignettes<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
+<p>Load packages:</p>
+<p>Search for matching data:</p>
+<div class="sourceCode" id="cb71"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">TCGAbiolinks</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">SummarizedExperiment</span>)
+<span class="no">query</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TCGAbiolinks/man/GDCquery.html">GDCquery</a></span>(<span class="kw">project</span> <span class="kw">=</span> <span class="st">"TCGA-ACC"</span>,
+                           <span class="kw">data.category</span> <span class="kw">=</span> <span class="st">"Gene expression"</span>,
+                           <span class="kw">data.type</span> <span class="kw">=</span> <span class="st">"Gene expression quantification"</span>,
+                           <span class="kw">platform</span> <span class="kw">=</span> <span class="st">"Illumina HiSeq"</span>,
+                           <span class="kw">file.type</span>  <span class="kw">=</span> <span class="st">"normalized_results"</span>,
+                           <span class="kw">experimental.strategy</span> <span class="kw">=</span> <span class="st">"RNA-Seq"</span>,
+                           <span class="kw">legacy</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<p>Download data and convert it to <code>RangedSummarizedExperiment</code>:</p>
+<div class="sourceCode" id="cb72"><html><body><pre class="r">#gdcdir &lt;- file.path("Waldron_PublicData", "GDCdata")
+#GDCdownload(query, method = "api", files.per.chunk = 10,
+#            directory = gdcdir)
+#ACCse &lt;- GDCprepare(query, directory = gdcdir)
+#ACCse</pre></body></html></div>
+</div>
+<div id="curatedtcgadata-curated-data-from-the-cancer-genome-atlas-as-multiassayexperiment-objects" class="section level3">
+<h3 class="hasAnchor">
+<a href="#curatedtcgadata-curated-data-from-the-cancer-genome-atlas-as-multiassayexperiment-objects" class="anchor"></a>curatedTCGAData: Curated Data From The Cancer Genome Atlas as MultiAssayExperiment Objects</h3>
+<p><em><a href="https://bioconductor.org/packages/3.12/curatedTCGAData">curatedTCGAData</a></em> does not interface with the Genomic Data Commons, but downloads data from Bioconductor’s <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em>.</p>
+<div class="sourceCode" id="cb73"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">curatedTCGAData</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">MultiAssayExperiment</span>)</pre></body></html></div>
+<p>By default, the <code><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData()</a></code> function will only show available datasets, and not download anything. The arguments are shown here only for demonstration, the same result is obtained with no arguments:</p>
+<div class="sourceCode" id="cb74"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData</a></span>(<span class="kw">diseaseCode</span> <span class="kw">=</span> <span class="st">"*"</span>, <span class="kw">assays</span> <span class="kw">=</span> <span class="st">"*"</span>)</pre></body></html></div>
+<pre><code>## Please see the list below for available cohorts and assays</code></pre>
+<pre><code>## Available Cancer codes:
+##  ACC BLCA BRCA CESC CHOL COAD DLBC ESCA GBM HNSC KICH
+##  KIRC KIRP LAML LGG LIHC LUAD LUSC MESO OV PAAD PCPG
+##  PRAD READ SARC SKCM STAD TGCT THCA THYM UCEC UCS UVM 
+## Available Data Types:
+##  CNACGH CNACGH_CGH_hg_244a
+##  CNACGH_CGH_hg_415k_g4124a CNASeq CNASNP
+##  CNVSNP GISTIC_AllByGene GISTIC_Peaks
+##  GISTIC_ThresholdedByGene Methylation
+##  Methylation_methyl27 Methylation_methyl450
+##  miRNAArray miRNASeqGene mRNAArray
+##  mRNAArray_huex mRNAArray_TX_g4502a
+##  mRNAArray_TX_g4502a_1
+##  mRNAArray_TX_ht_hg_u133a Mutation
+##  RNASeq2GeneNorm RNASeqGene RPPAArray</code></pre>
+<p>Check potential files to be downloaded for adrenocortical carcinoma (ACC):</p>
+<div class="sourceCode" id="cb77"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData</a></span>(<span class="kw">diseaseCode</span> <span class="kw">=</span> <span class="st">"ACC"</span>)</pre></body></html></div>
+<pre><code>##                                    Title DispatchClass
+## 1                    ACC_CNASNP-20160128           Rda
+## 2                    ACC_CNVSNP-20160128           Rda
+## 4          ACC_GISTIC_AllByGene-20160128           Rda
+## 5              ACC_GISTIC_Peaks-20160128           Rda
+## 6  ACC_GISTIC_ThresholdedByGene-20160128           Rda
+## 8        ACC_Methylation-20160128_assays        H5File
+## 9            ACC_Methylation-20160128_se           Rds
+## 10             ACC_miRNASeqGene-20160128           Rda
+## 11                 ACC_Mutation-20160128           Rda
+## 12          ACC_RNASeq2GeneNorm-20160128           Rda
+## 13                ACC_RPPAArray-20160128           Rda</code></pre>
+<p>Actually download the reverse phase protein array (RPPA) and RNA-seq data for ACC</p>
+<div class="sourceCode" id="cb79"><html><body><pre class="r"><span class="no">ACCmae</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData</a></span>(<span class="st">"ACC"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"RPPAArray"</span>, <span class="st">"RNASeq2GeneNorm"</span>),
+                          <span class="kw">dry.run</span><span class="kw">=</span><span class="fl">FALSE</span>)
+<span class="no">ACCmae</span></pre></body></html></div>
+<pre><code>## A MultiAssayExperiment object of 2 listed
+##  experiments with user-defined names and respective classes.
+##  Containing an ExperimentList class object of length 2:
+##  [1] ACC_RNASeq2GeneNorm-20160128: SummarizedExperiment with 20501 rows and 79 columns
+##  [2] ACC_RPPAArray-20160128: SummarizedExperiment with 192 rows and 46 columns
+## Functionality:
+##  experiments() - obtain the ExperimentList instance
+##  colData() - the primary/phenotype DataFrame
+##  sampleMap() - the sample coordination DataFrame
+##  `$`, `[`, `[[` - extract colData columns, subset, or experiment
+##  *Format() - convert into a long or wide DataFrame
+##  assays() - convert ExperimentList to a SimpleList of matrices
+##  exportClass() - save all data to files</code></pre>
+<p><strong>Note</strong>. Data will be downloaded the first time the above command is run; subsequent times it will be loaded from local cache.</p>
+<p>This object contains 822 columns of clinical, pathological, specimen, and subtypes data in its <code>colData</code>, merged from all available data levels (1-4) of the Firehose pipeline:</p>
+<div class="sourceCode" id="cb81"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span>(<span class="no">ACCmae</span>))</pre></body></html></div>
+<pre><code>## [1]  79 822</code></pre>
+<div class="sourceCode" id="cb83"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span>(<span class="no">ACCmae</span>)))</pre></body></html></div>
+<pre><code>## [1] "patientID"             "years_to_birth"        "vital_status"         
+## [4] "days_to_death"         "days_to_last_followup" "tumor_tissue_site"</code></pre>
+<p>See the <em><a href="https://bioconductor.org/packages/3.12/MultiAssayExperiment">MultiAssayExperiment</a></em> vignette <span class="citation">(Ramos et al. 2017)</span> and the <em>Workflow for Multi-omics Analysis with MultiAssayExperiment</em> workshop for details on using this object.</p>
+<div id="subtype-information" class="section level4">
+<h4 class="hasAnchor">
+<a href="#subtype-information" class="anchor"></a>Subtype information</h4>
+<p>Some cancer datasets contain associated subtype information within the clinical datasets provided. This subtype information is included in the metadata of <code>colData</code> of the <code>MultiAssayExperiment</code> object. To obtain these variable names, run the <code>metadata</code> function on the <code>colData</code> of the object such as:</p>
+<div class="sourceCode" id="cb85"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu">metadata</span>(<span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span>(<span class="no">ACCmae</span>))<span class="kw">[[</span><span class="st">"subtypes"</span>]])</pre></body></html></div>
+<pre><code>##         ACC_annotations   ACC_subtype
+## 1            Patient_ID        SAMPLE
+## 2 histological_subtypes     Histology
+## 3         mrna_subtypes       C1A/C1B
+## 4         mrna_subtypes       mRNA_K4
+## 5                  cimp    MethyLevel
+## 6     microrna_subtypes miRNA cluster</code></pre>
+</div>
+</div>
+</div>
+<div id="recount-reproducible-rna-seq-analysis-using-recount2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#recount-reproducible-rna-seq-analysis-using-recount2" class="anchor"></a>recount: Reproducible RNA-seq Analysis Using recount2</h2>
+<p>The <em><a href="https://bioconductor.org/packages/3.12/recount">recount</a></em><span class="citation">(Collado-Torres et al. 2017)</span> package provides uniformly processed <code>RangedSummarizedExperiment</code> objects at the gene, exon, or exon-exon junctions level, the raw counts, the phenotype metadata used, the urls to sample coverage bigWig files and mean coverage bigWig file, for every study available. The <code>RangedSummarizedExperiment</code> objects can be used for differential expression analysis. These are also accessible through a web interface.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+<pre><code>## No methods found in package 'IRanges' for request: 'values&lt;-' when loading 'derfinder'</code></pre>
+<pre><code>## No methods found in package 'IRanges' for request: 'values' when loading 'derfinder'</code></pre>
+<p><em><a href="https://bioconductor.org/packages/3.12/recount">recount</a></em> provides a search function:</p>
+<div class="sourceCode" id="cb89"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">recount</span>)
+<span class="no">project_info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recount/man/abstract_search.html">abstract_search</a></span>(<span class="st">'GSE32465'</span>)</pre></body></html></div>
+<p>It is not an ExperimentHub package, so downloading and serializing is slightly more involved in involves two steps: first, download the gene-level RangedSummarizedExperiment data:</p>
+<div class="sourceCode" id="cb90"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/recount/man/download_study.html">download_study</a></span>(<span class="no">project_info</span>$<span class="no">project</span>)</pre></body></html></div>
+<pre><code>## 2020-07-26 23:03:13 downloading file rse_gene.Rdata to SRP009615</code></pre>
+<p>followed by loading the data</p>
+<div class="sourceCode" id="cb92"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">project_info</span>$<span class="no">project</span>, <span class="st">'rse_gene.Rdata'</span>))</pre></body></html></div>
+</div>
+<div id="curateddata-packages-for-standardized-cancer-transcriptomes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#curateddata-packages-for-standardized-cancer-transcriptomes" class="anchor"></a>curated*Data packages for standardized cancer transcriptomes</h2>
+<p>There are focused databases of cancer microarray data for several cancer types, which can be useful for researchers of those cancer types or for methodological development:</p>
+<ul>
+<li>
+<em><a href="https://bioconductor.org/packages/3.12/curatedOvarianData">curatedOvarianData</a></em><span class="citation">(Ganzfried et al. 2013)</span>: Clinically Annotated Data for the Ovarian Cancer Transcriptome (data available with additional options through the <em><a href="https://bioconductor.org/packages/3.12/MetaGxOvarian">MetaGxOvarian</a></em> package).</li>
+<li>
+<em><a href="https://bioconductor.org/packages/3.12/curatedBladderData">curatedBladderData</a></em>: Clinically Annotated Data for the Bladder Cancer Transcriptome</li>
+<li>
+<em><a href="https://bioconductor.org/packages/3.12/curatedCRCData">curatedCRCData</a></em>: Clinically Annotated Data for the Colorectal Cancer Transcriptome</li>
+</ul>
+<p>These provide data from the Gene Expression Omnibus and other sources, but use a formally vocabulary for clinicopathological data and use a common pipeline for preprocessing of microarray data (for Affymetrix, other for other platforms the processed data are provided as processed by original study authors), merging probesets, and mapping to gene symbols. The pipeline is described by <span class="citation">Ganzfried et al. (2013)</span>.</p>
+</div>
+<div id="microbiome-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#microbiome-data" class="anchor"></a>Microbiome data</h2>
+<p>Bioconductor provides curated resources of microbiome data. Most microbiome data are generated either by targeted amplicon sequencing (usually of variable regions of the 16S ribosomal RNA gene) or by metagenomic shotgun sequencing (MGX). These two approaches are analyzed by different sequence analysis tools, but downstream statistical and ecological analysis can involve any of the following types of data:</p>
+<ul>
+<li>taxonomic abundance at different levels of the taxonomic hierarchy</li>
+<li>phylogenetic distances and the phylogenetic tree of life</li>
+<li>metabolic potential of the microbiome</li>
+<li>abundance of microbial genes and gene families</li>
+</ul>
+<p>A review of types and properties of microbiome data is provided by <span class="citation">(Morgan and Huttenhower 2012)</span>.</p>
+<div id="curatedmetagenomicdata-curated-and-processed-metagenomic-data-through-experimenthub" class="section level3">
+<h3 class="hasAnchor">
+<a href="#curatedmetagenomicdata-curated-and-processed-metagenomic-data-through-experimenthub" class="anchor"></a>curatedMetagenomicData: Curated and processed metagenomic data through ExperimentHub</h3>
+<p><code>curatedMetagenomicData</code><span class="citation">(Pasolli et al. 2017)</span> provides 6 types of processed data for &gt;30 publicly available whole-metagenome shotgun sequencing datasets (obtained from the Sequence Read Archive):</p>
+<ol style="list-style-type: decimal">
+<li>Species-level taxonomic profiles, expressed as relative abundance from kingdom to strain level</li>
+<li>Presence of unique, clade-specific markers</li>
+<li>Abundance of unique, clade-specific markers</li>
+<li>Abundance of gene families</li>
+<li>Metabolic pathway coverage</li>
+<li>Metabolic pathway abundance</li>
+</ol>
+<p>Types 1-3 are generated by <a href="http://huttenhower.sph.harvard.edu/metaphlan2">MetaPhlAn2</a>; 4-6 are generated by <a href="http://huttenhower.sph.harvard.edu/humann2">HUMAnN2</a>.</p>
+<p>Currently, <code>curatedMetagenomicData</code> provides:</p>
+<ul>
+<li>10199 samples from 57 datasets, primarily of the human gut but including body sites profiled in the Human Microbiome Project</li>
+<li>Processed data from whole-metagenome shotgun metagenomics, with manually-curated metadata, as integrated and documented Bioconductor ExpressionSet objects</li>
+<li>~80 fields of specimen metadata from original papers, supplementary files, and websites, with manual curation to standardize annotations</li>
+<li>Processing of data through the <a href="http://huttenhower.sph.harvard.edu/metaphlan2">MetaPhlAn2</a> pipeline for taxonomic abundance, and <a href="http://huttenhower.sph.harvard.edu/humann2">HUMAnN2</a> pipeline for metabolic analysis</li>
+<li>These represent ~100TB of raw sequencing data, but the processed data provided are much smaller.</li>
+</ul>
+<p>These datasets are documented in the <a href="https://bioconductor.org/packages/devel/data/experiment/manuals/curatedMetagenomicData/man/curatedMetagenomicData.pdf">reference manual</a>.</p>
+<p>This is an <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em> package, and its main workhorse function is <code><a href="https://rdrr.io/pkg/curatedMetagenomicData/man/curatedMetagenomicData.html">curatedMetagenomicData()</a></code>:</p>
+<p>The manually curated metadata for all available samples are provided in a single table <code>combined_metadata</code>:</p>
+<div class="sourceCode" id="cb93"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">curatedMetagenomicData</span>)
+?<span class="no">combined_metadata</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">combined_metadata</span>))</pre></body></html></div>
+<p>The main function provides a <code>list</code> of <code>ExpressionSet</code> objects:</p>
+<div class="sourceCode" id="cb94"><html><body><pre class="r"><span class="no">oral</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"BritoIL_2016.metaphlan_bugs_list.oralcavity"</span>,
+          <span class="st">"Castro-NallarE_2015.metaphlan_bugs_list.oralcavity"</span>)
+<span class="no">esl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/curatedMetagenomicData/man/curatedMetagenomicData.html">curatedMetagenomicData</a></span>(<span class="no">oral</span>, <span class="kw">dryrun</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb95"><html><body><pre class="r"><span class="no">esl</span></pre></body></html></div>
+<pre><code>## List of length 2
+## names(2): BritoIL_2016.metaphlan_bugs_list.oralcavity ...</code></pre>
+<p>These <code>ExpressionSet</code> objects can also be converted to <em><a href="https://bioconductor.org/packages/3.12/phyloseq">phyloseq</a></em> object for ecological analysis and differential abundance analysis using the <em><a href="https://bioconductor.org/packages/3.12/DESeq2">DESeq2</a></em> package, using the <code><a href="https://rdrr.io/pkg/curatedMetagenomicData/man/ExpressionSet2phyloseq.html">ExpressionSet2phyloseq()</a></code> function:</p>
+<div class="sourceCode" id="cb97"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/curatedMetagenomicData/man/ExpressionSet2phyloseq.html">ExpressionSet2phyloseq</a></span>( <span class="no">esl</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">phylogenetictree</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<pre><code>## Loading required namespace: phyloseq</code></pre>
+<pre><code>## Warning: `data_frame()` is deprecated as of tibble 1.1.0.
+## Please use `tibble()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
+<pre><code>## phyloseq-class experiment-level object
+## otu_table()   OTU Table:         [ 535 taxa and 140 samples ]
+## sample_data() Sample Data:       [ 140 samples by 17 sample variables ]
+## tax_table()   Taxonomy Table:    [ 535 taxa by 8 taxonomic ranks ]
+## phy_tree()    Phylogenetic Tree: [ 535 tips and 534 internal nodes ]</code></pre>
+<p>See the documentation of <em><a href="https://bioconductor.org/packages/3.12/phyloseq">phyloseq</a></em> for more on ecological and differential abundance analysis of the microbiome.</p>
+</div>
+<div id="hmp16sdata-16s-rrna-sequencing-data-from-the-human-microbiome-project" class="section level3">
+<h3 class="hasAnchor">
+<a href="#hmp16sdata-16s-rrna-sequencing-data-from-the-human-microbiome-project" class="anchor"></a>HMP16SData: 16S rRNA Sequencing Data from the Human Microbiome Project</h3>
+<div class="sourceCode" id="cb101"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">HMP16SData</span>))</pre></body></html></div>
+<pre><code>## snapshotDate(): 2020-07-10</code></pre>
+<p><em><a href="https://bioconductor.org/packages/3.12/HMP16SData">HMP16SData</a></em><span class="citation">(Schiffer et al. 2018)</span> is a Bioconductor ExperimentData package of the Human Microbiome Project (HMP) 16S rRNA sequencing data. Taxonomic count data files are provided as downloaded from the HMP Data Analysis and Coordination Center from its QIIME pipeline. Processed data is provided as <code>SummarizedExperiment</code> class objects via <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em>. Like other ExperimentHub-based packages, a convenience function does downloading, automatic local caching, and serializing of a Bioconductor data class. This returns taxonomic counts from the V1-3 variable region of the 16S rRNA gene, along with the unrestricted participant data and phylogenetic tree.</p>
+<div class="sourceCode" id="cb103"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/HMP16SData/man/V13.html">V13</a></span>()</pre></body></html></div>
+<pre><code>## class: SummarizedExperiment 
+## dim: 43140 2898 
+## metadata(2): experimentData phylogeneticTree
+## assays(1): 16SrRNA
+## rownames(43140): OTU_97.1 OTU_97.10 ... OTU_97.9997 OTU_97.9999
+## rowData names(7): CONSENSUS_LINEAGE SUPERKINGDOM ... FAMILY GENUS
+## colnames(2898): 700013549 700014386 ... 700114963 700114965
+## colData names(7): RSID VISITNO ... HMP_BODY_SUBSITE SRS_SAMPLE_ID</code></pre>
+<p>This can also be converted to <em><a href="https://bioconductor.org/packages/3.12/phyloseq">phyloseq</a></em> for ecological and differential abundance analysis; see the <em><a href="https://bioconductor.org/packages/3.12/HMP16SData">HMP16SData</a></em> vignette for details.</p>
 </div>
 </div>
 <div id="bibliography" class="section level2 unnumbered">
