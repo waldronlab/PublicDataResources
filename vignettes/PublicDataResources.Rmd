@@ -18,7 +18,7 @@ vignette: >
 ## Installation
 
 
-If you are using the Doker container provided with this workshop,
+If you are using the Docker container provided with this workshop,
 everything (including the workshop) is already installed. Otherwise,
 you will need to install the following packages.
 
