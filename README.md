@@ -4,6 +4,10 @@
 
 # Public data resources and Bioconductor
 
+## Slides
+
+A slide deck providing a workshop overview is available [here](https://docs.google.com/presentation/d/1DtmUJLg6FnUzofW7uG40iYSQooxtA-sNLDNNiZEcM_0/edit?usp=sharing).
+
 ## Instructor names and contact information
 
 * Levi Waldron <levi.waldron at sph.cuny.edu> (City University of New York, New York, NY, USA)
