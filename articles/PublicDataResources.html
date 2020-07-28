@@ -301,8 +301,8 @@
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">projResults</span>,<span class="kw">list.len</span><span class="kw">=</span><span class="fl">5</span>)</pre></body></html></div>
 <pre><code>## List of 9
 ##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
-##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
 ##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
+##  $ id                    : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
 ##  $ disease_type          :List of 10
 ##   ..$ GENIE-MSK : chr [1:49] "Germ Cell Neoplasms" "Granular Cell Tumors and Alveolar Soft Part Sarcomas" "Immunoproliferative Diseases" "Plasma Cell Tumors" ...
 ##   ..$ TCGA-UCEC : chr [1:4] "Epithelial Neoplasms, NOS" "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas" "Not Reported"
@@ -315,9 +315,9 @@
 ##  - attr(*, "row.names")= int [1:10] 1 2 3 4 5 6 7 8 9 10
 ##  - attr(*, "class")= chr [1:3] "GDCprojectsResults" "GDCResults" "list"</code></pre>
 <div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">projResults</span>)</pre></body></html></div>
-<pre><code>## [1] "dbgap_accession_number" "releasable"             "released"              
-## [4] "disease_type"           "state"                  "primary_site"          
-## [7] "name"                   "id"                     "project_id"</code></pre>
+<pre><code>## [1] "dbgap_accession_number" "released"               "id"                    
+## [4] "disease_type"           "state"                  "name"                  
+## [7] "releasable"             "project_id"             "primary_site"</code></pre>
 <div class="sourceCode" id="cb21"><html><body><pre class="r"># or listviewer::jsonedit(clinResults)</pre></body></html></div>
 </div>
 </div>
@@ -457,6 +457,20 @@
 <p>These results are returned from the GDC in <a href="http://www.json.org/">JSON</a> format and converted into a (potentially nested) list in R. The <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> method is useful for taking a quick glimpse of the data.</p>
 <div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">presults</span>)</pre></body></html></div>
 <pre><code>## List of 9
+##  $ id                    : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
+##  $ primary_site          :List of 10
+##   ..$ GENIE-MSK : chr [1:49] "Testis" "Gallbladder" "Unknown" "Other and unspecified parts of biliary tract" ...
+##   ..$ TCGA-UCEC : chr [1:2] "Corpus uteri" "Uterus, NOS"
+##   ..$ TCGA-ACC  : chr "Adrenal gland"
+##   ..$ TCGA-LGG  : chr "Brain"
+##   ..$ TCGA-SARC : chr [1:13] "Kidney" "Other and unspecified parts of tongue" "Bones, joints and articular cartilage of limbs" "Colon" ...
+##   ..$ TCGA-PAAD : chr "Pancreas"
+##   ..$ TCGA-ESCA : chr [1:2] "Esophagus" "Stomach"
+##   ..$ TCGA-LUAD : chr "Bronchus and lung"
+##   ..$ TCGA-PRAD : chr "Prostate gland"
+##   ..$ GENIE-VICC: chr [1:46] "Testis" "Unknown" "Other and unspecified parts of biliary tract" "Adrenal gland" ...
+##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
+##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
 ##  $ disease_type          :List of 10
 ##   ..$ GENIE-MSK : chr [1:49] "Germ Cell Neoplasms" "Granular Cell Tumors and Alveolar Soft Part Sarcomas" "Immunoproliferative Diseases" "Plasma Cell Tumors" ...
 ##   ..$ TCGA-UCEC : chr [1:4] "Epithelial Neoplasms, NOS" "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas" "Not Reported"
@@ -469,23 +483,9 @@
 ##   ..$ TCGA-PRAD : chr [1:3] "Cystic, Mucinous and Serous Neoplasms" "Ductal and Lobular Neoplasms" "Adenomas and Adenocarcinomas"
 ##   ..$ GENIE-VICC: chr [1:41] "Germ Cell Neoplasms" "Acinar Cell Neoplasms" "Synovial-like Neoplasms" "Plasma Cell Tumors" ...
 ##  $ name                  : chr [1:10] "AACR Project GENIE - Contributed by Memorial Sloan Kettering Cancer Center" "Uterine Corpus Endometrial Carcinoma" "Adrenocortical Carcinoma" "Brain Lower Grade Glioma" ...
+##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
 ##  $ releasable            : logi [1:10] FALSE TRUE TRUE TRUE TRUE TRUE ...
 ##  $ project_id            : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
-##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
-##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
-##  $ dbgap_accession_number: logi [1:10] NA NA NA NA NA NA ...
-##  $ primary_site          :List of 10
-##   ..$ GENIE-MSK : chr [1:49] "Testis" "Gallbladder" "Unknown" "Other and unspecified parts of biliary tract" ...
-##   ..$ TCGA-UCEC : chr [1:2] "Corpus uteri" "Uterus, NOS"
-##   ..$ TCGA-ACC  : chr "Adrenal gland"
-##   ..$ TCGA-LGG  : chr "Brain"
-##   ..$ TCGA-SARC : chr [1:13] "Kidney" "Other and unspecified parts of tongue" "Bones, joints and articular cartilage of limbs" "Colon" ...
-##   ..$ TCGA-PAAD : chr "Pancreas"
-##   ..$ TCGA-ESCA : chr [1:2] "Esophagus" "Stomach"
-##   ..$ TCGA-LUAD : chr "Bronchus and lung"
-##   ..$ TCGA-PRAD : chr "Prostate gland"
-##   ..$ GENIE-VICC: chr [1:46] "Testis" "Unknown" "Other and unspecified parts of biliary tract" "Adrenal gland" ...
-##  $ id                    : chr [1:10] "GENIE-MSK" "TCGA-UCEC" "TCGA-ACC" "TCGA-LGG" ...
 ##  - attr(*, "row.names")= int [1:10] 1 2 3 4 5 6 7 8 9 10
 ##  - attr(*, "class")= chr [1:3] "GDCprojectsResults" "GDCResults" "list"</code></pre>
 <p>A default of only 10 records are returned. We can use the <code>size</code> and <code>from</code> arguments to <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results()</a></code> to either page through results or to change the number of results. Finally, there is a convenience method, <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code> that will simply fetch all the available results given a query. Note that <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code> may take a long time and return HUGE result sets if not used carefully. Use of a combination of <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/count.html">count()</a></code> and <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results.html">results()</a></code> to get a sense of the expected data size is probably warranted before calling <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/results_all.html">results_all()</a></code></p>
@@ -573,21 +573,21 @@
 <div class="sourceCode" id="cb46"><html><body><pre class="r"><span class="co"># total number of files of a specific type</span>
 <span class="no">res</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/faceting.html">facet</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'type'</span>,<span class="st">'data_type'</span>)) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/aggregations.html">aggregations</a></span>()
 <span class="no">res</span>$<span class="no">type</span></pre></body></html></div>
-<pre><code>##                            key doc_count
-## 1   annotated_somatic_mutation    142950
-## 2      simple_somatic_mutation     81911
-## 3                aligned_reads     78009
-## 4              gene_expression     58290
-## 5          copy_number_segment     56840
-## 6         copy_number_estimate     44143
-## 7                  slide_image     30072
-## 8             mirna_expression     29996
-## 9       biospecimen_supplement     25510
-## 10         clinical_supplement     12870
-## 11      methylation_beta_value     12359
-## 12        structural_variation      5426
-## 13 aggregated_somatic_mutation      3547
-## 14     masked_somatic_mutation      3505</code></pre>
+<pre><code>##    doc_count                         key
+## 1     142950  annotated_somatic_mutation
+## 2      81911     simple_somatic_mutation
+## 3      78009               aligned_reads
+## 4      58290             gene_expression
+## 5      56840         copy_number_segment
+## 6      44143        copy_number_estimate
+## 7      30072                 slide_image
+## 8      29996            mirna_expression
+## 9      25510      biospecimen_supplement
+## 10     12870         clinical_supplement
+## 11     12359      methylation_beta_value
+## 12      5426        structural_variation
+## 13      3547 aggregated_somatic_mutation
+## 14      3505     masked_somatic_mutation</code></pre>
 <p>Using <code><a href="https://rdrr.io/pkg/GenomicDataCommons/man/aggregations.html">aggregations()</a></code> is an also easy way to learn the contents of individual fields and forms the basis for faceted search pages.</p>
 </div>
 <div id="filtering" class="section level4">
@@ -1049,7 +1049,7 @@
 <span class="no">project_info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recount/man/abstract_search.html">abstract_search</a></span>(<span class="st">'GSE32465'</span>)</pre></body></html></div>
 <p>It is not an ExperimentHub package, so downloading and serializing is slightly more involved in involves two steps: first, download the gene-level RangedSummarizedExperiment data:</p>
 <div class="sourceCode" id="cb90"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/recount/man/download_study.html">download_study</a></span>(<span class="no">project_info</span>$<span class="no">project</span>)</pre></body></html></div>
-<pre><code>## 2020-07-27 02:49:35 downloading file rse_gene.Rdata to SRP009615</code></pre>
+<pre><code>## 2020-07-28 08:46:29 downloading file rse_gene.Rdata to SRP009615</code></pre>
 <p>followed by loading the data</p>
 <div class="sourceCode" id="cb92"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">project_info</span>$<span class="no">project</span>, <span class="st">'rse_gene.Rdata'</span>))</pre></body></html></div>
 </div>
