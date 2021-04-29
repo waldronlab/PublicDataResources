@@ -28,6 +28,7 @@ Imports:
     BiocStyle,
     igraph,
     ggplot2,
+    magrittr,
     MultiAssayExperiment,
     GEOquery, 
     GenomicDataCommons,
