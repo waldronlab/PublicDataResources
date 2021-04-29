@@ -1,7 +1,7 @@
 Package: PublicDataResources
 Type: Package
 Title: Public Data Resources in Bioconductor
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: c(person("Sean", "Davis", email = "seandavi@gmail.com",
     role = c("aut")),
     person("Benjamin", "Haibe-Kains", email = "bhaibeka@gmail.com",
@@ -32,6 +32,8 @@ Imports:
     GEOquery, 
     GenomicDataCommons,
     curatedTCGAData,
+    TCGAutils,
+    cBioPortalData,
     recount,
     curatedMetagenomicData,
     phyloseq,

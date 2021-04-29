@@ -12,10 +12,7 @@ vignette: >
   %\VignetteEncoding[utf8]{inputenc}
 ---
 
-# Public data resources and Bioconductor
-
-
-## Installation
+# Installation
 
 
 If you are using the Docker container provided with this workshop,
@@ -36,6 +33,8 @@ required_pkgs = c(
   "PharmacoGx")
 BiocManager::install(required_pkgs)
 ```
+
+# Sean Davis
 
 ## GEOquery
 
@@ -668,6 +667,8 @@ fnames = gdcdata(manifest_df$id[3:10], access_method = 'client')
 ```
 
 
+# Benjamin Haibe-Kains
+
 ## Pharmacogenomics
 
 Pharmacogenomics holds great promise for the development of biomarkers of drug response and the design of new therapeutic options, which are key challenges in precision medicine. However, such data are scattered and lack standards for efficient access and analysis, consequently preventing the realization of the full potential of pharmacogenomics. To address these issues, we implemented `r BiocStyle::Biocpkg("PharmacoGx")`, an easy-to-use, open source package for integrative analysis of multiple pharmacogenomic datasets. `PharmacoGx` provides a unified framework for downloading and analyzing large pharmacogenomic datasets which are extensively curated to ensure maximum overlap and consistency.
@@ -752,7 +753,7 @@ We summarize two approaches to accessing TCGA data:
 2. `r BiocStyle::Biocpkg("curatedTCGAData")`: 
     a. data access through `r BiocStyle::Biocpkg("ExperimentHub")`
     b. provides data from the legacy Firehose pipeline[^11]
-    c. provides individual assays as `(Ranged)SummarizedExperiment` and `RaggedExperiment`, integrates multiple assays within and across cancer types using `MultiAssayExperiment`
+    c. provides individual assays as `(Ranged)SummarizedExperiment` and `RaggedExperiment`, integrates multiple assays within and across cancer types using `r BiocStyle::Biocpkg("MultiAssayExperiment")`
 
 [^11]: https://confluence.broadinstitute.org/display/GDAC/FAQ#FAQ-Q%C2%A0Whatreferencegenomebuildareyouusing
 [^12]: https://gdc.cancer.gov/about-data/data-harmonization-and-generation/genomic-data-harmonization-0
@@ -764,7 +765,7 @@ from adrenocortical carcinoma (ACC). For additional information and options, see
 the TCGAbiolinks vignettes[^13].
 
 Load packages:
-```{r, cache=FALSE, echo=FALSE, results='hide'}
+```{r tcgabiolinks, cache=FALSE, echo=FALSE, results='hide'}
 suppressPackageStartupMessages({
   library(TCGAbiolinks)
   library(SummarizedExperiment)
@@ -772,7 +773,7 @@ suppressPackageStartupMessages({
 ```
 
 Search for matching data:
-```{r, message=FALSE, results="hide"}
+```{r GDCquery, message=FALSE, results="hide"}
 library(TCGAbiolinks)
 library(SummarizedExperiment)
 query <- GDCquery(project = "TCGA-ACC",
@@ -785,7 +786,7 @@ query <- GDCquery(project = "TCGA-ACC",
 ```
 
 Download data and convert it to `RangedSummarizedExperiment`:
-```{r, message=FALSE, results="hide"}
+```{r GDCdownload, message=FALSE, results="hide"}
 #gdcdir <- file.path("Waldron_PublicData", "GDCdata")
 #GDCdownload(query, method = "api", files.per.chunk = 10,
 #            directory = gdcdir)
@@ -799,7 +800,12 @@ Download data and convert it to `RangedSummarizedExperiment`:
 
 `r BiocStyle::Biocpkg("curatedTCGAData")` does not interface with the Genomic Data Commons, but downloads data from Bioconductor's `r BiocStyle::Biocpkg("ExperimentHub")`.
 
-```{r, echo=FALSE}
+References:
+* https://waldronlab.io/MultiAssayWorkshop/articles/curatedTCGAData_ref.html : available datasets and data types.
+* https://waldronlab.io/MultiAssayWorkshop/articles/TCGAutilsCheatsheet.html : quick-reference for related utilities in TCGAutils package
+* https://waldronlab.io/MultiAssayWorkshop/articles/Ramos_MultiAssayExperiment.html: workshop for MultiAssayExperiment
+
+```{r libcuratedTCGAData, echo=FALSE}
 suppressPackageStartupMessages({
     library(curatedTCGAData)
     library(MultiAssayExperiment)
@@ -816,17 +822,17 @@ By default, the `curatedTCGAData()` function will only show available datasets,
 and not download anything. The arguments are shown here only for demonstration,
 the same result is obtained with no arguments:
 
-```{r}
+```{r TCGAall}
 curatedTCGAData(diseaseCode = "*", assays = "*")
 ```
 
 Check potential files to be downloaded for adrenocortical carcinoma (ACC):
-```{r}
+```{r diseaseACC}
 curatedTCGAData(diseaseCode = "ACC")
 ```
 
 Actually download the reverse phase protein array (RPPA) and RNA-seq data for ACC
-```{r, message=FALSE}
+```{r ACCmae, message=FALSE}
 ACCmae <- curatedTCGAData("ACC", c("RPPAArray", "RNASeq2GeneNorm"), 
                           dry.run=FALSE)
 ACCmae
@@ -836,12 +842,12 @@ ACCmae
 
 This object contains `r ncol(MultiAssayExperiment::colData(ACCmae))` columns of clinical, pathological, specimen, and subtypes data in its `colData`, merged from all available data levels (1-4) of the Firehose pipeline:
 
-```{r}
+```{r colDataACCmae}
 dim(colData(ACCmae))
 head(colnames(colData(ACCmae)))
 ```
 
-See the `r BiocStyle::Biocpkg("MultiAssayExperiment")` vignette [@Ramos2017-nq] and the *Workflow for Multi-omics Analysis with MultiAssayExperiment* workshop for details on using this object.
+See the `r BiocStyle::Biocpkg("MultiAssayExperiment")` vignette [@Ramos2017-nq] and the [Workflow for Multi-omics Analysis with MultiAssayExperiment](https://waldronlab.io/MultiAssayWorkshop/) workshop (https://waldronlab.io/MultiAssayWorkshop/) for details on using this object.
 
 #### Subtype information
 
@@ -851,9 +857,19 @@ metadata of `colData` of the `MultiAssayExperiment` object. To obtain these
 variable names, run the `metadata` function on the `colData` of the object
 such as:
 
-```{r}
+```{r headmetadatacoldata}
 head(metadata(colData(ACCmae))[["subtypes"]])
 ```
+
+## cBioPortalData
+
+`r BiocStyle::Biocpkg("cBioPortalData")` accesses _most_ data from the Cancer Biology Portal cbioportal.org within R/Bioconductor using `r BiocStyle::Biocpkg("MultiAssayExperiment")`. It provides two main functions:
+
+* `cBioDataPack` for pre-packaged full datasets
+* `cBioPortalData` for API-query data
+
+Interactive workshop: https://waldronlab.io/MultiAssayWorkshop/tutorials/cBioPortalData_Intro.html
+
 
 ## recount: Reproducible RNA-seq Analysis Using recount2
 
@@ -864,22 +880,22 @@ to sample coverage bigWig files and mean coverage bigWig file, for every study
 available. The `RangedSummarizedExperiment` objects can be used for differential
 expression analysis. These are also accessible through a web interface [^14].
 
-```{r, results='hide', echo=FALSE, cache=FALSE}
+```{r librecount, results='hide', echo=FALSE, cache=FALSE}
 suppressPackageStartupMessages(library(recount))
 ```
 
 `r BiocStyle::Biocpkg("recount")` provides a search function:
-```{r}
+```{r abstractsearch}
 library(recount)
 project_info <- abstract_search('GSE32465')
 ```
 
 It is not an ExperimentHub package, so downloading and serializing is slightly more involved in involves two steps: first, download the gene-level RangedSummarizedExperiment data:
-```{r}
+```{r downloadstudy}
 download_study(project_info$project)
 ```
 followed by loading the data
-```{r}
+```{r loadrecountstudy}
 load(file.path(project_info$project, 'rse_gene.Rdata'))
 ```
 
@@ -909,7 +925,7 @@ A review of types and properties of microbiome data is provided by [@Morgan2012-
 
 ### curatedMetagenomicData: Curated and processed metagenomic data through ExperimentHub
 
-```{r, results="hide", echo=FALSE, cache=FALSE}
+```{r libcmd, results="hide", echo=FALSE, cache=FALSE}
 suppressPackageStartupMessages(library(curatedMetagenomicData))
 ```
 
@@ -941,14 +957,14 @@ This is an `r BiocStyle::Biocpkg("ExperimentHub")` package, and its main workhor
 
 The manually curated metadata for all available samples are provided in a single table `combined_metadata`:
 
-```{r eval=FALSE}
+```{r showcombinedmetadata, eval=FALSE}
 library(curatedMetagenomicData)
 ?combined_metadata
 View(data.frame(combined_metadata))
 ```
 
 The main function provides a `list` of `ExpressionSet` objects:
-```{r, results="hide", message=FALSE}
+```{r onedataset, results="hide", message=FALSE}
 oral <- c("BritoIL_2016.metaphlan_bugs_list.oralcavity",
           "Castro-NallarE_2015.metaphlan_bugs_list.oralcavity")
 esl <- curatedMetagenomicData(oral, dryrun = FALSE)
@@ -959,7 +975,7 @@ esl
 ```
 
 These `ExpressionSet` objects can also be converted to `r BiocStyle::Biocpkg("phyloseq")` object for ecological analysis and differential abundance analysis using the `r BiocStyle::Biocpkg("DESeq2")` package, using the `ExpressionSet2phyloseq()` function:
-```{r}
+```{r makephyloseq}
 ExpressionSet2phyloseq( esl[[1]], phylogenetictree = TRUE)
 ```
 
@@ -967,12 +983,12 @@ See the documentation of `r BiocStyle::Biocpkg("phyloseq")` for more on ecologic
 
 ### HMP16SData: 16S rRNA Sequencing Data from the Human Microbiome Project
 
-```{r, results='hide'}
+```{r hmp16s, results='hide'}
 suppressPackageStartupMessages(library(HMP16SData))
 ```
 
 `r BiocStyle::Biocpkg("HMP16SData")`[@Schiffer2018-qy] is a Bioconductor ExperimentData package of the Human Microbiome Project (HMP) 16S rRNA sequencing data. Taxonomic count data files are provided as downloaded from the HMP Data Analysis and Coordination Center from its QIIME pipeline. Processed data is provided as `SummarizedExperiment` class objects via `r BiocStyle::Biocpkg("ExperimentHub")`. Like other ExperimentHub-based packages, a convenience function does downloading, automatic local caching, and serializing of a Bioconductor data class. This returns taxonomic counts from the V1-3 variable region of the 16S rRNA gene, along with the unrestricted participant data and phylogenetic tree. 
-```{r, message=FALSE}
+```{r v13, message=FALSE}
 V13()
 ```
 
