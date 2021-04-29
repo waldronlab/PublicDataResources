@@ -225,13 +225,13 @@
 <span class="va">mdsvals</span><span class="op">$</span><span class="va">Type</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span><span class="op">[</span>,<span class="st">'cancer.type.ch1'</span><span class="op">]</span><span class="op">)</span>
 <span class="va">mdsvals</span><span class="op">$</span><span class="va">Normal</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span><span class="op">[</span>,<span class="st">'normal.ch1'</span><span class="op">]</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">mdsvals</span><span class="op">)</span></code></pre></div>
-<pre><code>##                   V1        V2 Type Normal
-## GSM2772660  8.531331 -18.57115   BC     no
-## GSM2772661  8.991591 -13.63764   BC     no
-## GSM2772662 10.788973 -13.48403   BC     no
-## GSM2772663  3.127105 -19.13529   BC     no
-## GSM2772664 13.056599 -13.88711   BC     no
-## GSM2772665  7.903717 -13.24731   BC     no</code></pre>
+<pre><code>##                   V1       V2 Type Normal
+## GSM2772660  8.531331 18.57115   BC     no
+## GSM2772661  8.991591 13.63764   BC     no
+## GSM2772662 10.788973 13.48403   BC     no
+## GSM2772663  3.127105 19.13529   BC     no
+## GSM2772664 13.056599 13.88711   BC     no
+## GSM2772665  7.903717 13.24731   BC     no</code></pre>
 <p>And do the plot.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
@@ -290,7 +290,8 @@
 <a href="#find-data" class="anchor"></a>Find data</h4>
 <p>The following code builds a <code>manifest</code> that can be used to guide the download of raw data. Here, filtering finds gene expression files quantified as raw counts using <code>HTSeq</code> from ovarian cancer patients.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ge_manifest</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span>
+<span class="va">ge_manifest</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/query.html">files</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/GenomicDataCommons/man/filtering.html">filter</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">cases.project.project_id</span> <span class="op">==</span> <span class="st">'TCGA-OV'</span> <span class="op">&amp;</span>
                 <span class="va">type</span> <span class="op">==</span> <span class="st">'gene_expression'</span> <span class="op">&amp;</span>
                 <span class="va">analysis.workflow_type</span> <span class="op">==</span> <span class="st">'HTSeq - Counts'</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -1022,7 +1023,7 @@
 <p>By default, the <code><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData()</a></code> function will only show available datasets, and not download anything. The arguments are shown here only for demonstration, the same result is obtained with no arguments:</p>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/curatedTCGAData/man/curatedTCGAData.html">curatedTCGAData</a></span><span class="op">(</span>diseaseCode <span class="op">=</span> <span class="st">"*"</span>, assays <span class="op">=</span> <span class="st">"*"</span><span class="op">)</span></code></pre></div>
-<pre><code>## using temporary cache /tmp/Rtmpea0AIg/BiocFileCache</code></pre>
+<pre><code>## using temporary cache /tmp/RtmpkiIQ1v/BiocFileCache</code></pre>
 <pre><code>## snapshotDate(): 2020-10-27</code></pre>
 <pre><code>## See '?curatedTCGAData' for 'diseaseCode' and 'assays' inputs</code></pre>
 <pre><code>##      ah_id                                      title file_size
@@ -2005,7 +2006,7 @@
 <p>It is not an ExperimentHub package, so downloading and serializing is slightly more involved in involves two steps: first, download the gene-level RangedSummarizedExperiment data:</p>
 <div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/recount/man/download_study.html">download_study</a></span><span class="op">(</span><span class="va">project_info</span><span class="op">$</span><span class="va">project</span><span class="op">)</span></code></pre></div>
-<pre><code>## 2021-04-29 12:21:06 downloading file rse_gene.Rdata to SRP009615</code></pre>
+<pre><code>## 2021-04-29 12:43:01 downloading file rse_gene.Rdata to SRP009615</code></pre>
 <p>followed by loading the data</p>
 <div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">project_info</span><span class="op">$</span><span class="va">project</span>, <span class="st">'rse_gene.Rdata'</span><span class="op">)</span><span class="op">)</span></code></pre></div>

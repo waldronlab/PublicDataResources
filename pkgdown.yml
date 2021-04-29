@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   PublicDataResources: PublicDataResources.html
-last_built: 2021-04-29T12:16Z
+last_built: 2021-04-29T12:37Z
 urls:
   reference: https://waldronlab.io/publicdataresources/reference
   article: https://waldronlab.io/publicdataresources/articles
