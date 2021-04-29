@@ -27,6 +27,8 @@ required_pkgs = c(
   "GEOquery", 
   "GenomicDataCommons",
   "curatedTCGAData",
+  "TCGAutils",
+  "cBioPortalData",
   "recount",
   "curatedMetagenomicData",
   "phyloseq",
@@ -734,6 +736,8 @@ The [Biomarker Discovery from High Throughput Screening Datasets](http://bhklab.
 In addition, Bioconductor also includes the `r BiocStyle::Biocpkg("ToxicoGx")` package, which provides access to Sensitivity and Perturbation datasets characterizing _in vitro_ response of human tissue to toxicant exposure, currently providing access to data from the [TGGates](https://pubmed.ncbi.nlm.nih.gov/25313160/) and [DrugMatrix](https://ntp.niehs.nih.gov/data/drugmatrix/) datasets. More information about the ToxicoGx package can be found at the [Bioc2020 poster presentation on the package](https://doi.org/10.7490/f1000research.1118037.1). 
 
 
+
+# Levi Waldron
 
 ## Accessing The Cancer Genome Atlas (TCGA)
 
